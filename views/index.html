@@ -281,29 +281,28 @@
       <div id="horizontal-sticky-viewport" class="horizontal-sticky-viewport border-y border-stone-800/80">
         
         <!-- Header & Nav Bar -->
-        <div class="px-6 md:px-12 lg:px-20 pt-4 pb-2 z-20 flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div class="px-4 sm:px-6 md:px-12 lg:px-20 pt-2 sm:pt-4 pb-2 z-20 flex flex-col md:flex-row md:items-end justify-between gap-3 sm:gap-4">
           <div>
-            <div class="flex items-center gap-3 mb-2">
+            <div class="flex items-center gap-2 mb-1 sm:mb-2">
               <span class="inline-block w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
-              <p class="font-body text-xs font-semibold tracking-widest uppercase text-stone-400">Next-Gen Method & Impact</p>
+              <p class="font-body text-[11px] sm:text-xs font-semibold tracking-widest uppercase text-stone-400">Next-Gen Method & Impact</p>
             </div>
-            <h2 class="font-display font-light text-2xl md:text-4xl text-core-white -tracking-tight">
+            <h2 class="font-display font-light text-xl sm:text-2xl md:text-4xl text-core-white -tracking-tight">
               A process built for partnership.
             </h2>
           </div>
 
           <!-- Step navigation pills & controls -->
-          <div class="flex items-center gap-3 flex-wrap">
-            <div class="flex items-center gap-1.5 p-1 bg-stone-900/90 backdrop-blur-md rounded-full border border-stone-800">
-              <button class="horizontal-step-pill active px-3.5 py-1.5 rounded-full text-xs font-medium border border-white/70 bg-white/15 text-white transition-all">01 Discovery</button>
-              <button class="horizontal-step-pill px-3.5 py-1.5 rounded-full text-xs font-medium border border-white/10 text-stone-400 hover:text-white transition-all opacity-40">02 Strategy</button>
-              <button class="horizontal-step-pill px-3.5 py-1.5 rounded-full text-xs font-medium border border-white/10 text-stone-400 hover:text-white transition-all opacity-40">03 Design</button>
-              <button class="horizontal-step-pill px-3.5 py-1.5 rounded-full text-xs font-medium border border-white/10 text-stone-400 hover:text-white transition-all opacity-40">04 Deliver</button>
-              <button class="horizontal-step-pill px-3.5 py-1.5 rounded-full text-xs font-medium border border-white/10 text-stone-400 hover:text-white transition-all opacity-40">05 Impact</button>
+          <div class="flex items-center gap-3 max-w-full">
+            <div class="flex items-center gap-1.5 p-1 bg-stone-900/90 backdrop-blur-md rounded-full border border-stone-800 overflow-x-auto scrollbar-hide max-w-full">
+              <button class="horizontal-step-pill active flex-shrink-0 whitespace-nowrap px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-medium border border-white/70 bg-white/15 text-white transition-all">01 Discovery</button>
+              <button class="horizontal-step-pill flex-shrink-0 whitespace-nowrap px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-medium border border-white/10 text-stone-400 hover:text-white transition-all opacity-40">02 Strategy</button>
+              <button class="horizontal-step-pill flex-shrink-0 whitespace-nowrap px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-medium border border-white/10 text-stone-400 hover:text-white transition-all opacity-40">03 Design</button>
+              <button class="horizontal-step-pill flex-shrink-0 whitespace-nowrap px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-medium border border-white/10 text-stone-400 hover:text-white transition-all opacity-40">04 Deliver</button>
             </div>
 
-            <div class="hidden sm:flex items-center gap-2 pl-2">
-              <span id="horizontal-step-counter" class="font-mono text-xs text-stone-400 w-12 text-center">01 / 05</span>
+            <div class="hidden sm:flex items-center gap-2 pl-2 flex-shrink-0">
+              <span id="horizontal-step-counter" class="font-mono text-xs text-stone-400 w-12 text-center">01 / 04</span>
               <button id="horizontal-prev-btn" class="w-8 h-8 rounded-full border border-stone-700 flex items-center justify-center text-stone-300 hover:text-white hover:border-stone-500 transition-colors" aria-label="Previous step">
                 &larr;
               </button>
@@ -315,7 +314,7 @@
         </div>
 
         <!-- Real-time scroll progress bar -->
-        <div class="w-full bg-stone-900 h-[2px] relative z-20 my-2">
+        <div class="w-full bg-stone-900 h-[2px] relative z-20 my-1 sm:my-2">
           <div id="horizontal-progress-bar" class="bg-gradient-to-r from-blue-500 via-indigo-400 to-white h-full w-0 transition-all duration-75"></div>
         </div>
 
@@ -324,129 +323,97 @@
           <div id="horizontal-track" class="horizontal-track">
 
             <!-- Card 01: Discovery -->
-            <div class="horizontal-card p-8 md:p-12 bg-gradient-to-br from-stone-900/90 via-stone-950 to-black border border-stone-800/90 shadow-2xl backdrop-blur-xl flex flex-col justify-between group">
+            <div class="horizontal-card p-5 sm:p-8 md:p-12 bg-gradient-to-br from-stone-900/90 via-stone-950 to-black border border-stone-800/90 shadow-2xl backdrop-blur-xl flex flex-col justify-between group">
               <div>
-                <div class="flex items-center justify-between mb-8">
-                  <span class="px-3 py-1 bg-stone-800/80 border border-stone-700/60 rounded-full font-mono text-xs text-stone-300 tracking-wider">PHASE 01</span>
-                  <span class="font-display text-6xl md:text-7xl font-light text-stone-800 group-hover:text-stone-700 transition-colors">01</span>
+                <div class="flex items-center justify-between mb-4 sm:mb-8">
+                  <span class="px-2.5 py-0.5 sm:px-3 sm:py-1 bg-stone-800/80 border border-stone-700/60 rounded-full font-mono text-[10px] sm:text-xs text-stone-300 tracking-wider">PHASE 01</span>
+                  <span class="font-display text-4xl sm:text-6xl md:text-7xl font-light text-stone-800 group-hover:text-stone-700 transition-colors">01</span>
                 </div>
-                <h3 class="font-display font-light text-3xl md:text-4xl text-core-white mb-4">Discovery & Insight</h3>
-                <p class="font-body text-base md:text-lg text-stone-400 leading-relaxed mb-8">
+                <h3 class="font-display font-light text-xl sm:text-3xl md:text-4xl text-core-white mb-2 sm:mb-4">Discovery & Insight</h3>
+                <p class="font-body text-xs sm:text-base md:text-lg text-stone-400 leading-relaxed mb-4 sm:mb-8">
                   We learn your world—your audience, your business goals, and competitive landscape. Before crafting a single pixel, we listen deeply.
                 </p>
               </div>
-              <div class="grid grid-cols-2 gap-4 pt-6 border-t border-stone-800/80">
-                <div class="p-3 rounded-lg bg-stone-900/60 border border-stone-800/40">
-                  <p class="font-mono text-xs text-stone-500 uppercase tracking-wider mb-1">01 / AUDIT</p>
-                  <p class="font-body text-sm text-stone-300">Stakeholder Interviews</p>
+              <div class="grid grid-cols-2 gap-2 sm:gap-4 pt-3 sm:pt-6 border-t border-stone-800/80">
+                <div class="p-2.5 sm:p-3 rounded-lg bg-stone-900/60 border border-stone-800/40">
+                  <p class="font-mono text-[9px] sm:text-xs text-stone-500 uppercase tracking-wider mb-0.5 sm:mb-1">01 / AUDIT</p>
+                  <p class="font-body text-xs sm:text-sm text-stone-300">Stakeholder Interviews</p>
                 </div>
-                <div class="p-3 rounded-lg bg-stone-900/60 border border-stone-800/40">
-                  <p class="font-mono text-xs text-stone-500 uppercase tracking-wider mb-1">02 / ANALYSIS</p>
-                  <p class="font-body text-sm text-stone-300">Market & Competitor Audit</p>
+                <div class="p-2.5 sm:p-3 rounded-lg bg-stone-900/60 border border-stone-800/40">
+                  <p class="font-mono text-[9px] sm:text-xs text-stone-500 uppercase tracking-wider mb-0.5 sm:mb-1">02 / ANALYSIS</p>
+                  <p class="font-body text-xs sm:text-sm text-stone-300">Market Audit</p>
                 </div>
               </div>
             </div>
 
             <!-- Card 02: Strategy -->
-            <div class="horizontal-card p-8 md:p-12 bg-gradient-to-br from-stone-900/90 via-stone-950 to-black border border-stone-800/90 shadow-2xl backdrop-blur-xl flex flex-col justify-between group">
+            <div class="horizontal-card p-5 sm:p-8 md:p-12 bg-gradient-to-br from-stone-900/90 via-stone-950 to-black border border-stone-800/90 shadow-2xl backdrop-blur-xl flex flex-col justify-between group">
               <div>
-                <div class="flex items-center justify-between mb-8">
-                  <span class="px-3 py-1 bg-stone-800/80 border border-stone-700/60 rounded-full font-mono text-xs text-stone-300 tracking-wider">PHASE 02</span>
-                  <span class="font-display text-6xl md:text-7xl font-light text-stone-800 group-hover:text-stone-700 transition-colors">02</span>
+                <div class="flex items-center justify-between mb-4 sm:mb-8">
+                  <span class="px-2.5 py-0.5 sm:px-3 sm:py-1 bg-stone-800/80 border border-stone-700/60 rounded-full font-mono text-[10px] sm:text-xs text-stone-300 tracking-wider">PHASE 02</span>
+                  <span class="font-display text-4xl sm:text-6xl md:text-7xl font-light text-stone-800 group-hover:text-stone-700 transition-colors">02</span>
                 </div>
-                <h3 class="font-display font-light text-3xl md:text-4xl text-core-white mb-4">Strategy & Direction</h3>
-                <p class="font-body text-base md:text-lg text-stone-400 leading-relaxed mb-8">
+                <h3 class="font-display font-light text-xl sm:text-3xl md:text-4xl text-core-white mb-2 sm:mb-4">Strategy & Direction</h3>
+                <p class="font-body text-xs sm:text-base md:text-lg text-stone-400 leading-relaxed mb-4 sm:mb-8">
                   We define the path forward. Creating a clear strategic foundation, brand positioning, and visual architecture built on real insight.
                 </p>
               </div>
-              <div class="grid grid-cols-2 gap-4 pt-6 border-t border-stone-800/80">
-                <div class="p-3 rounded-lg bg-stone-900/60 border border-stone-800/40">
-                  <p class="font-mono text-xs text-stone-500 uppercase tracking-wider mb-1">01 / POSITIONING</p>
-                  <p class="font-body text-sm text-stone-300">Brand Architecture</p>
+              <div class="grid grid-cols-2 gap-2 sm:gap-4 pt-3 sm:pt-6 border-t border-stone-800/80">
+                <div class="p-2.5 sm:p-3 rounded-lg bg-stone-900/60 border border-stone-800/40">
+                  <p class="font-mono text-[9px] sm:text-xs text-stone-500 uppercase tracking-wider mb-0.5 sm:mb-1">01 / POSITIONING</p>
+                  <p class="font-body text-xs sm:text-sm text-stone-300">Brand Architecture</p>
                 </div>
-                <div class="p-3 rounded-lg bg-stone-900/60 border border-stone-800/40">
-                  <p class="font-mono text-xs text-stone-500 uppercase tracking-wider mb-1">02 / MESSAGING</p>
-                  <p class="font-body text-sm text-stone-300">Core Value Proposition</p>
+                <div class="p-2.5 sm:p-3 rounded-lg bg-stone-900/60 border border-stone-800/40">
+                  <p class="font-mono text-[9px] sm:text-xs text-stone-500 uppercase tracking-wider mb-0.5 sm:mb-1">02 / MESSAGING</p>
+                  <p class="font-body text-xs sm:text-sm text-stone-300">Core Value Proposition</p>
                 </div>
               </div>
             </div>
 
             <!-- Card 03: Design -->
-            <div class="horizontal-card p-8 md:p-12 bg-gradient-to-br from-stone-900/90 via-stone-950 to-black border border-stone-800/90 shadow-2xl backdrop-blur-xl flex flex-col justify-between group">
+            <div class="horizontal-card p-5 sm:p-8 md:p-12 bg-gradient-to-br from-stone-900/90 via-stone-950 to-black border border-stone-800/90 shadow-2xl backdrop-blur-xl flex flex-col justify-between group">
               <div>
-                <div class="flex items-center justify-between mb-8">
-                  <span class="px-3 py-1 bg-stone-800/80 border border-stone-700/60 rounded-full font-mono text-xs text-stone-300 tracking-wider">PHASE 03</span>
-                  <span class="font-display text-6xl md:text-7xl font-light text-stone-800 group-hover:text-stone-700 transition-colors">03</span>
+                <div class="flex items-center justify-between mb-4 sm:mb-8">
+                  <span class="px-2.5 py-0.5 sm:px-3 sm:py-1 bg-stone-800/80 border border-stone-700/60 rounded-full font-mono text-[10px] sm:text-xs text-stone-300 tracking-wider">PHASE 03</span>
+                  <span class="font-display text-4xl sm:text-6xl md:text-7xl font-light text-stone-800 group-hover:text-stone-700 transition-colors">03</span>
                 </div>
-                <h3 class="font-display font-light text-3xl md:text-4xl text-core-white mb-4">Design & Execution</h3>
-                <p class="font-body text-base md:text-lg text-stone-400 leading-relaxed mb-8">
+                <h3 class="font-display font-light text-xl sm:text-3xl md:text-4xl text-core-white mb-2 sm:mb-4">Design & Execution</h3>
+                <p class="font-body text-xs sm:text-base md:text-lg text-stone-400 leading-relaxed mb-4 sm:mb-8">
                   We craft every element with intention. Rigorous critique, relentless reduction, and meticulous typography to arrive at the inevitable.
                 </p>
               </div>
-              <div class="grid grid-cols-2 gap-4 pt-6 border-t border-stone-800/80">
-                <div class="p-3 rounded-lg bg-stone-900/60 border border-stone-800/40">
-                  <p class="font-mono text-xs text-stone-500 uppercase tracking-wider mb-1">01 / IDENTITY</p>
-                  <p class="font-body text-sm text-stone-300">Visual Identity Systems</p>
+              <div class="grid grid-cols-2 gap-2 sm:gap-4 pt-3 sm:pt-6 border-t border-stone-800/80">
+                <div class="p-2.5 sm:p-3 rounded-lg bg-stone-900/60 border border-stone-800/40">
+                  <p class="font-mono text-[9px] sm:text-xs text-stone-500 uppercase tracking-wider mb-0.5 sm:mb-1">01 / IDENTITY</p>
+                  <p class="font-body text-xs sm:text-sm text-stone-300">Visual Systems</p>
                 </div>
-                <div class="p-3 rounded-lg bg-stone-900/60 border border-stone-800/40">
-                  <p class="font-mono text-xs text-stone-500 uppercase tracking-wider mb-1">02 / INTERFACE</p>
-                  <p class="font-body text-sm text-stone-300">Digital Product Design</p>
+                <div class="p-2.5 sm:p-3 rounded-lg bg-stone-900/60 border border-stone-800/40">
+                  <p class="font-mono text-[9px] sm:text-xs text-stone-500 uppercase tracking-wider mb-0.5 sm:mb-1">02 / INTERFACE</p>
+                  <p class="font-body text-xs sm:text-sm text-stone-300">Digital Design</p>
                 </div>
               </div>
             </div>
 
             <!-- Card 04: Deliver -->
-            <div class="horizontal-card p-8 md:p-12 bg-gradient-to-br from-stone-900/90 via-stone-950 to-black border border-stone-800/90 shadow-2xl backdrop-blur-xl flex flex-col justify-between group">
+            <div class="horizontal-card p-5 sm:p-8 md:p-12 bg-gradient-to-br from-stone-900/90 via-stone-950 to-black border border-stone-800/90 shadow-2xl backdrop-blur-xl flex flex-col justify-between group">
               <div>
-                <div class="flex items-center justify-between mb-8">
-                  <span class="px-3 py-1 bg-stone-800/80 border border-stone-700/60 rounded-full font-mono text-xs text-stone-300 tracking-wider">PHASE 04</span>
-                  <span class="font-display text-6xl md:text-7xl font-light text-stone-800 group-hover:text-stone-700 transition-colors">04</span>
+                <div class="flex items-center justify-between mb-4 sm:mb-8">
+                  <span class="px-2.5 py-0.5 sm:px-3 sm:py-1 bg-stone-800/80 border border-stone-700/60 rounded-full font-mono text-[10px] sm:text-xs text-stone-300 tracking-wider">PHASE 04</span>
+                  <span class="font-display text-4xl sm:text-6xl md:text-7xl font-light text-stone-800 group-hover:text-stone-700 transition-colors">04</span>
                 </div>
-                <h3 class="font-display font-light text-3xl md:text-4xl text-core-white mb-4">Deliver & Deploy</h3>
-                <p class="font-body text-base md:text-lg text-stone-400 leading-relaxed mb-8">
+                <h3 class="font-display font-light text-xl sm:text-3xl md:text-4xl text-core-white mb-2 sm:mb-4">Deliver & Deploy</h3>
+                <p class="font-body text-xs sm:text-base md:text-lg text-stone-400 leading-relaxed mb-4 sm:mb-8">
                   We empower your team with comprehensive design tokens, interactive component systems, brand guidelines, and production assets.
                 </p>
               </div>
-              <div class="grid grid-cols-2 gap-4 pt-6 border-t border-stone-800/80">
-                <div class="p-3 rounded-lg bg-stone-900/60 border border-stone-800/40">
-                  <p class="font-mono text-xs text-stone-500 uppercase tracking-wider mb-1">01 / GUIDELINES</p>
-                  <p class="font-body text-sm text-stone-300">Living Design Systems</p>
+              <div class="grid grid-cols-2 gap-2 sm:gap-4 pt-3 sm:pt-6 border-t border-stone-800/80">
+                <div class="p-2.5 sm:p-3 rounded-lg bg-stone-900/60 border border-stone-800/40">
+                  <p class="font-mono text-[9px] sm:text-xs text-stone-500 uppercase tracking-wider mb-0.5 sm:mb-1">01 / GUIDELINES</p>
+                  <p class="font-body text-xs sm:text-sm text-stone-300">Design Systems</p>
                 </div>
-                <div class="p-3 rounded-lg bg-stone-900/60 border border-stone-800/40">
-                  <p class="font-mono text-xs text-stone-500 uppercase tracking-wider mb-1">02 / ASSETS</p>
-                  <p class="font-body text-sm text-stone-300">Production-Ready Code</p>
-                </div>
-              </div>
-            </div>
-
-            <!-- Card 05: Impact & Stats -->
-            <div class="horizontal-card p-8 md:p-12 bg-gradient-to-br from-stone-950 via-stone-900 to-stone-950 border border-stone-800/90 shadow-2xl backdrop-blur-xl flex flex-col justify-between group">
-              <div>
-                <div class="flex items-center justify-between mb-6">
-                  <span class="px-3 py-1 bg-blue-900/40 border border-blue-700/50 rounded-full font-mono text-xs text-blue-300 tracking-wider">IMPACT & METRICS</span>
-                  <span class="font-display text-6xl md:text-7xl font-light text-stone-800 group-hover:text-stone-700 transition-colors">05</span>
-                </div>
-                <h3 class="font-display font-light text-3xl md:text-4xl text-core-white mb-3">The Sum of Our Parts</h3>
-                <p class="font-body text-sm text-stone-400 leading-relaxed mb-6">
-                  Measurable excellence across global brand launches and digital products.
-                </p>
-              </div>
-              <div class="grid grid-cols-2 gap-4 pt-4 border-t border-stone-800/80">
-                <div class="p-4 rounded-xl bg-stone-900/80 border border-stone-800">
-                  <p class="font-display text-3xl md:text-4xl text-core-white font-light mb-1">12+</p>
-                  <p class="font-body text-xs text-stone-400">Years in practice</p>
-                </div>
-                <div class="p-4 rounded-xl bg-stone-900/80 border border-stone-800">
-                  <p class="font-display text-3xl md:text-4xl text-core-white font-light mb-1">150+</p>
-                  <p class="font-body text-xs text-stone-400">Projects delivered</p>
-                </div>
-                <div class="p-4 rounded-xl bg-stone-900/80 border border-stone-800">
-                  <p class="font-display text-3xl md:text-4xl text-core-white font-light mb-1">40+</p>
-                  <p class="font-body text-xs text-stone-400">Countries reached</p>
-                </div>
-                <div class="p-4 rounded-xl bg-stone-900/80 border border-stone-800">
-                  <p class="font-display text-3xl md:text-4xl text-core-white font-light mb-1">98%</p>
-                  <p class="font-body text-xs text-stone-400">Client satisfaction</p>
+                <div class="p-2.5 sm:p-3 rounded-lg bg-stone-900/60 border border-stone-800/40">
+                  <p class="font-mono text-[9px] sm:text-xs text-stone-500 uppercase tracking-wider mb-0.5 sm:mb-1">02 / ASSETS</p>
+                  <p class="font-body text-xs sm:text-sm text-stone-300">Production Code</p>
                 </div>
               </div>
             </div>
@@ -455,7 +422,7 @@
         </div>
 
         <!-- Footer indicator bar inside pinned section -->
-        <div class="px-6 md:px-12 lg:px-20 pt-2 flex items-center justify-between text-xs text-stone-500 font-mono">
+        <div class="px-4 sm:px-6 md:px-12 lg:px-20 pt-1 sm:pt-2 flex items-center justify-between text-[10px] sm:text-xs text-stone-500 font-mono">
           <span>&darr; Swipe down to scroll left</span>
           <span>GraphicCity &copy; 2026</span>
         </div>
@@ -501,6 +468,7 @@
     </div>
   </footer>
 
+  <script src="/public/js/lenis.min.js"></script>
   <script src="/public/js/firebase-init.js"></script>
   <script src="/public/js/animations.js"></script>
   <script src="/public/js/main.js"></script>

@@ -1,20 +1,69 @@
 /**
- * GraphicCity — Animation System
- * Purpose-driven motion. Apple/Linear quality.
- * Every animation serves the content; nothing decorative.
+ * GraphicCity — Movie-Grade Ultra-Smooth Animation Engine
+ * Cinema-quality motion, Lenis inertial scrolling, 3D text reveals, film grain,
+ * fluid spring cursor, and continuous RAF lerp interpolation.
  */
 ;(function () {
   'use strict';
 
   /* ═════════════════════════════════════════════════
-     TEXT REVEAL — word-by-word & character-by-character
+     1. LENIS SMOOTH SCROLLING ENGINE
+     ═════════════════════════════════════════════════ */
+
+  var LenisEngine = {
+    instance: null,
+    init: function () {
+      if (typeof Lenis === 'undefined') return;
+
+      var isTouch = ('ontouchstart' in window || navigator.maxTouchPoints > 0);
+
+      this.instance = new Lenis({
+        duration: 1.2,
+        easing: function (t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
+        orientation: 'vertical',
+        gestureOrientation: 'vertical',
+        smoothWheel: true,
+        wheelMultiplier: 1.0,
+        smoothTouch: false,
+        touchMultiplier: 1.8,
+        infinite: false
+      });
+
+      window.lenis = this.instance;
+
+      function lenisRaf(time) {
+        if (window.lenis) {
+          window.lenis.raf(time);
+        }
+        requestAnimationFrame(lenisRaf);
+      }
+      requestAnimationFrame(lenisRaf);
+    }
+  };
+
+  /* ═════════════════════════════════════════════════
+     2. FILM GRAIN OVERLAY
+     ═════════════════════════════════════════════════ */
+
+  var FilmGrain = {
+    init: function () {
+      if (document.querySelector('.film-grain')) return;
+      var grain = document.createElement('div');
+      grain.className = 'film-grain';
+      grain.setAttribute('aria-hidden', 'true');
+      document.body.appendChild(grain);
+    }
+  };
+
+  /* ═════════════════════════════════════════════════
+     3. 3D CINEMATIC TEXT REVEAL
      ═════════════════════════════════════════════════ */
 
   var TextReveal = {
     init: function () {
       document.querySelectorAll('[data-reveal-text]').forEach(function (el) {
         var type = el.getAttribute('data-reveal-text') || 'word';
-        var delay = parseFloat(el.getAttribute('data-reveal-delay')) || 40;
+        var delay = parseFloat(el.getAttribute('data-reveal-delay')) || 45;
         if (type === 'word') { this.splitWords(el, delay); }
         else if (type === 'char') { this.splitChars(el, delay); }
       }, this);
@@ -22,14 +71,15 @@
 
     splitWords: function (el, delay) {
       var text = el.textContent.trim();
-      if (!text) return;
+      if (!text || el.dataset.splitDone) return;
+      el.dataset.splitDone = 'true';
       el.textContent = '';
       var words = text.split(/\s+/);
       words.forEach(function (word, i) {
         var wrapper = document.createElement('span');
         wrapper.className = 'text-reveal-word';
-        wrapper.style.transitionDelay = i * delay + 'ms';
         var inner = document.createElement('span');
+        inner.style.transitionDelay = (i * delay) + 'ms';
         inner.textContent = word + (i < words.length - 1 ? '\u00A0' : '');
         wrapper.appendChild(inner);
         el.appendChild(wrapper);
@@ -38,13 +88,14 @@
 
     splitChars: function (el, delay) {
       var text = el.textContent.trim();
-      if (!text) return;
+      if (!text || el.dataset.splitDone) return;
+      el.dataset.splitDone = 'true';
       el.textContent = '';
       var chars = text.split('');
       chars.forEach(function (ch, i) {
         var span = document.createElement('span');
         span.className = 'text-reveal-char';
-        span.style.transitionDelay = i * delay + 'ms';
+        span.style.transitionDelay = (i * delay) + 'ms';
         span.textContent = ch === ' ' ? '\u00A0' : ch;
         el.appendChild(span);
       });
@@ -57,11 +108,10 @@
   };
 
   /* ═════════════════════════════════════════════════
-     SCROLL REVEAL OBSERVER
+     4. SCROLL REVEAL OBSERVER
      ═════════════════════════════════════════════════ */
 
   var ScrollReveal = {
-    observer: null,
     instance: null,
 
     init: function () {
@@ -71,47 +121,38 @@
           if (entry.isIntersecting) {
             var el = entry.target;
 
-            // Image reveal
             if (el.classList.contains('img-reveal') || el.classList.contains('img-reveal-left')) {
               el.classList.add('revealed');
             }
 
-            // Scroll blur/scale reveals
             if (el.classList.contains('scroll-blur-reveal') || el.classList.contains('scroll-scale-reveal')) {
               el.classList.add('revealed');
             }
 
-            // Stagger children
             if (el.classList.contains('stagger-children')) {
               el.classList.add('revealed');
             }
 
-            // Text reveal within this element
             TextReveal.reveal(el);
 
-            // Existing reveal-item system
             el.querySelectorAll('.reveal-item').forEach(function (item, i) {
-              setTimeout(function () { item.classList.add('revealed'); }, i * 100);
+              setTimeout(function () { item.classList.add('revealed'); }, i * 90);
             });
 
-            // Reveal grids
             var grid = el.querySelector('.reveal-grid');
             if (grid) { grid.classList.add('revealed'); }
 
-            // Unobserve after reveal
             self.instance.unobserve(el);
           }
         });
-      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+      }, { threshold: 0.10, rootMargin: '0px 0px -50px 0px' });
 
-      // Observe all relevant elements
       document.querySelectorAll(
         '.img-reveal, .img-reveal-left, .scroll-blur-reveal, .scroll-scale-reveal, .stagger-children, [data-reveal]'
       ).forEach(function (el) {
         self.instance.observe(el);
       });
 
-      // Also observe reveal-item containers that aren't caught by [data-reveal]
       document.querySelectorAll('.scroll-section').forEach(function (el) {
         self.instance.observe(el);
       });
@@ -119,71 +160,70 @@
 
     reveal: function (container) {
       container.querySelectorAll('.reveal-item').forEach(function (item, i) {
-        setTimeout(function () { item.classList.add('revealed'); }, i * 100);
+        setTimeout(function () { item.classList.add('revealed'); }, i * 90);
       });
       var grid = container.querySelector('.reveal-grid');
       if (grid) { grid.classList.add('revealed'); }
+      TextReveal.reveal(container);
     }
   };
 
   /* ═════════════════════════════════════════════════
-     PARALLAX
+     5. LERP PARALLAX SYSTEM
      ═════════════════════════════════════════════════ */
 
   var Parallax = {
     elements: [],
+    currentY: 0,
+    targetY: 0,
 
     init: function () {
       var self = this;
       this.elements = [];
       document.querySelectorAll('.parallax-layer').forEach(function (el) {
         var speedAttr = el.getAttribute('data-parallax-speed');
-        var speed = speedAttr ? parseFloat(speedAttr) : 0.3;
-        self.elements.push({ el: el, speed: speed, rect: null });
+        var speed = speedAttr ? parseFloat(speedAttr) : 0.25;
+        self.elements.push({ el: el, speed: speed });
       });
 
-      // Existing parallax-hero elements
       document.querySelectorAll('.parallax-hero, .parallax-bg').forEach(function (el) {
-        self.elements.push({ el: el, speed: 0.3, rect: null });
+        self.elements.push({ el: el, speed: 0.2 });
       });
 
       if (this.elements.length > 0) {
-        this.updateRects();
-        this.onScroll();
-        window.addEventListener('scroll', this.onScroll.bind(this), { passive: true });
-        window.addEventListener('resize', this.updateRects.bind(this), { passive: true });
+        function loop() {
+          var sy = window.lenis ? window.lenis.scroll : window.scrollY;
+          self.targetY = sy;
+          self.currentY += (self.targetY - self.currentY) * 0.1;
+          self.elements.forEach(function (item) {
+            var offset = self.currentY * item.speed;
+            item.el.style.transform = 'translate3d(0, ' + offset.toFixed(2) + 'px, 0)';
+          });
+          requestAnimationFrame(loop);
+        }
+        requestAnimationFrame(loop);
       }
-    },
-
-    updateRects: function () {
-      this.elements.forEach(function (item) {
-        item.rect = item.el.getBoundingClientRect();
-      });
-    },
-
-    onScroll: function () {
-      var sy = window.scrollY;
-      this.elements.forEach(function (item) {
-        var offset = sy * item.speed;
-        item.el.style.transform = 'translateY(' + offset + 'px)';
-      });
     }
   };
 
   /* ═════════════════════════════════════════════════
-     CUSTOM CURSOR RING
+     6. FLUID SPRING CURSOR RING
      ═════════════════════════════════════════════════ */
 
   var CursorRing = {
     ring: null,
-    rafId: null,
     mx: 0,
     my: 0,
+    cx: 0,
+    cy: 0,
     enabled: false,
 
     init: function () {
-      // Only enable on non-touch devices
-      if ('ontouchstart' in window || navigator.maxTouchPoints > 0) return;
+      if ('ontouchstart' in window || navigator.maxTouchPoints > 0 || window.innerWidth <= 768 || window.matchMedia('(hover: none)').matches) {
+        var existing = document.getElementById('cursor-ring');
+        if (existing) existing.style.display = 'none';
+        return;
+      }
 
       this.ring = document.getElementById('cursor-ring');
       if (!this.ring) {
@@ -196,23 +236,35 @@
       this.enabled = true;
       var self = this;
 
+      this.mx = window.innerWidth / 2;
+      this.my = window.innerHeight / 2;
+      this.cx = this.mx;
+      this.cy = this.my;
+
       document.addEventListener('mousemove', function (e) {
         self.mx = e.clientX;
         self.my = e.clientY;
         if (!self.ring.classList.contains('visible')) {
           self.ring.classList.add('visible');
         }
-        if (!self.rafId) {
-          self.rafId = requestAnimationFrame(self.tick.bind(self));
-        }
       });
 
-      // Hover targets
-      document.addEventListener('mouseenter', function (e) {
-        var target = e.target.closest('a, button, .project-card, .hover-cursor');
+      function tick() {
+        if (self.enabled) {
+          self.cx += (self.mx - self.cx) * 0.18;
+          self.cy += (self.my - self.cy) * 0.18;
+          self.ring.style.left = self.cx.toFixed(1) + 'px';
+          self.ring.style.top = self.cy.toFixed(1) + 'px';
+        }
+        requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+
+      document.addEventListener('mouseover', function (e) {
+        var target = e.target.closest('a, button, .project-card, .horizontal-card, input, textarea, [data-hover]');
         if (target) {
           self.ring.classList.add('hover');
-          var darkParent = target.closest('.bg-core-black, .bg-black');
+          var darkParent = target.closest('.bg-core-black, .bg-black, .bg-stone-900, .bg-stone-950');
           if (darkParent) {
             self.ring.classList.remove('dark-ring');
           } else {
@@ -221,15 +273,14 @@
         }
       }, true);
 
-      document.addEventListener('mouseleave', function (e) {
-        var target = e.target.closest('a, button, .project-card, .hover-cursor');
+      document.addEventListener('mouseout', function (e) {
+        var target = e.target.closest('a, button, .project-card, .horizontal-card, input, textarea, [data-hover]');
         if (target) {
           self.ring.classList.remove('hover');
           self.ring.classList.remove('dark-ring');
         }
       }, true);
 
-      // Hide on window leave
       document.addEventListener('mouseleave', function () {
         self.ring.classList.remove('visible');
       });
@@ -237,18 +288,11 @@
       document.addEventListener('mouseenter', function () {
         self.ring.classList.add('visible');
       });
-    },
-
-    tick: function () {
-      if (!this.enabled) return;
-      this.ring.style.left = this.mx + 'px';
-      this.ring.style.top = this.my + 'px';
-      this.rafId = null;
     }
   };
 
   /* ═════════════════════════════════════════════════
-     LOADING SCREEN
+     7. LOADING SCREEN
      ═════════════════════════════════════════════════ */
 
   var LoadingScreen = {
@@ -257,15 +301,13 @@
     init: function () {
       this.el = document.getElementById('loading-screen');
       if (this.el) {
-        // Add active class after a tick to trigger entrance
         requestAnimationFrame(function () {
           this.el.classList.add('active');
         }.bind(this));
 
-        // Remove after animation completes
         setTimeout(function () {
           this.hide();
-        }.bind(this), 1200);
+        }.bind(this), 1000);
       }
     },
 
@@ -277,20 +319,11 @@
       setTimeout(function () {
         this.el.style.display = 'none';
       }.bind(this), 500);
-    },
-
-    show: function () {
-      if (!this.el) return;
-      this.el.style.display = 'flex';
-      requestAnimationFrame(function () {
-        this.el.classList.add('active');
-        this.el.classList.remove('animate-loader-fade');
-      }.bind(this));
     }
   };
 
   /* ═════════════════════════════════════════════════
-     PAGE TRANSITION (HTMX interceptor)
+     8. PAGE TRANSITION OVERLAY
      ═════════════════════════════════════════════════ */
 
   var PageTransition = {
@@ -318,7 +351,7 @@
   };
 
   /* ═════════════════════════════════════════════════
-     SMOOTH SCROLL FOR ANCHOR LINKS
+     9. ANCHOR SMOOTH SCROLL WITH LENIS
      ═════════════════════════════════════════════════ */
 
   var SmoothScroll = {
@@ -326,101 +359,55 @@
       document.addEventListener('click', function (e) {
         var link = e.target.closest('a[href^="#"]');
         if (!link) return;
-        var target = document.querySelector(link.getAttribute('href'));
+        var href = link.getAttribute('href');
+        if (!href || href === '#') return;
+        var target = document.querySelector(href);
         if (!target) return;
         e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (window.lenis) {
+          window.lenis.scrollTo(target, { offset: -60, duration: 1.2 });
+        } else {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
       });
     }
   };
 
   /* ═════════════════════════════════════════════════
-     HTMX INTEGRATION
-     ═════════════════════════════════════════════════ */
-
-  function initHtmxIntegration() {
-    document.body.addEventListener('htmx:afterSwap', function (evt) {
-      var target = evt.detail.target;
-
-      // Re-init animations on newly loaded content
-      if (ScrollReveal.instance) {
-        target.querySelectorAll(
-          '.img-reveal, .img-reveal-left, .scroll-blur-reveal, .scroll-scale-reveal, .stagger-children, [data-reveal]'
-        ).forEach(function (el) {
-          ScrollReveal.instance.observe(el);
-        });
-      }
-
-      // Text reveal in swapped content
-      target.querySelectorAll('[data-reveal-text]').forEach(function (el) {
-        TextReveal.splitWords(el, parseFloat(el.getAttribute('data-reveal-delay')) || 40);
-      });
-
-      // Entrance animations on swapped content
-      target.querySelectorAll('.animate-fade-in, .animate-slide-up, .animate-scale-in, .animate-reveal-up').forEach(function (el) {
-        el.style.animation = 'none';
-        requestAnimationFrame(function () {
-          el.style.animation = '';
-        });
-      });
-
-      // Trigger reveal on the target itself
-      ScrollReveal.reveal(target);
-    });
-
-    // HTMX loading indicator integration
-    var topbar = document.getElementById('htmx-topbar');
-    if (!topbar) {
-      topbar = document.createElement('div');
-      topbar.id = 'htmx-topbar';
-      topbar.innerHTML = '<div class="bar"></div>';
-      document.body.appendChild(topbar);
-    }
-
-    var barEl = topbar.querySelector('.bar');
-
-    document.body.addEventListener('htmx:beforeRequest', function () {
-      barEl.style.width = '30%';
-    });
-
-    document.body.addEventListener('htmx:afterRequest', function () {
-      barEl.style.width = '100%';
-      setTimeout(function () {
-        barEl.style.width = '0%';
-      }, 300);
-    });
-
-    // Page transitions for HTMX navigation
-    document.body.addEventListener('htmx:beforeSwap', function (evt) {
-      // Only for full page replacements, not partials
-      var path = evt.detail.pathInfo ? evt.detail.pathInfo.current : '';
-      if (path && !path.includes('/partials/')) {
-        // Could add pre-fade here for full page navigations
-      }
-    });
-  }
-
-  /* ═════════════════════════════════════════════════
-     HORIZONTAL PIN SCROLL (Swipe down left side-scrolling)
+     10. CONTINUOUS RAF LERP HORIZONTAL PIN SCROLL
      ═════════════════════════════════════════════════ */
 
   var HorizontalPinScroll = {
+    pinSection: null,
+    stickyViewport: null,
+    track: null,
+    progressBar: null,
+    stepCounter: null,
+    stepPills: [],
+    targetTranslate: 0,
+    currentTranslate: 0,
+    maxTranslate: 0,
+    active: false,
+
     init: function () {
-      var pinSection = document.getElementById('horizontal-pin-section');
-      var stickyViewport = document.getElementById('horizontal-sticky-viewport');
-      var track = document.getElementById('horizontal-track');
-      var progressBar = document.getElementById('horizontal-progress-bar');
-      var stepCounter = document.getElementById('horizontal-step-counter');
-      var stepPills = document.querySelectorAll('.horizontal-step-pill');
+      this.pinSection = document.getElementById('horizontal-pin-section');
+      this.stickyViewport = document.getElementById('horizontal-sticky-viewport');
+      this.track = document.getElementById('horizontal-track');
+      this.progressBar = document.getElementById('horizontal-progress-bar');
+      this.stepCounter = document.getElementById('horizontal-step-counter');
+      this.stepPills = document.querySelectorAll('.horizontal-step-pill');
       var prevBtn = document.getElementById('horizontal-prev-btn');
       var nextBtn = document.getElementById('horizontal-next-btn');
 
-      if (!pinSection || !stickyViewport || !track) return;
+      if (!this.pinSection || !this.stickyViewport || !this.track) return;
+      this.active = true;
 
-      function updateScroll() {
-        var sectionRect = pinSection.getBoundingClientRect();
+      var self = this;
+
+      function updateTarget() {
+        var sectionRect = self.pinSection.getBoundingClientRect();
         var sectionTop = sectionRect.top;
-        var sectionHeight = pinSection.offsetHeight;
+        var sectionHeight = self.pinSection.offsetHeight;
         var viewportHeight = window.innerHeight;
 
         var maxScroll = sectionHeight - viewportHeight;
@@ -429,19 +416,17 @@
         var progress = -sectionTop / maxScroll;
         progress = Math.max(0, Math.min(1, progress));
 
-        var trackWidth = track.scrollWidth;
-        var viewportWidth = stickyViewport.clientWidth;
-        var maxTranslate = Math.max(0, trackWidth - viewportWidth + 60);
+        var trackWidth = self.track.scrollWidth;
+        var viewportWidth = self.stickyViewport.clientWidth;
+        self.maxTranslate = Math.max(0, trackWidth - viewportWidth + 60);
 
-        var currentTranslate = progress * maxTranslate;
+        self.targetTranslate = progress * self.maxTranslate;
 
-        track.style.transform = 'translate3d(-' + currentTranslate + 'px, 0, 0)';
-
-        if (progressBar) {
-          progressBar.style.width = (progress * 100) + '%';
+        if (self.progressBar) {
+          self.progressBar.style.width = (progress * 100) + '%';
         }
 
-        var cards = track.querySelectorAll('.horizontal-card');
+        var cards = self.track.querySelectorAll('.horizontal-card');
         var activeIndex = 0;
         cards.forEach(function (card, idx) {
           var cardRect = card.getBoundingClientRect();
@@ -450,13 +435,13 @@
           }
         });
 
-        if (stepCounter) {
+        if (self.stepCounter) {
           var formattedIndex = String(activeIndex + 1).padStart(2, '0');
           var totalFormatted = String(cards.length).padStart(2, '0');
-          stepCounter.textContent = formattedIndex + ' / ' + totalFormatted;
+          self.stepCounter.textContent = formattedIndex + ' / ' + totalFormatted;
         }
 
-        stepPills.forEach(function (pill, idx) {
+        self.stepPills.forEach(function (pill, idx) {
           if (idx === activeIndex) {
             pill.classList.add('active');
             pill.style.opacity = '1';
@@ -471,141 +456,159 @@
         });
       }
 
-      stepPills.forEach(function (pill, idx) {
+      function animLoop() {
+        if (self.active) {
+          updateTarget();
+          self.currentTranslate += (self.targetTranslate - self.currentTranslate) * 0.09;
+          if (Math.abs(self.targetTranslate - self.currentTranslate) < 0.05) {
+            self.currentTranslate = self.targetTranslate;
+          }
+          self.track.style.transform = 'translate3d(-' + self.currentTranslate.toFixed(2) + 'px, 0, 0)';
+        }
+        requestAnimationFrame(animLoop);
+      }
+      requestAnimationFrame(animLoop);
+
+      this.stepPills.forEach(function (pill, idx) {
         pill.addEventListener('click', function () {
-          var cards = track.querySelectorAll('.horizontal-card');
+          var cards = self.track.querySelectorAll('.horizontal-card');
           if (!cards[idx]) return;
 
           var targetCard = cards[idx];
-          var maxScroll = pinSection.offsetHeight - window.innerHeight;
-          var trackWidth = track.scrollWidth;
-          var viewportWidth = stickyViewport.clientWidth;
+          var maxScroll = self.pinSection.offsetHeight - window.innerHeight;
+          var trackWidth = self.track.scrollWidth;
+          var viewportWidth = self.stickyViewport.clientWidth;
           var maxTranslate = Math.max(0, trackWidth - viewportWidth + 60);
 
           var targetTranslate = targetCard.offsetLeft - 40;
           var targetProgress = Math.min(1, Math.max(0, targetTranslate / maxTranslate));
 
-          var targetScrollY = pinSection.offsetTop + targetProgress * maxScroll;
-          window.scrollTo({ top: targetScrollY, behavior: 'smooth' });
+          var targetScrollY = self.pinSection.offsetTop + targetProgress * maxScroll;
+          if (window.lenis) {
+            window.lenis.scrollTo(targetScrollY, { duration: 1.2 });
+          } else {
+            window.scrollTo({ top: targetScrollY, behavior: 'smooth' });
+          }
         });
       });
 
       if (nextBtn) {
         nextBtn.addEventListener('click', function () {
-          var cards = track.querySelectorAll('.horizontal-card');
+          var cards = self.track.querySelectorAll('.horizontal-card');
           var activeIndex = 0;
           cards.forEach(function (card, idx) {
             var cardRect = card.getBoundingClientRect();
             if (cardRect.left <= window.innerWidth * 0.5) activeIndex = idx;
           });
           var nextIndex = Math.min(cards.length - 1, activeIndex + 1);
-          if (stepPills[nextIndex]) stepPills[nextIndex].click();
+          if (self.stepPills[nextIndex]) self.stepPills[nextIndex].click();
         });
       }
 
       if (prevBtn) {
         prevBtn.addEventListener('click', function () {
-          var cards = track.querySelectorAll('.horizontal-card');
+          var cards = self.track.querySelectorAll('.horizontal-card');
           var activeIndex = 0;
           cards.forEach(function (card, idx) {
             var cardRect = card.getBoundingClientRect();
             if (cardRect.left <= window.innerWidth * 0.5) activeIndex = idx;
           });
           var prevIndex = Math.max(0, activeIndex - 1);
-          if (stepPills[prevIndex]) stepPills[prevIndex].click();
+          if (self.stepPills[prevIndex]) self.stepPills[prevIndex].click();
         });
       }
-
-      // Touch gesture support for horizontal swiping
-      var touchStartX = 0;
-      var touchStartY = 0;
-
-      stickyViewport.addEventListener('touchstart', function (e) {
-        if (e.touches.length === 1) {
-          touchStartX = e.touches[0].clientX;
-          touchStartY = e.touches[0].clientY;
-        }
-      }, { passive: true });
-
-      stickyViewport.addEventListener('touchmove', function (e) {
-        if (!touchStartX || !touchStartY || e.touches.length !== 1) return;
-        var deltaX = touchStartX - e.touches[0].clientX;
-        var deltaY = touchStartY - e.touches[0].clientY;
-
-        if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 10) {
-          window.scrollBy({ top: deltaX * 1.2, behavior: 'auto' });
-          touchStartX = e.touches[0].clientX;
-        }
-      }, { passive: true });
-
-      window.addEventListener('scroll', updateScroll, { passive: true });
-      window.addEventListener('resize', updateScroll, { passive: true });
-      updateScroll();
     }
   };
 
   /* ═════════════════════════════════════════════════
-     INITIALIZATION
+     11. HTMX INTEGRATION
+     ═════════════════════════════════════════════════ */
+
+  function initHtmxIntegration() {
+    document.body.addEventListener('htmx:afterSwap', function (evt) {
+      var target = evt.detail.target;
+
+      if (ScrollReveal.instance) {
+        target.querySelectorAll(
+          '.img-reveal, .img-reveal-left, .scroll-blur-reveal, .scroll-scale-reveal, .stagger-children, [data-reveal]'
+        ).forEach(function (el) {
+          ScrollReveal.instance.observe(el);
+        });
+      }
+
+      target.querySelectorAll('[data-reveal-text]').forEach(function (el) {
+        TextReveal.splitWords(el, parseFloat(el.getAttribute('data-reveal-delay')) || 45);
+      });
+
+      ScrollReveal.reveal(target);
+      if (window.lenis) {
+        window.lenis.resize();
+      }
+    });
+
+    var topbar = document.getElementById('htmx-topbar');
+    if (!topbar) {
+      topbar = document.createElement('div');
+      topbar.id = 'htmx-topbar';
+      topbar.innerHTML = '<div class="bar"></div>';
+      document.body.appendChild(topbar);
+    }
+    var barEl = topbar.querySelector('.bar');
+
+    document.body.addEventListener('htmx:beforeRequest', function () {
+      barEl.style.width = '30%';
+    });
+
+    document.body.addEventListener('htmx:afterRequest', function () {
+      barEl.style.width = '100%';
+      setTimeout(function () {
+        barEl.style.width = '0%';
+      }, 300);
+    });
+  }
+
+  /* ═════════════════════════════════════════════════
+     12. INITIALIZATION
      ═════════════════════════════════════════════════ */
 
   function init() {
-    // Order matters
-
-    // 1. Text reveal (must be before scroll reveal so observer can trigger)
+    LenisEngine.init();
+    FilmGrain.init();
     TextReveal.init();
-
-    // 2. Scroll reveal observer
     ScrollReveal.init();
-
-    // 3. Parallax
     Parallax.init();
-
-    // 4. Cursor ring (only desktop)
     CursorRing.init();
-
-    // 5. Loading screen
     LoadingScreen.init();
-
-    // 6. Page transition overlay
     PageTransition.init();
-
-    // 7. Smooth scroll
     SmoothScroll.init();
-
-    // 8. Horizontal pin scroll
     HorizontalPinScroll.init();
 
-    // 9. HTMX integration
     if (typeof htmx !== 'undefined') {
       initHtmxIntegration();
     }
 
-    // 10. Trigger initial reveal on visible sections
     document.querySelectorAll('[data-reveal].in-viewport').forEach(function (el) {
       ScrollReveal.reveal(el);
     });
   }
 
-
-  // Run on DOM ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {
     init();
   }
 
-  // Expose for manual use
   window.GCAnimations = {
     TextReveal: TextReveal,
     ScrollReveal: ScrollReveal,
     Parallax: Parallax,
     LoadingScreen: LoadingScreen,
     PageTransition: PageTransition,
+    HorizontalPinScroll: HorizontalPinScroll,
     refresh: function (container) {
-      // Re-initialize animations within a container (for HTMX swaps)
       if (container) {
         container.querySelectorAll('[data-reveal-text]').forEach(function (el) {
-          TextReveal.splitWords(el, parseFloat(el.getAttribute('data-reveal-delay')) || 40);
+          TextReveal.splitWords(el, parseFloat(el.getAttribute('data-reveal-delay')) || 45);
         });
         if (ScrollReveal.instance) {
           container.querySelectorAll('.img-reveal, .img-reveal-left, .scroll-blur-reveal, .scroll-scale-reveal, .stagger-children, [data-reveal]').forEach(function (el) {

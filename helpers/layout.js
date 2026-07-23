@@ -123,7 +123,8 @@ Start a Project
 }
 
 function pageScripts(extra) {
-  return `<script src="/public/js/firebase-init.js"></script>
+  return `<script src="/public/js/lenis.min.js"></script>
+<script src="/public/js/firebase-init.js"></script>
 <script src="/public/js/animations.js"></script>
 <script src="/public/js/main.js"></script>${extra || ''}
 </body>
