@@ -1,0 +1,61 @@
+<section id="act-ii" class="relative min-h-screen bg-core-black scroll-snap-child overflow-hidden" aria-label="Our statement">
+
+  <div class="relative z-10 flex flex-col lg:flex-row h-full min-h-screen">
+
+    <!-- Left: Manifesto -->
+    <div class="flex-1 flex items-center justify-center px-8 lg:px-16 xl:px-24 py-24 lg:py-0">
+      <div class="max-w-lg w-full lg:ml-auto lg:text-right animate-fade-in">
+        <h1 class="font-display font-light text-h2 lg:text-display-sm xl:text-display text-core-white/90 -tracking-tight mb-8 text-balance">
+          Design,<br>made permanent.
+        </h1>
+        <div class="space-y-5">
+          <p class="font-body font-light text-base md:text-lg leading-relaxed text-stone-400 text-balance">
+            We believe design is not a commodity. It is not a coat of paint. It is the structure of thought itself.
+          </p>
+          <p class="font-body font-light text-base md:text-lg leading-relaxed text-stone-400 text-balance">
+            Every pixel, every curve, every micro-moment is an opportunity to communicate something that lasts.
+          </p>
+          <p class="font-body font-light text-base md:text-lg leading-relaxed text-stone-400 text-balance">
+            We make things that earn their place in the world &mdash; not for a quarter, but for a decade.
+          </p>
+        </div>
+
+        <!-- Scroll progress line -->
+        <div class="hidden lg:block mt-12 ml-auto" aria-hidden="true">
+          <div class="w-px h-20 bg-stone-800 relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-full bg-stone-400 origin-top animate-slide-up" style="animation-delay: 0.8s; animation-fill-mode: both;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Film Loop -->
+    <div class="flex-1 relative min-h-[40vh] lg:min-h-screen overflow-hidden film-loop" aria-hidden="true">
+      <div class="absolute inset-0 bg-gradient-to-br from-stone-900 via-stone-800 to-stone-900 animate-film-judder"></div>
+
+      <!-- Material texture overlay -->
+      <div class="absolute inset-0 opacity-[0.15] mix-blend-overlay" style="background-image: url('data:image/svg+xml,%3Csvg width=%2260%22 height=%2260%22 viewBox=%220 0 60 60%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cg fill=%22none%22 fill-rule=%22evenodd%22%3E%3Cg fill=%22%23ffffff%22 fill-opacity=%220.08%22%3E%3Cpath d=%22M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+
+      <!-- Center form (abstract shape being crafted) -->
+      <div class="absolute inset-0 flex items-center justify-center">
+        <div class="relative w-40 h-40 md:w-56 md:h-56 lg:w-64 lg:h-64">
+          <!-- Rotating ring -->
+          <div class="absolute inset-0 border border-core-white/10 rounded-full animate-spin" style="animation-duration: 20s;"></div>
+          <div class="absolute inset-[15%] border border-core-white/15 rounded-full animate-spin" style="animation-duration: 15s; animation-direction: reverse;"></div>
+          <div class="absolute inset-[30%] border border-core-white/20 rounded-full animate-spin" style="animation-duration: 10s;"></div>
+
+          <!-- Core pulse -->
+          <div class="absolute inset-[38%] bg-signal-blue/30 rounded-full blur-sm animate-pulse-subtle"></div>
+          <div class="absolute inset-[42%] bg-signal-blue/40 rounded-full"></div>
+        </div>
+      </div>
+
+      <!-- Vignette -->
+      <div class="absolute inset-0 bg-gradient-to-t from-core-black/40 via-transparent to-core-black/20 pointer-events-none"></div>
+    </div>
+
+  </div>
+
+  <!-- Scroll affordance -->
+  <div class="scroll-affordance" aria-hidden="true"></div>
+</section>

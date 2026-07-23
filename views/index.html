@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GraphicCity — Design, made permanent.</title>
+  <meta name="description" content="A creative design studio. We craft enduring brand experiences built with a level of care and rigor that fast-fashion design cannot match.">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="GraphicCity — Design, made permanent.">
+  <meta property="og:description" content="A creative design studio. We craft enduring brand experiences built with care and rigor.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://graphiccity.studio">
+  <meta property="og:image" content="/assets/og-image.jpg">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="GraphicCity — Design, made permanent.">
+  <meta name="twitter:description" content="A creative design studio crafting enduring brand experiences.">
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "GraphicCity",
+    "description": "A creative design studio crafting enduring brand experiences.",
+    "url": "https://graphiccity.studio",
+    "foundingDate": "2025",
+    "email": "hello@graphiccity.studio"
+  }
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <link rel="stylesheet" href="/public/css/styles.css">
+
+  <!-- HTMX -->
+  <script src="https://unpkg.com/htmx.org@1.9.12" defer></script>
+
+  <!-- Alpine.js -->
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js" defer></script>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-analytics-compat.js"></script>
+</head>
+<body class="bg-core-white dark:bg-core-black text-core-black dark:text-core-white font-body">
+
+  <!-- Loading screen -->
+  <div id="loading-screen" aria-hidden="true">
+    <div class="loader-mark" aria-label="Loading">
+      <span></span><span></span><span></span><span></span>
+    </div>
+  </div>
+
+  <!-- Page transition overlay -->
+  <div id="page-transition" aria-hidden="true"></div>
+
+  <!-- HTMX top bar -->
+  <div id="htmx-topbar" aria-hidden="true"><div class="bar"></div></div>
+
+  <!-- Skip link -->
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-core-white focus:text-core-black focus:outline-2 focus:outline-signal-blue focus:rounded-md focus:shadow-md">
+    Skip to content
+  </a>
+
+  <!-- Navigation -->
+  <header id="site-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-out" x-data="{ scrolled: false }" @scroll.window="scrolled = window.scrollY > 80">
+    <nav class="flex items-center justify-between h-16 px-6 md:px-8 lg:px-12 transition-all duration-300 ease-out" :class="scrolled ? 'frosted-glass border-b border-stone-200 dark:border-stone-800' : 'bg-transparent'"
+         aria-label="Primary navigation">
+      <a href="/" class="flex items-center" aria-label="GraphicCity home">
+        <svg width="32" height="16" viewBox="0 0 32 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect width="6" height="16" rx="1" fill="currentColor"/>
+          <rect x="9" width="6" height="16" rx="1" fill="currentColor"/>
+          <rect x="18" width="6" height="16" rx="1" fill="currentColor"/>
+          <rect x="27" width="5" height="16" rx="1" fill="currentColor"/>
+        </svg>
+      </a>
+
+      <div class="hidden md:flex items-center gap-6 lg:gap-8">
+        <a href="/work" class="font-body text-sm text-stone-600 dark:text-stone-400 hover:text-core-black dark:hover:text-core-white transition-colors duration-150 ease-out">Work</a>
+        <a href="/capabilities" class="font-body text-sm text-stone-600 dark:text-stone-400 hover:text-core-black dark:hover:text-core-white transition-colors duration-150 ease-out">Capabilities</a>
+        <a href="/about" class="font-body text-sm text-stone-600 dark:text-stone-400 hover:text-core-black dark:hover:text-core-white transition-colors duration-150 ease-out">About</a>
+        <a href="/journal" class="font-body text-sm text-stone-600 dark:text-stone-400 hover:text-core-black dark:hover:text-core-white transition-colors duration-150 ease-out">Journal</a>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <a href="/start"
+           class="hidden sm:inline-flex items-center h-9 px-4 bg-core-black dark:bg-core-white text-core-white dark:text-core-black font-body font-medium text-sm rounded-md hover:bg-stone-800 dark:hover:bg-stone-200 transition-all duration-150 ease-out focus-ring"
+           :class="scrolled ? '' : 'bg-core-white text-core-black hover:bg-stone-100'">
+          Start a Project
+        </a>
+
+        <button id="menu-toggle"
+                class="font-body text-xs font-medium tracking-wider uppercase text-stone-500 dark:text-stone-400 hover:text-core-black dark:hover:text-core-white transition-colors duration-150 ease-out focus-ring rounded-sm px-1 py-1"
+                aria-label="Open menu"
+                aria-haspopup="true"
+                aria-controls="menu-overlay">
+          Menu
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Menu Overlay -->
+  <div id="menu-overlay"
+       class="fixed inset-0 z-[60] bg-core-black/98 backdrop-blur-[40px] transition-opacity duration-300 ease-out opacity-0 pointer-events-none"
+       role="dialog"
+       aria-modal="true"
+       aria-hidden="true"
+       aria-label="Site navigation menu">
+
+    <button class="absolute top-4 right-4 md:top-6 md:right-8 lg:top-8 lg:right-12 font-body text-xs font-medium tracking-wider uppercase text-stone-400 hover:text-core-white transition-colors duration-150 ease-out focus-ring rounded-sm px-3 py-2 menu-close-btn"
+            aria-label="Close menu">
+      Close
+    </button>
+
+    <div class="flex flex-col items-center justify-center h-full px-6">
+      <nav aria-label="Site navigation" class="text-center">
+        <a href="/work" class="block font-display text-4xl md:text-5xl text-core-white hover:text-stone-300 transition-colors duration-150 ease-out py-3 focus-ring rounded-sm">Work</a>
+        <a href="/capabilities" class="block font-display text-4xl md:text-5xl text-core-white hover:text-stone-300 transition-colors duration-150 ease-out py-3 focus-ring rounded-sm">Capabilities</a>
+        <a href="/about" class="block font-display text-4xl md:text-5xl text-core-white hover:text-stone-300 transition-colors duration-150 ease-out py-3 focus-ring rounded-sm">About</a>
+        <a href="/journal" class="block font-display text-4xl md:text-5xl text-core-white hover:text-stone-300 transition-colors duration-150 ease-out py-3 focus-ring rounded-sm">Journal</a>
+        <hr class="w-12 mx-auto my-8 border-stone-700">
+        <a href="/start" class="inline-flex items-center h-12 px-8 bg-core-white text-core-black font-body font-medium text-base rounded-md hover:bg-stone-200 transition-all duration-150 ease-out focus-ring">Start a Project</a>
+      </nav>
+
+      <div class="absolute bottom-8 left-0 right-0 px-8">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-4 max-w-4xl mx-auto">
+          <a href="mailto:hello@graphiccity.studio" class="font-body text-sm text-stone-400 hover:text-core-white transition-colors duration-150 ease-out focus-ring rounded-sm">hello@graphiccity.studio</a>
+          <div class="flex items-center gap-6">
+            <a href="#" class="font-body text-xs font-medium tracking-wider uppercase text-stone-500 hover:text-core-white transition-colors duration-150 ease-out focus-ring rounded-sm">LinkedIn</a>
+            <a href="#" class="font-body text-xs font-medium tracking-wider uppercase text-stone-500 hover:text-core-white transition-colors duration-150 ease-out focus-ring rounded-sm">Instagram</a>
+            <a href="#" class="font-body text-xs font-medium tracking-wider uppercase text-stone-500 hover:text-core-white transition-colors duration-150 ease-out focus-ring rounded-sm">Twitter</a>
+          </div>
+        </div>
+        <p class="text-center mt-6 font-body text-xs text-stone-600">&copy; 2026 GraphicCity. All rights reserved.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main id="main-content">
+
+    <!-- ============================================ -->
+    <!-- ACT I: THE THRESHOLD                         -->
+    <!-- ============================================ -->
+    <section id="act-i" class="relative min-h-screen bg-core-black flex items-center justify-center scroll-snap-child overflow-hidden"
+             aria-label="Introduction">
+
+      <div class="relative z-10 text-center"
+           x-data="{
+             words: ['Craft.', 'Precision.', 'Restraint.', 'Timeless.'],
+             currentIndex: 0,
+             get currentWord() { return this.words[this.currentIndex] },
+             init() {
+               setInterval(() => {
+                 this.currentIndex = (this.currentIndex + 1) % this.words.length;
+               }, 3500);
+             }
+           }"
+           role="status"
+           aria-live="polite"
+           aria-atomic="true">
+
+        <span class="block font-display font-light text-[clamp(3.5rem,12vw,8rem)] text-core-white/85"
+              x-text="currentWord"
+              x-transition:enter.duration.800ms
+              x-transition:leave.duration.800ms"
+              :key="currentIndex">
+        </span>
+
+        <div class="mt-8 flex items-center justify-center gap-1.5" aria-hidden="true">
+          <template x-for="(_, idx) in words" :key="idx">
+            <span class="block w-1.5 h-1.5 rounded-full transition-all duration-300"
+                  :class="idx === currentIndex ? 'bg-core-white/60 w-3' : 'bg-core-white/20'">
+            </span>
+          </template>
+        </div>
+      </div>
+
+      <div class="scroll-affordance" aria-hidden="true"></div>
+
+      <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-core-white/[0.015] rounded-full blur-[80px] animate-float"></div>
+        <div class="absolute bottom-1/3 right-1/4 w-48 h-48 bg-core-white/[0.01] rounded-full blur-[60px] animate-float" style="animation-delay: -3s;"></div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- ACT II: THE STATEMENT (HTMX lazy load)      -->
+    <!-- ============================================ -->
+    <section id="act-ii-placeholder"
+             hx-get="/partials/act-ii"
+             hx-trigger="revealed"
+             hx-swap="outerHTML"
+             hx-target="#act-ii-placeholder"
+             class="min-h-screen bg-stone-50 dark:bg-stone-950 flex items-center justify-center scroll-snap-child"
+             aria-label="Our statement loading">
+      <div class="skeleton w-full max-w-4xl mx-6 h-64 rounded-lg"></div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- ACT III: THE EVIDENCE (HTMX lazy load)      -->
+    <!-- ============================================ -->
+    <section id="act-iii-placeholder"
+             hx-get="/partials/act-iii"
+             hx-trigger="revealed"
+             hx-swap="outerHTML"
+             hx-target="#act-iii-placeholder"
+             class="min-h-screen bg-core-white dark:bg-core-black flex items-center justify-center scroll-snap-child"
+             aria-label="Our work loading">
+      <div class="skeleton w-full max-w-4xl mx-6 h-64 rounded-lg"></div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- ACT IV: THE METHOD (HTMX lazy load)         -->
+    <!-- ============================================ -->
+    <section id="act-iv-placeholder"
+             hx-get="/partials/act-iv"
+             hx-trigger="revealed"
+             hx-swap="outerHTML"
+             hx-target="#act-iv-placeholder"
+             class="min-h-screen bg-core-white dark:bg-core-black flex items-center justify-center scroll-snap-child"
+             aria-label="Our process loading">
+      <div class="skeleton w-full max-w-4xl mx-6 h-64 rounded-lg"></div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- ACT V: THE TRUST (HTMX lazy load)           -->
+    <!-- ============================================ -->
+    <section id="act-v-placeholder"
+             hx-get="/partials/act-v"
+             hx-trigger="revealed"
+             hx-swap="outerHTML"
+             hx-target="#act-v-placeholder"
+             class="min-h-screen bg-stone-50 dark:bg-stone-950 flex items-center justify-center scroll-snap-child"
+             aria-label="Our clients loading">
+      <div class="skeleton w-full max-w-3xl mx-6 h-80 rounded-lg"></div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- ACT VI: THE INVITATION (HTMX lazy load)     -->
+    <!-- ============================================ -->
+    <section id="act-vi-placeholder"
+             hx-get="/partials/act-vi"
+             hx-trigger="revealed"
+             hx-swap="outerHTML"
+             hx-target="#act-vi-placeholder"
+             class="min-h-screen bg-core-black flex items-center justify-center scroll-snap-child"
+             aria-label="Get in touch loading">
+      <div class="skeleton w-full max-w-lg mx-6 h-48 rounded-lg"></div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- FOOTER (HTMX lazy load)                    -->
+    <!-- ============================================ -->
+    <footer id="footer-placeholder"
+            hx-get="/partials/footer"
+            hx-trigger="revealed"
+            hx-swap="outerHTML"
+            hx-target="#footer-placeholder"
+            class="bg-stone-50 dark:bg-stone-950 border-t border-stone-200 dark:border-stone-800"
+            aria-label="Site footer loading">
+      <div class="skeleton w-full h-48 mx-auto max-w-6xl my-12 rounded-lg"></div>
+    </footer>
+
+  </main>
+
+  <script src="/public/js/firebase-init.js"></script>
+  <script src="/public/js/animations.js"></script>
+  <script src="/public/js/main.js"></script>
+</body>
+</html>

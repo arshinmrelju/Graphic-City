@@ -1,0 +1,18 @@
+[
+  {
+    "id": "brand-identity",
+    "label": "Brand Identity"
+  },
+  {
+    "id": "digital-product",
+    "label": "Digital Product"
+  },
+  {
+    "id": "art-direction",
+    "label": "Art Direction"
+  },
+  {
+    "id": "motion",
+    "label": "Motion"
+  }
+]

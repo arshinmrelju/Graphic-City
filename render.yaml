@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: graphiccity
+    env: node
+    buildCommand: npm install && npm run build:css
+    startCommand: node server.js
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+      - key: PORT
+        value: 10000

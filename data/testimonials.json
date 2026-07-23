@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "quote": "Most agencies sell you what they want to make. GraphicCity took the time to understand what we needed — and then made something we did not know was possible.",
+    "attr": "Founder, venture-backed SaaS company",
+    "published": true,
+    "created": "2025-06-01"
+  },
+  {
+    "id": 2,
+    "quote": "They have an obsession with detail that I have only ever seen in the best product teams. Every pixel has a reason. Every interaction feels considered.",
+    "attr": "Creative Director, consumer brand",
+    "published": true,
+    "created": "2025-05-15"
+  },
+  {
+    "id": 3,
+    "quote": "We came to GraphicCity for a refresh. We left with a foundation. They did not just redesign our brand — they redefined how we think about ourselves.",
+    "attr": "CEO, fintech company",
+    "published": true,
+    "created": "2025-04-20"
+  }
+]

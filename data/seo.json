@@ -1,0 +1,18 @@
+{
+  "home": {
+    "title": "GraphicCity — Design, made permanent.",
+    "description": "A creative design studio crafting enduring brand experiences."
+  },
+  "work": {
+    "title": "Selected Work — GraphicCity",
+    "description": "A curated selection of brand identity, digital product, art direction, and motion projects."
+  },
+  "about": {
+    "title": "About — GraphicCity",
+    "description": "A creative design studio built on craft, clarity, and partnership."
+  },
+  "capabilities": {
+    "title": "Capabilities — GraphicCity",
+    "description": "Brand strategy, visual identity, digital design, motion, and brand guidance."
+  }
+}

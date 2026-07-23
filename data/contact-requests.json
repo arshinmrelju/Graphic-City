@@ -1,0 +1,41 @@
+[
+  {
+    "id": 1,
+    "name": "Sarah Chen",
+    "company": "Neural Dynamics",
+    "email": "sarah@neural.io",
+    "service": "Brand Strategy",
+    "budget": ",000 – ,000",
+    "timeline": "8 – 12 weeks",
+    "description": "We are building a next-gen AI platform and need a complete brand identity from strategy through visual language. Our current identity does not reflect the sophistication of our technology.",
+    "referral": "Google search",
+    "created": "2025-07-15",
+    "status": "new"
+  },
+  {
+    "id": 2,
+    "name": "Marcus Webb",
+    "company": "Verdant Capital",
+    "email": "marcus@verdant.com",
+    "service": "Visual Identity",
+    "budget": ",000 – ,000",
+    "timeline": "4 – 8 weeks",
+    "description": "We need a refreshed visual identity for our boutique investment firm. Looking for something timeless and confident.",
+    "referral": "LinkedIn",
+    "created": "2025-07-14",
+    "status": "read"
+  },
+  {
+    "id": 3,
+    "name": "Elena Torres",
+    "company": "Beacon Media",
+    "email": "elena@beacon.media",
+    "service": "Digital Design",
+    "budget": ",000 – ,000",
+    "timeline": "8 – 12 weeks",
+    "description": "We are launching a digital magazine and need a full website design with a custom editorial experience.",
+    "referral": "Referral",
+    "created": "2025-07-12",
+    "status": "replied"
+  }
+]

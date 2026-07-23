@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "title": "The Case for Creative Restraint",
+    "slug": "creative-restraint",
+    "excerpt": "In a world obsessed with more, the most powerful design choice is often what you leave out.",
+    "content": "# The Case for Creative Restraint\n\nIn a world obsessed with more, the most powerful design choice is often what you leave out.\n\n## Why restraint matters\n\nThe best work often involves removing. What we choose not to do is as important as what we do. This is not about minimalism as an aesthetic — it is about minimalism as a discipline.\n\nEvery element in a design must earn its place. If it does not serve the communication, it dilutes it.\n\n## The discipline of saying no\n\nAt GraphicCity, we have developed a rigorous filter for every decision: does this serve the intent? If the answer is anything less than a confident yes, it goes.\n\nThis applies to color choices, typeface selections, animation decisions, and content itself. The result is work that feels inevitable — as if it could not have been any other way.",
+    "author": "GraphicCity",
+    "tags": [
+      "design",
+      "philosophy",
+      "process"
+    ],
+    "published": true,
+    "created": "2025-06-20"
+  },
+  {
+    "id": 2,
+    "title": "Building Brands That Last",
+    "slug": "building-brands-that-last",
+    "excerpt": "Trends fade. Great work grows more respected with time. Here is how we design for the decade, not the quarter.",
+    "content": "# Building Brands That Last\n\nTrends fade. Great work grows more respected with time. Here is how we design for the decade, not the quarter.\n\n## The problem with trends\n\nTrend-driven design is a trap. When you chase what is current, you guarantee obsolescence. The brands that endure are the ones that resist the temptation to look like everything else.\n\n## Our approach\n\nWe start with strategy — a clear understanding of who you are and why you exist. Every visual decision flows from that foundation. The result is a brand that feels like itself, not like a collection of borrowed ideas.\n\n## The test of time\n\nWe ask one question of every project: will this still feel right in five years? In ten? If the answer is no, we go back to the drawing board.",
+    "author": "GraphicCity",
+    "tags": [
+      "brand",
+      "strategy",
+      "timeless"
+    ],
+    "published": true,
+    "created": "2025-05-10"
+  }
+]
