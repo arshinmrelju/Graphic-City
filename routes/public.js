@@ -236,8 +236,28 @@ function renderPagination(result, category, search) {
 router.get('/start', (req, res) => {
   try {
     sendPage(res, 'Start a Project — GraphicCity', 'Tell us about your project. We will review your inquiry and get back to you.',
-      `<section class="pt-36 pb-12 md:pt-40 md:pb-16 px-6 md:px-12 lg:px-20" data-reveal><div class="max-w-5xl mx-auto"><p class="font-body text-xs font-medium tracking-wider uppercase text-stone-400 dark:text-stone-500 mb-4 reveal-item">Start a Project</p><h1 class="font-display font-light text-h2 md:text-display-sm text-core-black dark:text-core-white -tracking-tight mb-6 reveal-item">Let's create something remarkable.</h1><p class="font-body text-base md:text-lg text-stone-500 dark:text-stone-400 max-w-2xl text-balance reveal-item">Tell us about your project. We&rsquo;ll review your inquiry and get back to you within 48 hours.</p></div></section>
-      <section class="px-6 md:px-12 lg:px-20 pb-28" data-reveal><div class="max-w-5xl mx-auto"><div class="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-16"><div class="lg:col-span-2">${renderStartForm()}</div><aside class="space-y-8 reveal-item">${renderContactSidebar()}</aside></div></div></section>`,
+      `<section class="min-h-screen bg-core-black pt-28 md:pt-36 pb-20 px-6 md:px-12 lg:px-20">
+        <div class="max-w-6xl mx-auto">
+
+          <!-- Hero heading -->
+          <div class="mb-14 md:mb-20 reveal-item">
+            <p class="font-mono text-xs font-medium tracking-widest uppercase text-stone-500 mb-4">Start a Project</p>
+            <h1 class="font-display font-light text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-core-white -tracking-tight mb-6 max-w-2xl leading-tight">Let's create something <em class="not-italic text-stone-400">remarkable.</em></h1>
+            <p class="font-body text-base md:text-lg text-stone-500 max-w-xl">Tell us about your project. We'll review your inquiry and get back to you within 48 hours.</p>
+          </div>
+
+          <!-- Grid: form + sidebar -->
+          <div class="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16">
+
+            <!-- Form -->
+            <div class="lg:col-span-3 reveal-item">${renderStartForm()}</div>
+
+            <!-- Sidebar -->
+            <aside class="lg:col-span-2 space-y-6 reveal-item">${renderContactSidebar()}</aside>
+
+          </div>
+        </div>
+      </section>`,
       { navActive: 'start' }
     );
   } catch (err) {
@@ -247,28 +267,72 @@ router.get('/start', (req, res) => {
 });
 
 function renderStartForm() {
-  return `<form id="inquiry-form" class="space-y-6" hx-post="/inquiry" hx-target="#inquiry-form" hx-swap="outerHTML" hx-indicator="#form-indicator">
-    <div class="grid md:grid-cols-2 gap-6">
-      <div><label for="name" class="block font-body text-sm font-medium text-core-black dark:text-core-white mb-1.5">Name <span class="text-red-500" aria-hidden="true">*</span></label><input type="text" id="name" name="name" required class="w-full h-11 px-4 bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-md font-body text-sm text-core-black dark:text-core-white placeholder-stone-400 focus:border-stone-400 dark:focus:border-stone-600 transition-colors duration-200 focus-ring" placeholder="Your name"></div>
-      <div><label for="email" class="block font-body text-sm font-medium text-core-black dark:text-core-white mb-1.5">Email <span class="text-red-500" aria-hidden="true">*</span></label><input type="email" id="email" name="email" required class="w-full h-11 px-4 bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-md font-body text-sm text-core-black dark:text-core-white placeholder-stone-400 focus:border-stone-400 dark:focus:border-stone-600 transition-colors duration-200 focus-ring" placeholder="you@example.com"></div>
+  const inputCls = 'w-full h-12 px-4 bg-stone-900 border border-stone-800 rounded-lg font-body text-sm text-core-white placeholder-stone-600 focus:border-stone-600 focus:outline-none transition-colors duration-200';
+  const selectCls = 'w-full h-12 px-4 bg-stone-900 border border-stone-800 rounded-lg font-body text-sm text-core-white focus:border-stone-600 focus:outline-none transition-colors duration-200 appearance-none cursor-pointer';
+  const labelCls = 'block font-mono text-xs font-medium uppercase tracking-wider text-stone-500 mb-2';
+  return `<form id="inquiry-form" class="space-y-5" hx-post="/inquiry" hx-target="#inquiry-form" hx-swap="outerHTML" hx-indicator="#form-indicator">
+    <div class="grid sm:grid-cols-2 gap-5">
+      <div><label for="name" class="${labelCls}">Name <span class="text-stone-600" aria-hidden="true">*</span></label><input type="text" id="name" name="name" required class="${inputCls}" placeholder="Your name"></div>
+      <div><label for="email" class="${labelCls}">Email <span class="text-stone-600" aria-hidden="true">*</span></label><input type="email" id="email" name="email" required class="${inputCls}" placeholder="you@example.com"></div>
     </div>
-    <div><label for="company" class="block font-body text-sm font-medium text-core-black dark:text-core-white mb-1.5">Company / Organization</label><input type="text" id="company" name="company" class="w-full h-11 px-4 bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-md font-body text-sm text-core-black dark:text-core-white placeholder-stone-400 focus:border-stone-400 dark:focus:border-stone-600 transition-colors duration-200 focus-ring" placeholder="Company name"></div>
-    <div><label for="project-type" class="block font-body text-sm font-medium text-core-black dark:text-core-white mb-1.5">Project Type <span class="text-red-500" aria-hidden="true">*</span></label>
-      <select id="project-type" name="projectType" required class="w-full h-11 px-4 bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-md font-body text-sm text-core-black dark:text-core-white focus:border-stone-400 dark:focus:border-stone-600 transition-colors duration-200 focus-ring appearance-none">${['Brand Identity', 'Digital Product', 'Art Direction', 'Motion', 'Packaging', 'Other'].map(t => `<option value="${t}">${t}</option>`).join('')}</select></div>
-    <div><label for="budget" class="block font-body text-sm font-medium text-core-black dark:text-core-white mb-1.5">Budget Range</label>
-      <select id="budget" name="budget" class="w-full h-11 px-4 bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-md font-body text-sm text-core-black dark:text-core-white focus:border-stone-400 dark:focus:border-stone-600 transition-colors duration-200 focus-ring appearance-none">${['Under $5K', '$5K\u2013$15K', '$15K\u2013$50K', '$50K\u2013$100K', '$100K+', 'Prefer not to say'].map(b => `<option value="${b}">${b}</option>`).join('')}</select></div>
-    <div><label for="description" class="block font-body text-sm font-medium text-core-black dark:text-core-white mb-1.5">Project Description <span class="text-red-500" aria-hidden="true">*</span></label><textarea id="description" name="description" rows="5" required class="w-full px-4 py-3 bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-md font-body text-sm text-core-black dark:text-core-white placeholder-stone-400 focus:border-stone-400 dark:focus:border-stone-600 transition-colors duration-200 focus-ring resize-y min-h-[120px]" placeholder="Tell us about your project, goals, timeline, and anything else we should know."></textarea></div>
-    <div><label class="block font-body text-sm font-medium text-core-black dark:text-core-white mb-1.5">Attach Files</label><div class="border-2 border-dashed border-stone-200 dark:border-stone-800 rounded-md p-6 text-center cursor-pointer hover:border-stone-400 dark:hover:border-stone-600 transition-colors duration-200" id="drop-zone"><input type="file" name="files" multiple class="hidden" id="file-input" accept=".pdf,.doc,.docx,.jpg,.png,.zip"><svg class="w-8 h-8 text-stone-400 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"/></svg><p class="font-body text-sm text-stone-500 dark:text-stone-400" id="file-label">Drag files here or click to browse</p><p class="font-body text-xs text-stone-400 dark:text-stone-500 mt-1">PDF, DOC, JPG, ZIP (max 10MB each)</p></div><ul id="file-list" class="mt-2 space-y-1"></ul></div>
-    <div class="pt-4"><button type="submit" class="inline-flex items-center gap-2 px-8 h-11 bg-core-black dark:bg-core-white text-core-white dark:text-core-black rounded-md font-body text-sm font-medium hover:bg-stone-800 dark:hover:bg-stone-200 transition-all duration-200 focus-ring disabled:opacity-50" id="submit-btn">Send Inquiry <span aria-hidden="true">\u2192</span></button><div id="form-indicator" class="htmx-indicator ml-4 inline"><span class="font-body text-sm text-stone-400">Sending...</span></div></div>
+    <div><label for="company" class="${labelCls}">Company / Organization</label><input type="text" id="company" name="company" class="${inputCls}" placeholder="Company name"></div>
+    <div class="relative">
+      <label for="project-type" class="${labelCls}">Project Type <span class="text-stone-600" aria-hidden="true">*</span></label>
+      <select id="project-type" name="projectType" required class="${selectCls}">${['Brand Identity', 'Digital Product', 'Art Direction', 'Motion', 'Packaging', 'Other'].map(t => `<option value="${t}">${t}</option>`).join('')}</select>
+      <span class="pointer-events-none absolute right-4 bottom-3.5 text-stone-500">&#8964;</span>
+    </div>
+    <div class="relative">
+      <label for="budget" class="${labelCls}">Budget Range</label>
+      <select id="budget" name="budget" class="${selectCls}">${['Under $5K', '$5K–$15K', '$15K–$50K', '$50K–$100K', '$100K+', 'Prefer not to say'].map(b => `<option value="${b}">${b}</option>`).join('')}</select>
+      <span class="pointer-events-none absolute right-4 bottom-3.5 text-stone-500">&#8964;</span>
+    </div>
+    <div><label for="description" class="${labelCls}">Project Description <span class="text-stone-600" aria-hidden="true">*</span></label><textarea id="description" name="description" rows="5" required class="w-full px-4 py-3 bg-stone-900 border border-stone-800 rounded-lg font-body text-sm text-core-white placeholder-stone-600 focus:border-stone-600 focus:outline-none transition-colors duration-200 resize-y min-h-[130px]" placeholder="Tell us about your project, goals, timeline, and anything else we should know."></textarea></div>
+    <div>
+      <label class="${labelCls}">Attach Files</label>
+      <div class="border border-dashed border-stone-800 rounded-lg p-6 text-center cursor-pointer hover:border-stone-600 transition-colors duration-200" id="drop-zone">
+        <input type="file" name="files" multiple class="hidden" id="file-input" accept=".pdf,.doc,.docx,.jpg,.png,.zip">
+        <svg class="w-7 h-7 text-stone-600 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"/></svg>
+        <p class="font-body text-sm text-stone-500" id="file-label">Drag files here or click to browse</p>
+        <p class="font-body text-xs text-stone-700 mt-1">PDF, DOC, JPG, ZIP (max 10MB each)</p>
+      </div>
+      <ul id="file-list" class="mt-2 space-y-1"></ul>
+    </div>
+    <div class="pt-2"><button type="submit" class="inline-flex items-center gap-2.5 px-8 h-12 bg-core-white text-core-black rounded-lg font-body text-sm font-medium hover:bg-stone-200 transition-all duration-200 focus:outline-none" id="submit-btn">Send Inquiry <span aria-hidden="true">&#8594;</span></button><div id="form-indicator" class="htmx-indicator ml-4 inline"><span class="font-body text-sm text-stone-500">Sending...</span></div></div>
   </form>`;
 }
 
 function renderContactSidebar() {
-  return `<div class="p-6 bg-stone-50 dark:bg-stone-900 rounded-md"><h3 class="font-display text-lg text-core-black dark:text-core-white mb-4">Contact</h3>
-    <div class="space-y-4"><div><p class="font-body text-xs font-medium uppercase tracking-wider text-stone-400 mb-1">Email</p><a href="mailto:hello@graphiccity.in" class="font-body text-sm text-stone-600 dark:text-stone-300 hover:text-core-black dark:hover:text-core-white transition-colors">hello@graphiccity.in</a></div>
-    <div><p class="font-body text-xs font-medium uppercase tracking-wider text-stone-400 mb-1">Phone</p><a href="tel:+1234567890" class="font-body text-sm text-stone-600 dark:text-stone-300 hover:text-core-black dark:hover:text-core-white transition-colors">+1 (234) 567-890</a></div></div></div>
-    <div class="p-6 bg-stone-50 dark:bg-stone-900 rounded-md"><h3 class="font-display text-lg text-core-black dark:text-core-white mb-4">Prefer email?</h3><p class="font-body text-sm text-stone-500 dark:text-stone-400 mb-4">Send us a message directly and we'll respond within 48 hours.</p><a href="mailto:hello@graphiccity.in" class="inline-flex items-center gap-2 text-sm font-body text-core-black dark:text-core-white hover:text-stone-500 dark:hover:text-stone-400 transition-colors">hello@graphiccity.in <span aria-hidden="true">\u2192</span></a></div>
-    <div class="p-6 bg-core-black text-core-white rounded-md"><h3 class="font-display text-lg mb-2">Ready when you are.</h3><p class="font-body text-sm text-stone-400">Every project starts with a conversation. We look forward to hearing from you.</p></div>`;
+  return `
+    <div class="p-6 rounded-xl bg-stone-900 border border-stone-800">
+      <h3 class="font-mono text-xs font-medium uppercase tracking-widest text-stone-500 mb-5">Direct Contact</h3>
+      <div class="space-y-5">
+        <div>
+          <p class="font-mono text-[10px] uppercase tracking-wider text-stone-600 mb-1">Email</p>
+          <a href="mailto:hello@graphiccity.in" class="font-body text-sm text-stone-300 hover:text-white transition-colors">hello@graphiccity.in</a>
+        </div>
+        <div>
+          <p class="font-mono text-[10px] uppercase tracking-wider text-stone-600 mb-1">Studio</p>
+          <p class="font-body text-sm text-stone-400">Pulpally, Wayanad<br>Kerala, India</p>
+        </div>
+        <div>
+          <p class="font-mono text-[10px] uppercase tracking-wider text-stone-600 mb-1">Response time</p>
+          <p class="font-body text-sm text-stone-400">Within 48 hours</p>
+        </div>
+      </div>
+    </div>
+    <div class="p-6 rounded-xl bg-stone-900 border border-stone-800">
+      <h3 class="font-mono text-xs font-medium uppercase tracking-widest text-stone-500 mb-3">What happens next?</h3>
+      <ol class="space-y-3">
+        <li class="flex gap-3 items-start"><span class="font-mono text-xs text-stone-600 mt-0.5 flex-shrink-0">01</span><p class="font-body text-sm text-stone-400">We review your inquiry and reach out within 48 hours.</p></li>
+        <li class="flex gap-3 items-start"><span class="font-mono text-xs text-stone-600 mt-0.5 flex-shrink-0">02</span><p class="font-body text-sm text-stone-400">A discovery call to understand your goals and vision.</p></li>
+        <li class="flex gap-3 items-start"><span class="font-mono text-xs text-stone-600 mt-0.5 flex-shrink-0">03</span><p class="font-body text-sm text-stone-400">A tailored proposal and timeline scoped to your needs.</p></li>
+      </ol>
+    </div>
+    <div class="p-6 rounded-xl border border-stone-800 bg-stone-950">
+      <p class="font-display text-lg text-core-white mb-1">Ready when you are.</p>
+      <p class="font-body text-sm text-stone-500">Every great project starts with a conversation.</p>
+    </div>
+  `;
 }
 
 module.exports = { router, sendPage };
