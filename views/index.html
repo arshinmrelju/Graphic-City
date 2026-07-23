@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GraphicCity — Premier Creative Design Studio & Brand Experience Agency</title>
-  <meta name="description" content="GraphicCity is an elite creative design studio crafting timeless brand identities, digital experiences, motion design, and high-impact visual strategy.">
-  <meta name="keywords" content="design studio, brand identity, UI UX design, graphic design agency, digital experience studio, motion graphics, creative agency, GraphicCity">
+  <meta name="description"
+    content="GraphicCity is an elite creative design studio crafting timeless brand identities, digital experiences, motion design, and high-impact visual strategy.">
+  <meta name="keywords"
+    content="design studio, brand identity, UI UX design, graphic design agency, digital experience studio, motion graphics, creative agency, GraphicCity">
   <meta name="author" content="GraphicCity">
   <meta name="application-name" content="GraphicCity">
   <meta name="apple-mobile-web-app-title" content="GraphicCity">
@@ -20,7 +23,8 @@
   <!-- Open Graph / Facebook -->
   <meta property="og:site_name" content="GraphicCity">
   <meta property="og:title" content="GraphicCity — Premier Creative Design Studio & Brand Experience Agency">
-  <meta property="og:description" content="We craft enduring brand experiences, digital products, and motion designs built with timeless craftsmanship.">
+  <meta property="og:description"
+    content="We craft enduring brand experiences, digital products, and motion designs built with timeless craftsmanship.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://graphiccity.in/">
   <meta property="og:image" content="https://graphiccity.in/public/favicon.svg">
@@ -31,7 +35,8 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@graphiccity">
   <meta name="twitter:title" content="GraphicCity — Premier Creative Design Studio & Brand Experience Agency">
-  <meta name="twitter:description" content="We craft enduring brand experiences, digital products, and motion designs built with timeless craftsmanship.">
+  <meta name="twitter:description"
+    content="We craft enduring brand experiences, digital products, and motion designs built with timeless craftsmanship.">
   <meta name="twitter:image" content="https://graphiccity.in/public/favicon.svg">
 
   <!-- JSON-LD Structured Data (Google Search Rich Results) -->
@@ -85,7 +90,9 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="/public/favicon.svg">
@@ -105,6 +112,7 @@
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-analytics-compat.js"></script>
 </head>
+
 <body class="bg-core-white dark:bg-core-black text-core-black dark:text-core-white font-body">
 
   <!-- Loading screen -->
@@ -118,45 +126,53 @@
   <div id="page-transition" aria-hidden="true"></div>
 
   <!-- HTMX top bar -->
-  <div id="htmx-topbar" aria-hidden="true"><div class="bar"></div></div>
+  <div id="htmx-topbar" aria-hidden="true">
+    <div class="bar"></div>
+  </div>
 
   <!-- Skip link -->
-  <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-core-white focus:text-core-black focus:outline-2 focus:outline-signal-blue focus:rounded-md focus:shadow-md">
+  <a href="#main-content"
+    class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-core-white focus:text-core-black focus:outline-2 focus:outline-signal-blue focus:rounded-md focus:shadow-md">
     Skip to content
   </a>
 
   <!-- Navigation -->
-  <header id="site-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-out" x-data="{ scrolled: false }" @scroll.window="scrolled = window.scrollY > 80">
-    <nav class="flex items-center justify-between h-16 px-6 md:px-8 lg:px-12 transition-all duration-300 ease-out" :class="scrolled ? 'frosted-glass border-b border-stone-200 dark:border-stone-800' : 'bg-transparent'"
-         aria-label="Primary navigation">
+  <header id="site-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-out"
+    x-data="{ scrolled: false }" @scroll.window="scrolled = window.scrollY > 80">
+    <nav class="flex items-center justify-between h-16 px-6 md:px-8 lg:px-12 transition-all duration-300 ease-out"
+      :class="scrolled ? 'frosted-glass border-b border-stone-200 dark:border-stone-800' : 'bg-transparent'"
+      aria-label="Primary navigation">
       <a href="/" class="flex items-center" aria-label="GraphicCity home">
-        <svg width="32" height="16" viewBox="0 0 32 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <rect width="6" height="16" rx="1" fill="currentColor"/>
-          <rect x="9" width="6" height="16" rx="1" fill="currentColor"/>
-          <rect x="18" width="6" height="16" rx="1" fill="currentColor"/>
-          <rect x="27" width="5" height="16" rx="1" fill="currentColor"/>
+        <svg width="32" height="16" viewBox="0 0 32 16" fill="none" xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true">
+          <rect width="6" height="16" rx="1" fill="currentColor" />
+          <rect x="9" width="6" height="16" rx="1" fill="currentColor" />
+          <rect x="18" width="6" height="16" rx="1" fill="currentColor" />
+          <rect x="27" width="5" height="16" rx="1" fill="currentColor" />
         </svg>
       </a>
 
       <div class="hidden md:flex items-center gap-6 lg:gap-8">
-        <a href="/work" class="font-body text-sm text-stone-600 dark:text-stone-400 hover:text-core-black dark:hover:text-core-white transition-colors duration-150 ease-out">Work</a>
-        <a href="/capabilities" class="font-body text-sm text-stone-600 dark:text-stone-400 hover:text-core-black dark:hover:text-core-white transition-colors duration-150 ease-out">Capabilities</a>
-        <a href="/about" class="font-body text-sm text-stone-600 dark:text-stone-400 hover:text-core-black dark:hover:text-core-white transition-colors duration-150 ease-out">About</a>
-        <a href="/journal" class="font-body text-sm text-stone-600 dark:text-stone-400 hover:text-core-black dark:hover:text-core-white transition-colors duration-150 ease-out">Journal</a>
+        <a href="/work"
+          class="font-body text-sm text-stone-600 dark:text-stone-400 hover:text-core-black dark:hover:text-core-white transition-colors duration-150 ease-out">Work</a>
+        <a href="/capabilities"
+          class="font-body text-sm text-stone-600 dark:text-stone-400 hover:text-core-black dark:hover:text-core-white transition-colors duration-150 ease-out">Capabilities</a>
+        <a href="/about"
+          class="font-body text-sm text-stone-600 dark:text-stone-400 hover:text-core-black dark:hover:text-core-white transition-colors duration-150 ease-out">About</a>
+        <a href="/journal"
+          class="font-body text-sm text-stone-600 dark:text-stone-400 hover:text-core-black dark:hover:text-core-white transition-colors duration-150 ease-out">Journal</a>
       </div>
 
       <div class="flex items-center gap-4">
         <a href="/start"
-           class="hidden sm:inline-flex items-center h-9 px-4 bg-core-black dark:bg-core-white text-core-white dark:text-core-black font-body font-medium text-sm rounded-md hover:bg-stone-800 dark:hover:bg-stone-200 transition-all duration-150 ease-out focus-ring"
-           :class="scrolled ? '' : 'bg-core-white text-core-black hover:bg-stone-100'">
+          class="hidden sm:inline-flex items-center h-9 px-4 bg-core-black dark:bg-core-white text-core-white dark:text-core-black font-body font-medium text-sm rounded-md hover:bg-stone-800 dark:hover:bg-stone-200 transition-all duration-150 ease-out focus-ring"
+          :class="scrolled ? '' : 'bg-core-white text-core-black hover:bg-stone-100'">
           Start a Project
         </a>
 
         <button id="menu-toggle"
-                class="font-body text-xs font-medium tracking-wider uppercase text-stone-500 dark:text-stone-400 hover:text-core-black dark:hover:text-core-white transition-colors duration-150 ease-out focus-ring min-h-[44px] min-w-[44px] flex items-center justify-center"
-                aria-label="Open menu"
-                aria-haspopup="true"
-                aria-controls="menu-overlay">
+          class="font-body text-xs font-medium tracking-wider uppercase text-stone-500 dark:text-stone-400 hover:text-core-black dark:hover:text-core-white transition-colors duration-150 ease-out focus-ring min-h-[44px] min-w-[44px] flex items-center justify-center"
+          aria-label="Open menu" aria-haspopup="true" aria-controls="menu-overlay">
           Menu
         </button>
       </div>
@@ -165,33 +181,41 @@
 
   <!-- Menu Overlay -->
   <div id="menu-overlay"
-       class="fixed inset-0 z-[60] bg-core-black/98 backdrop-blur-[40px] transition-all duration-300 ease-out opacity-0 scale-95 pointer-events-none"
-       role="dialog"
-       aria-modal="true"
-       aria-hidden="true"
-       aria-label="Site navigation menu">
+    class="fixed inset-0 z-[60] bg-core-black/98 backdrop-blur-[40px] transition-all duration-300 ease-out opacity-0 scale-95 pointer-events-none"
+    role="dialog" aria-modal="true" aria-hidden="true" aria-label="Site navigation menu">
 
-    <button class="absolute top-4 right-4 md:top-6 md:right-8 lg:top-8 lg:right-12 font-body text-xs font-medium tracking-wider uppercase text-stone-400 hover:text-core-white transition-colors duration-150 ease-out focus-ring menu-close-btn min-h-[44px] flex items-center px-3"
-            aria-label="Close menu">
+    <button
+      class="absolute top-4 right-4 md:top-6 md:right-8 lg:top-8 lg:right-12 font-body text-xs font-medium tracking-wider uppercase text-stone-400 hover:text-core-white transition-colors duration-150 ease-out focus-ring menu-close-btn min-h-[44px] flex items-center px-3"
+      aria-label="Close menu">
       Close
     </button>
 
     <div class="flex flex-col h-full px-6 py-24">
       <nav aria-label="Site navigation" class="text-center flex-1 flex flex-col items-center justify-center">
-        <a href="/work" class="block font-display text-4xl md:text-5xl text-core-white hover:text-stone-300 transition-colors duration-150 ease-out py-3 focus-ring min-h-[44px] flex items-center justify-center">Work</a>
-        <a href="/capabilities" class="block font-display text-4xl md:text-5xl text-core-white hover:text-stone-300 transition-colors duration-150 ease-out py-3 focus-ring min-h-[44px] flex items-center justify-center">Capabilities</a>
-        <a href="/about" class="block font-display text-4xl md:text-5xl text-core-white hover:text-stone-300 transition-colors duration-150 ease-out py-3 focus-ring min-h-[44px] flex items-center justify-center">About</a>
-        <a href="/journal" class="block font-display text-4xl md:text-5xl text-core-white hover:text-stone-300 transition-colors duration-150 ease-out py-3 focus-ring min-h-[44px] flex items-center justify-center">Journal</a>
+        <a href="/work"
+          class="block font-display text-4xl md:text-5xl text-core-white hover:text-stone-300 transition-colors duration-150 ease-out py-3 focus-ring min-h-[44px] flex items-center justify-center">Work</a>
+        <a href="/capabilities"
+          class="block font-display text-4xl md:text-5xl text-core-white hover:text-stone-300 transition-colors duration-150 ease-out py-3 focus-ring min-h-[44px] flex items-center justify-center">Capabilities</a>
+        <a href="/about"
+          class="block font-display text-4xl md:text-5xl text-core-white hover:text-stone-300 transition-colors duration-150 ease-out py-3 focus-ring min-h-[44px] flex items-center justify-center">About</a>
+        <a href="/journal"
+          class="block font-display text-4xl md:text-5xl text-core-white hover:text-stone-300 transition-colors duration-150 ease-out py-3 focus-ring min-h-[44px] flex items-center justify-center">Journal</a>
         <hr class="w-12 mx-auto my-8 border-stone-700">
-        <a href="/start" class="inline-flex items-center h-12 px-8 bg-core-white text-core-black font-body font-medium text-base rounded-md hover:bg-stone-200 transition-all duration-150 ease-out focus-ring">Start a Project</a>
+        <a href="/start"
+          class="inline-flex items-center h-12 px-8 bg-core-white text-core-black font-body font-medium text-base rounded-md hover:bg-stone-200 transition-all duration-150 ease-out focus-ring">Start
+          a Project</a>
       </nav>
 
       <div class="flex flex-col md:flex-row items-center justify-between gap-4 max-w-4xl mx-auto w-full">
-        <a href="mailto:hello@graphiccity.studio" class="font-body text-sm text-stone-400 hover:text-core-white transition-colors duration-150 ease-out focus-ring min-h-[44px] flex items-center">hello@graphiccity.studio</a>
+        <a href="mailto:hello@graphiccity.studio"
+          class="font-body text-sm text-stone-400 hover:text-core-white transition-colors duration-150 ease-out focus-ring min-h-[44px] flex items-center">hello@graphiccity.studio</a>
         <div class="flex items-center gap-6">
-          <a href="#" class="font-body text-xs font-medium tracking-wider uppercase text-stone-500 hover:text-core-white transition-colors duration-150 ease-out focus-ring min-h-[44px] flex items-center">LinkedIn</a>
-          <a href="#" class="font-body text-xs font-medium tracking-wider uppercase text-stone-500 hover:text-core-white transition-colors duration-150 ease-out focus-ring min-h-[44px] flex items-center">Instagram</a>
-          <a href="#" class="font-body text-xs font-medium tracking-wider uppercase text-stone-500 hover:text-core-white transition-colors duration-150 ease-out focus-ring min-h-[44px] flex items-center">Twitter</a>
+          <a href="#"
+            class="font-body text-xs font-medium tracking-wider uppercase text-stone-500 hover:text-core-white transition-colors duration-150 ease-out focus-ring min-h-[44px] flex items-center">LinkedIn</a>
+          <a href="#"
+            class="font-body text-xs font-medium tracking-wider uppercase text-stone-500 hover:text-core-white transition-colors duration-150 ease-out focus-ring min-h-[44px] flex items-center">Instagram</a>
+          <a href="#"
+            class="font-body text-xs font-medium tracking-wider uppercase text-stone-500 hover:text-core-white transition-colors duration-150 ease-out focus-ring min-h-[44px] flex items-center">Twitter</a>
         </div>
       </div>
       <p class="text-center mt-6 font-body text-xs text-stone-600">&copy; 2026 GraphicCity. All rights reserved.</p>
@@ -204,11 +228,11 @@
     <!-- ============================================ -->
     <!-- ACT I: THE THRESHOLD                         -->
     <!-- ============================================ -->
-    <section id="act-i" class="relative min-h-screen bg-core-black flex items-center justify-center scroll-snap-child overflow-hidden"
-             aria-label="Introduction">
+    <section id="act-i"
+      class="relative min-h-screen bg-core-black flex items-center justify-center scroll-snap-child overflow-hidden"
+      aria-label="Introduction">
 
-      <div class="relative z-10 text-center"
-           x-data="{
+      <div class="relative z-10 text-center" x-data="{
              words: ['Craft.', 'Precision.', 'Restraint.', 'Timeless.'],
              currentIndex: 0,
              get currentWord() { return this.words[this.currentIndex] },
@@ -217,32 +241,57 @@
                  this.currentIndex = (this.currentIndex + 1) % this.words.length;
                }, 3500);
              }
-           }"
-           role="status"
-           aria-live="polite"
-           aria-atomic="true">
+           }" role="status" aria-live="polite" aria-atomic="true">
 
         <span class="block font-display font-light text-[clamp(3.5rem,12vw,8rem)] text-core-white/85"
-              x-text="currentWord"
-              x-transition:enter.duration.800ms
-              x-transition:leave.duration.800ms"
-              :key="currentIndex">
+          x-text="currentWord" x-transition:enter.duration.800ms x-transition:leave.duration.800ms" :key="currentIndex">
         </span>
 
         <div class="mt-8 flex items-center justify-center gap-1.5" aria-hidden="true">
           <template x-for="(_, idx) in words" :key="idx">
             <span class="block w-1.5 h-1.5 rounded-full transition-all duration-300"
-                  :class="idx === currentIndex ? 'bg-core-white/60 w-3' : 'bg-core-white/20'">
+              :class="idx === currentIndex ? 'bg-core-white/60 w-3' : 'bg-core-white/20'">
             </span>
           </template>
+        </div>
+
+        <!-- Service selector pills -->
+        <div class="mt-10 flex flex-wrap items-center justify-center gap-2 px-4" aria-label="Our services">
+          <a href="/capabilities#brand-identity"
+            class="service-pill group inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-white/10 text-stone-400 hover:text-white hover:border-white/30 hover:bg-white/5 font-body text-xs tracking-wide transition-all duration-300 backdrop-blur-sm">
+            <span class="w-1 h-1 rounded-full bg-stone-600 group-hover:bg-white transition-colors"></span>
+            Brand Identity
+          </a>
+          <a href="/capabilities#ui-ux"
+            class="service-pill group inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-white/10 text-stone-400 hover:text-white hover:border-white/30 hover:bg-white/5 font-body text-xs tracking-wide transition-all duration-300 backdrop-blur-sm">
+            <span class="w-1 h-1 rounded-full bg-stone-600 group-hover:bg-white transition-colors"></span>
+            UI / UX Design
+          </a>
+          <a href="/capabilities#motion"
+            class="service-pill group inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-white/10 text-stone-400 hover:text-white hover:border-white/30 hover:bg-white/5 font-body text-xs tracking-wide transition-all duration-300 backdrop-blur-sm">
+            <span class="w-1 h-1 rounded-full bg-stone-600 group-hover:bg-white transition-colors"></span>
+            Motion Design
+          </a>
+          <a href="/capabilities#strategy"
+            class="service-pill group inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-white/10 text-stone-400 hover:text-white hover:border-white/30 hover:bg-white/5 font-body text-xs tracking-wide transition-all duration-300 backdrop-blur-sm">
+            <span class="w-1 h-1 rounded-full bg-stone-600 group-hover:bg-white transition-colors"></span>
+            Strategy
+          </a>
+          <a href="/capabilities#print"
+            class="service-pill group inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-white/10 text-stone-400 hover:text-white hover:border-white/30 hover:bg-white/5 font-body text-xs tracking-wide transition-all duration-300 backdrop-blur-sm">
+            <span class="w-1 h-1 rounded-full bg-stone-600 group-hover:bg-white transition-colors"></span>
+            Print & Packaging
+          </a>
         </div>
       </div>
 
       <div class="scroll-affordance" aria-hidden="true"></div>
 
       <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
-        <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-core-white/[0.015] rounded-full blur-[80px] animate-float"></div>
-        <div class="absolute bottom-1/3 right-1/4 w-48 h-48 bg-core-white/[0.01] rounded-full blur-[60px] animate-float" style="animation-delay: -3s;"></div>
+        <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-core-white/[0.015] rounded-full blur-[80px] animate-float">
+        </div>
+        <div class="absolute bottom-1/3 right-1/4 w-48 h-48 bg-core-white/[0.01] rounded-full blur-[60px] animate-float"
+          style="animation-delay: -3s;"></div>
       </div>
     </section>
 
@@ -251,11 +300,19 @@
     <!-- ============================================ -->
     <section class="py-16 md:py-24 lg:py-32 px-6 md:px-12 lg:px-20 bg-stone-50 dark:bg-stone-950" data-reveal>
       <div class="max-w-5xl mx-auto w-full">
-        <p class="font-body text-xs font-medium tracking-wider uppercase text-stone-400 dark:text-stone-500 mb-4 md:mb-6 reveal-item">Our Belief</p>
+        <p
+          class="font-body text-xs font-medium tracking-wider uppercase text-stone-400 dark:text-stone-500 mb-4 md:mb-6 reveal-item">
+          Our Belief</p>
         <div class="space-y-6 md:space-y-8 reveal-item">
-          <p class="font-display text-xl sm:text-h3 md:text-h1 font-light text-core-black dark:text-core-white leading-tight -tracking-tight">Design is not decoration.</p>
-          <p class="font-display text-xl sm:text-h3 md:text-h1 font-light text-core-black dark:text-core-white leading-tight -tracking-tight">It is a conversation between what something wants to be and how it is perceived.</p>
-          <p class="font-display text-xl sm:text-h3 md:text-h1 font-light text-core-black dark:text-core-white leading-tight -tracking-tight">We choose clarity over cleverness. Substance over spectacle. Intent over impulse.</p>
+          <p
+            class="font-display text-xl sm:text-h3 md:text-h1 font-light text-core-black dark:text-core-white leading-tight -tracking-tight">
+            Design is not decoration.</p>
+          <p
+            class="font-display text-xl sm:text-h3 md:text-h1 font-light text-core-black dark:text-core-white leading-tight -tracking-tight">
+            It is a conversation between what something wants to be and how it is perceived.</p>
+          <p
+            class="font-display text-xl sm:text-h3 md:text-h1 font-light text-core-black dark:text-core-white leading-tight -tracking-tight">
+            We choose clarity over cleverness. Substance over spectacle. Intent over impulse.</p>
         </div>
       </div>
     </section>
@@ -265,11 +322,19 @@
     <!-- ============================================ -->
     <section class="py-16 md:py-24 lg:py-32 px-6 md:px-12 lg:px-20 bg-core-white dark:bg-core-black" data-reveal>
       <div class="max-w-7xl mx-auto w-full">
-        <p class="font-body text-xs font-medium tracking-wider uppercase text-stone-400 dark:text-stone-500 mb-4 reveal-item">Selected Work</p>
-        <h2 class="font-display font-light text-h2 md:text-display-sm text-core-black dark:text-core-white -tracking-tight mb-6 reveal-item">What we&rsquo;ve made.</h2>
-        <p class="font-body text-base md:text-lg text-stone-500 dark:text-stone-400 max-w-xl text-balance mb-12 reveal-item">A curated selection of projects we&rsquo;re proudest of.</p>
+        <p
+          class="font-body text-xs font-medium tracking-wider uppercase text-stone-400 dark:text-stone-500 mb-4 reveal-item">
+          Selected Work</p>
+        <h2
+          class="font-display font-light text-h2 md:text-display-sm text-core-black dark:text-core-white -tracking-tight mb-6 reveal-item">
+          What we&rsquo;ve made.</h2>
+        <p
+          class="font-body text-base md:text-lg text-stone-500 dark:text-stone-400 max-w-xl text-balance mb-12 reveal-item">
+          A curated selection of projects we&rsquo;re proudest of.</p>
         <div class="reveal-item">
-          <a href="/work" class="inline-flex items-center gap-2 h-11 px-6 bg-core-black dark:bg-core-white text-core-white dark:text-core-black rounded-md font-body text-sm font-medium hover:bg-stone-800 dark:hover:bg-stone-200 transition-all">View all projects <span aria-hidden="true">&rarr;</span></a>
+          <a href="/work"
+            class="inline-flex items-center gap-2 h-11 px-6 bg-core-black dark:bg-core-white text-core-white dark:text-core-black rounded-md font-body text-sm font-medium hover:bg-stone-800 dark:hover:bg-stone-200 transition-all">View
+            all projects <span aria-hidden="true">&rarr;</span></a>
         </div>
       </div>
     </section>
@@ -277,15 +342,18 @@
     <!-- ============================================ -->
     <!-- ACT IV & V: NEW GENERATION HORIZONTAL PIN SCROLL (Swipe down left side-scrolling) -->
     <!-- ============================================ -->
-    <section id="horizontal-pin-section" class="horizontal-pin-section bg-core-black text-core-white relative" aria-label="Process and Impact Horizontal Showcase">
+    <section id="horizontal-pin-section" class="horizontal-pin-section bg-core-black text-core-white relative"
+      aria-label="Process and Impact Horizontal Showcase">
       <div id="horizontal-sticky-viewport" class="horizontal-sticky-viewport border-y border-stone-800/80">
-        
+
         <!-- Header & Nav Bar -->
-        <div class="px-4 sm:px-6 md:px-12 lg:px-20 pt-2 sm:pt-4 pb-2 z-20 flex flex-col md:flex-row md:items-end justify-between gap-3 sm:gap-4">
+        <div
+          class="px-4 sm:px-6 md:px-12 lg:px-20 pt-2 sm:pt-4 pb-2 z-20 flex flex-col md:flex-row md:items-end justify-between gap-3 sm:gap-4">
           <div>
             <div class="flex items-center gap-2 mb-1 sm:mb-2">
               <span class="inline-block w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
-              <p class="font-body text-[11px] sm:text-xs font-semibold tracking-widest uppercase text-stone-400">Next-Gen Method & Impact</p>
+              <p class="font-body text-[11px] sm:text-xs font-semibold tracking-widest uppercase text-stone-400">
+                Next-Gen Method & Impact</p>
             </div>
             <h2 class="font-display font-light text-xl sm:text-2xl md:text-4xl text-core-white -tracking-tight">
               A process built for partnership.
@@ -294,19 +362,33 @@
 
           <!-- Step navigation pills & controls -->
           <div class="flex items-center gap-3 max-w-full">
-            <div class="flex items-center gap-1.5 p-1 bg-stone-900/90 backdrop-blur-md rounded-full border border-stone-800 overflow-x-auto scrollbar-hide max-w-full">
-              <button class="horizontal-step-pill active flex-shrink-0 whitespace-nowrap px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-medium border border-white/70 bg-white/15 text-white transition-all">01 Discovery</button>
-              <button class="horizontal-step-pill flex-shrink-0 whitespace-nowrap px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-medium border border-white/10 text-stone-400 hover:text-white transition-all opacity-40">02 Strategy</button>
-              <button class="horizontal-step-pill flex-shrink-0 whitespace-nowrap px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-medium border border-white/10 text-stone-400 hover:text-white transition-all opacity-40">03 Design</button>
-              <button class="horizontal-step-pill flex-shrink-0 whitespace-nowrap px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-medium border border-white/10 text-stone-400 hover:text-white transition-all opacity-40">04 Deliver</button>
+            <div
+              class="flex items-center gap-1.5 p-1 bg-stone-900/90 backdrop-blur-md rounded-full border border-stone-800 overflow-x-auto scrollbar-hide max-w-full">
+              <button
+                class="horizontal-step-pill active flex-shrink-0 whitespace-nowrap px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-medium border border-white/70 bg-white/15 text-white transition-all">01
+                Discovery</button>
+              <button
+                class="horizontal-step-pill flex-shrink-0 whitespace-nowrap px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-medium border border-white/10 text-stone-400 hover:text-white transition-all opacity-40">02
+                Strategy</button>
+              <button
+                class="horizontal-step-pill flex-shrink-0 whitespace-nowrap px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-medium border border-white/10 text-stone-400 hover:text-white transition-all opacity-40">03
+                Design</button>
+              <button
+                class="horizontal-step-pill flex-shrink-0 whitespace-nowrap px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-medium border border-white/10 text-stone-400 hover:text-white transition-all opacity-40">04
+                Deliver</button>
             </div>
 
             <div class="hidden sm:flex items-center gap-2 pl-2 flex-shrink-0">
-              <span id="horizontal-step-counter" class="font-mono text-xs text-stone-400 w-12 text-center">01 / 04</span>
-              <button id="horizontal-prev-btn" class="w-8 h-8 rounded-full border border-stone-700 flex items-center justify-center text-stone-300 hover:text-white hover:border-stone-500 transition-colors" aria-label="Previous step">
+              <span id="horizontal-step-counter" class="font-mono text-xs text-stone-400 w-12 text-center">01 /
+                04</span>
+              <button id="horizontal-prev-btn"
+                class="w-8 h-8 rounded-full border border-stone-700 flex items-center justify-center text-stone-300 hover:text-white hover:border-stone-500 transition-colors"
+                aria-label="Previous step">
                 &larr;
               </button>
-              <button id="horizontal-next-btn" class="w-8 h-8 rounded-full border border-stone-700 flex items-center justify-center text-stone-300 hover:text-white hover:border-stone-500 transition-colors" aria-label="Next step">
+              <button id="horizontal-next-btn"
+                class="w-8 h-8 rounded-full border border-stone-700 flex items-center justify-center text-stone-300 hover:text-white hover:border-stone-500 transition-colors"
+                aria-label="Next step">
                 &rarr;
               </button>
             </div>
@@ -315,7 +397,8 @@
 
         <!-- Real-time scroll progress bar -->
         <div class="w-full bg-stone-900 h-[2px] relative z-20 my-1 sm:my-2">
-          <div id="horizontal-progress-bar" class="bg-gradient-to-r from-blue-500 via-indigo-400 to-white h-full w-0 transition-all duration-75"></div>
+          <div id="horizontal-progress-bar"
+            class="bg-gradient-to-r from-blue-500 via-indigo-400 to-white h-full w-0 transition-all duration-75"></div>
         </div>
 
         <!-- Cards Track Container -->
@@ -323,96 +406,128 @@
           <div id="horizontal-track" class="horizontal-track">
 
             <!-- Card 01: Discovery -->
-            <div class="horizontal-card p-5 sm:p-8 md:p-12 bg-gradient-to-br from-stone-900/90 via-stone-950 to-black border border-stone-800/90 shadow-2xl backdrop-blur-xl flex flex-col justify-between group">
+            <div
+              class="horizontal-card p-5 sm:p-8 md:p-12 bg-gradient-to-br from-stone-900/90 via-stone-950 to-black border border-stone-800/90 shadow-2xl backdrop-blur-xl flex flex-col justify-between group">
               <div>
                 <div class="flex items-center justify-between mb-4 sm:mb-8">
-                  <span class="px-2.5 py-0.5 sm:px-3 sm:py-1 bg-stone-800/80 border border-stone-700/60 rounded-full font-mono text-[10px] sm:text-xs text-stone-300 tracking-wider">PHASE 01</span>
-                  <span class="font-display text-4xl sm:text-6xl md:text-7xl font-light text-stone-800 group-hover:text-stone-700 transition-colors">01</span>
+                  <span
+                    class="px-2.5 py-0.5 sm:px-3 sm:py-1 bg-stone-800/80 border border-stone-700/60 rounded-full font-mono text-[10px] sm:text-xs text-stone-300 tracking-wider">PHASE
+                    01</span>
+                  <span
+                    class="font-display text-4xl sm:text-6xl md:text-7xl font-light text-stone-800 group-hover:text-stone-700 transition-colors">01</span>
                 </div>
-                <h3 class="font-display font-light text-xl sm:text-3xl md:text-4xl text-core-white mb-2 sm:mb-4">Discovery & Insight</h3>
+                <h3 class="font-display font-light text-xl sm:text-3xl md:text-4xl text-core-white mb-2 sm:mb-4">
+                  Discovery & Insight</h3>
                 <p class="font-body text-xs sm:text-base md:text-lg text-stone-400 leading-relaxed mb-4 sm:mb-8">
-                  We learn your world—your audience, your business goals, and competitive landscape. Before crafting a single pixel, we listen deeply.
+                  We learn your world—your audience, your business goals, and competitive landscape. Before crafting a
+                  single pixel, we listen deeply.
                 </p>
               </div>
               <div class="grid grid-cols-2 gap-2 sm:gap-4 pt-3 sm:pt-6 border-t border-stone-800/80">
                 <div class="p-2.5 sm:p-3 rounded-lg bg-stone-900/60 border border-stone-800/40">
-                  <p class="font-mono text-[9px] sm:text-xs text-stone-500 uppercase tracking-wider mb-0.5 sm:mb-1">01 / AUDIT</p>
+                  <p class="font-mono text-[9px] sm:text-xs text-stone-500 uppercase tracking-wider mb-0.5 sm:mb-1">01 /
+                    AUDIT</p>
                   <p class="font-body text-xs sm:text-sm text-stone-300">Stakeholder Interviews</p>
                 </div>
                 <div class="p-2.5 sm:p-3 rounded-lg bg-stone-900/60 border border-stone-800/40">
-                  <p class="font-mono text-[9px] sm:text-xs text-stone-500 uppercase tracking-wider mb-0.5 sm:mb-1">02 / ANALYSIS</p>
+                  <p class="font-mono text-[9px] sm:text-xs text-stone-500 uppercase tracking-wider mb-0.5 sm:mb-1">02 /
+                    ANALYSIS</p>
                   <p class="font-body text-xs sm:text-sm text-stone-300">Market Audit</p>
                 </div>
               </div>
             </div>
 
             <!-- Card 02: Strategy -->
-            <div class="horizontal-card p-5 sm:p-8 md:p-12 bg-gradient-to-br from-stone-900/90 via-stone-950 to-black border border-stone-800/90 shadow-2xl backdrop-blur-xl flex flex-col justify-between group">
+            <div
+              class="horizontal-card p-5 sm:p-8 md:p-12 bg-gradient-to-br from-stone-900/90 via-stone-950 to-black border border-stone-800/90 shadow-2xl backdrop-blur-xl flex flex-col justify-between group">
               <div>
                 <div class="flex items-center justify-between mb-4 sm:mb-8">
-                  <span class="px-2.5 py-0.5 sm:px-3 sm:py-1 bg-stone-800/80 border border-stone-700/60 rounded-full font-mono text-[10px] sm:text-xs text-stone-300 tracking-wider">PHASE 02</span>
-                  <span class="font-display text-4xl sm:text-6xl md:text-7xl font-light text-stone-800 group-hover:text-stone-700 transition-colors">02</span>
+                  <span
+                    class="px-2.5 py-0.5 sm:px-3 sm:py-1 bg-stone-800/80 border border-stone-700/60 rounded-full font-mono text-[10px] sm:text-xs text-stone-300 tracking-wider">PHASE
+                    02</span>
+                  <span
+                    class="font-display text-4xl sm:text-6xl md:text-7xl font-light text-stone-800 group-hover:text-stone-700 transition-colors">02</span>
                 </div>
-                <h3 class="font-display font-light text-xl sm:text-3xl md:text-4xl text-core-white mb-2 sm:mb-4">Strategy & Direction</h3>
+                <h3 class="font-display font-light text-xl sm:text-3xl md:text-4xl text-core-white mb-2 sm:mb-4">
+                  Strategy & Direction</h3>
                 <p class="font-body text-xs sm:text-base md:text-lg text-stone-400 leading-relaxed mb-4 sm:mb-8">
-                  We define the path forward. Creating a clear strategic foundation, brand positioning, and visual architecture built on real insight.
+                  We define the path forward. Creating a clear strategic foundation, brand positioning, and visual
+                  architecture built on real insight.
                 </p>
               </div>
               <div class="grid grid-cols-2 gap-2 sm:gap-4 pt-3 sm:pt-6 border-t border-stone-800/80">
                 <div class="p-2.5 sm:p-3 rounded-lg bg-stone-900/60 border border-stone-800/40">
-                  <p class="font-mono text-[9px] sm:text-xs text-stone-500 uppercase tracking-wider mb-0.5 sm:mb-1">01 / POSITIONING</p>
+                  <p class="font-mono text-[9px] sm:text-xs text-stone-500 uppercase tracking-wider mb-0.5 sm:mb-1">01 /
+                    POSITIONING</p>
                   <p class="font-body text-xs sm:text-sm text-stone-300">Brand Architecture</p>
                 </div>
                 <div class="p-2.5 sm:p-3 rounded-lg bg-stone-900/60 border border-stone-800/40">
-                  <p class="font-mono text-[9px] sm:text-xs text-stone-500 uppercase tracking-wider mb-0.5 sm:mb-1">02 / MESSAGING</p>
+                  <p class="font-mono text-[9px] sm:text-xs text-stone-500 uppercase tracking-wider mb-0.5 sm:mb-1">02 /
+                    MESSAGING</p>
                   <p class="font-body text-xs sm:text-sm text-stone-300">Core Value Proposition</p>
                 </div>
               </div>
             </div>
 
             <!-- Card 03: Design -->
-            <div class="horizontal-card p-5 sm:p-8 md:p-12 bg-gradient-to-br from-stone-900/90 via-stone-950 to-black border border-stone-800/90 shadow-2xl backdrop-blur-xl flex flex-col justify-between group">
+            <div
+              class="horizontal-card p-5 sm:p-8 md:p-12 bg-gradient-to-br from-stone-900/90 via-stone-950 to-black border border-stone-800/90 shadow-2xl backdrop-blur-xl flex flex-col justify-between group">
               <div>
                 <div class="flex items-center justify-between mb-4 sm:mb-8">
-                  <span class="px-2.5 py-0.5 sm:px-3 sm:py-1 bg-stone-800/80 border border-stone-700/60 rounded-full font-mono text-[10px] sm:text-xs text-stone-300 tracking-wider">PHASE 03</span>
-                  <span class="font-display text-4xl sm:text-6xl md:text-7xl font-light text-stone-800 group-hover:text-stone-700 transition-colors">03</span>
+                  <span
+                    class="px-2.5 py-0.5 sm:px-3 sm:py-1 bg-stone-800/80 border border-stone-700/60 rounded-full font-mono text-[10px] sm:text-xs text-stone-300 tracking-wider">PHASE
+                    03</span>
+                  <span
+                    class="font-display text-4xl sm:text-6xl md:text-7xl font-light text-stone-800 group-hover:text-stone-700 transition-colors">03</span>
                 </div>
-                <h3 class="font-display font-light text-xl sm:text-3xl md:text-4xl text-core-white mb-2 sm:mb-4">Design & Execution</h3>
+                <h3 class="font-display font-light text-xl sm:text-3xl md:text-4xl text-core-white mb-2 sm:mb-4">Design
+                  & Execution</h3>
                 <p class="font-body text-xs sm:text-base md:text-lg text-stone-400 leading-relaxed mb-4 sm:mb-8">
-                  We craft every element with intention. Rigorous critique, relentless reduction, and meticulous typography to arrive at the inevitable.
+                  We craft every element with intention. Rigorous critique, relentless reduction, and meticulous
+                  typography to arrive at the inevitable.
                 </p>
               </div>
               <div class="grid grid-cols-2 gap-2 sm:gap-4 pt-3 sm:pt-6 border-t border-stone-800/80">
                 <div class="p-2.5 sm:p-3 rounded-lg bg-stone-900/60 border border-stone-800/40">
-                  <p class="font-mono text-[9px] sm:text-xs text-stone-500 uppercase tracking-wider mb-0.5 sm:mb-1">01 / IDENTITY</p>
+                  <p class="font-mono text-[9px] sm:text-xs text-stone-500 uppercase tracking-wider mb-0.5 sm:mb-1">01 /
+                    IDENTITY</p>
                   <p class="font-body text-xs sm:text-sm text-stone-300">Visual Systems</p>
                 </div>
                 <div class="p-2.5 sm:p-3 rounded-lg bg-stone-900/60 border border-stone-800/40">
-                  <p class="font-mono text-[9px] sm:text-xs text-stone-500 uppercase tracking-wider mb-0.5 sm:mb-1">02 / INTERFACE</p>
+                  <p class="font-mono text-[9px] sm:text-xs text-stone-500 uppercase tracking-wider mb-0.5 sm:mb-1">02 /
+                    INTERFACE</p>
                   <p class="font-body text-xs sm:text-sm text-stone-300">Digital Design</p>
                 </div>
               </div>
             </div>
 
             <!-- Card 04: Deliver -->
-            <div class="horizontal-card p-5 sm:p-8 md:p-12 bg-gradient-to-br from-stone-900/90 via-stone-950 to-black border border-stone-800/90 shadow-2xl backdrop-blur-xl flex flex-col justify-between group">
+            <div
+              class="horizontal-card p-5 sm:p-8 md:p-12 bg-gradient-to-br from-stone-900/90 via-stone-950 to-black border border-stone-800/90 shadow-2xl backdrop-blur-xl flex flex-col justify-between group">
               <div>
                 <div class="flex items-center justify-between mb-4 sm:mb-8">
-                  <span class="px-2.5 py-0.5 sm:px-3 sm:py-1 bg-stone-800/80 border border-stone-700/60 rounded-full font-mono text-[10px] sm:text-xs text-stone-300 tracking-wider">PHASE 04</span>
-                  <span class="font-display text-4xl sm:text-6xl md:text-7xl font-light text-stone-800 group-hover:text-stone-700 transition-colors">04</span>
+                  <span
+                    class="px-2.5 py-0.5 sm:px-3 sm:py-1 bg-stone-800/80 border border-stone-700/60 rounded-full font-mono text-[10px] sm:text-xs text-stone-300 tracking-wider">PHASE
+                    04</span>
+                  <span
+                    class="font-display text-4xl sm:text-6xl md:text-7xl font-light text-stone-800 group-hover:text-stone-700 transition-colors">04</span>
                 </div>
-                <h3 class="font-display font-light text-xl sm:text-3xl md:text-4xl text-core-white mb-2 sm:mb-4">Deliver & Deploy</h3>
+                <h3 class="font-display font-light text-xl sm:text-3xl md:text-4xl text-core-white mb-2 sm:mb-4">Deliver
+                  & Deploy</h3>
                 <p class="font-body text-xs sm:text-base md:text-lg text-stone-400 leading-relaxed mb-4 sm:mb-8">
-                  We empower your team with comprehensive design tokens, interactive component systems, brand guidelines, and production assets.
+                  We empower your team with comprehensive design tokens, interactive component systems, brand
+                  guidelines, and production assets.
                 </p>
               </div>
               <div class="grid grid-cols-2 gap-2 sm:gap-4 pt-3 sm:pt-6 border-t border-stone-800/80">
                 <div class="p-2.5 sm:p-3 rounded-lg bg-stone-900/60 border border-stone-800/40">
-                  <p class="font-mono text-[9px] sm:text-xs text-stone-500 uppercase tracking-wider mb-0.5 sm:mb-1">01 / GUIDELINES</p>
+                  <p class="font-mono text-[9px] sm:text-xs text-stone-500 uppercase tracking-wider mb-0.5 sm:mb-1">01 /
+                    GUIDELINES</p>
                   <p class="font-body text-xs sm:text-sm text-stone-300">Design Systems</p>
                 </div>
                 <div class="p-2.5 sm:p-3 rounded-lg bg-stone-900/60 border border-stone-800/40">
-                  <p class="font-mono text-[9px] sm:text-xs text-stone-500 uppercase tracking-wider mb-0.5 sm:mb-1">02 / ASSETS</p>
+                  <p class="font-mono text-[9px] sm:text-xs text-stone-500 uppercase tracking-wider mb-0.5 sm:mb-1">02 /
+                    ASSETS</p>
                   <p class="font-body text-xs sm:text-sm text-stone-300">Production Code</p>
                 </div>
               </div>
@@ -422,7 +537,8 @@
         </div>
 
         <!-- Footer indicator bar inside pinned section -->
-        <div class="px-4 sm:px-6 md:px-12 lg:px-20 pt-1 sm:pt-2 flex items-center justify-between text-[10px] sm:text-xs text-stone-500 font-mono">
+        <div
+          class="px-4 sm:px-6 md:px-12 lg:px-20 pt-1 sm:pt-2 flex items-center justify-between text-[10px] sm:text-xs text-stone-500 font-mono">
           <span>&darr; Swipe down to scroll left</span>
           <span>GraphicCity &copy; 2026</span>
         </div>
@@ -435,35 +551,86 @@
     <!-- ============================================ -->
     <section class="min-h-screen flex items-center px-6 md:px-12 lg:px-20 bg-core-black" data-reveal>
       <div class="max-w-4xl mx-auto text-center w-full">
-        <p class="font-body text-xs font-medium tracking-wider uppercase text-stone-500 mb-6 reveal-item">Start a Project</p>
-        <h2 class="font-display font-light text-3xl sm:text-h1 md:text-display-sm xl:text-display text-core-white -tracking-tight mb-8 reveal-item">Let&rsquo;s create something remarkable.</h2>
-        <p class="font-body text-lg md:text-xl text-stone-400 max-w-xl mx-auto text-balance mb-12 reveal-item">Every project starts with a conversation. Tell us about yours.</p>
+        <p class="font-body text-xs font-medium tracking-wider uppercase text-stone-500 mb-6 reveal-item">Start a
+          Project</p>
+        <h2
+          class="font-display font-light text-3xl sm:text-h1 md:text-display-sm xl:text-display text-core-white -tracking-tight mb-8 reveal-item">
+          Let&rsquo;s create something remarkable.</h2>
+        <p class="font-body text-lg md:text-xl text-stone-400 max-w-xl mx-auto text-balance mb-12 reveal-item">Every
+          project starts with a conversation. Tell us about yours.</p>
         <div class="reveal-item">
-          <a href="/start" class="inline-flex items-center gap-2 h-12 px-8 bg-core-white text-core-black rounded-md font-body font-medium text-base hover:bg-stone-200 transition-all">Get in touch <span aria-hidden="true">&rarr;</span></a>
+          <a href="/start"
+            class="inline-flex items-center gap-2 h-12 px-8 bg-core-white text-core-black rounded-md font-body font-medium text-base hover:bg-stone-200 transition-all">Get
+            in touch <span aria-hidden="true">&rarr;</span></a>
         </div>
       </div>
     </section>
 
   </main>
 
-  <footer id="site-footer" class="bg-stone-50 dark:bg-stone-950 border-t border-stone-200 dark:border-stone-800" aria-label="Site footer">
+  <footer id="site-footer" class="bg-stone-50 dark:bg-stone-950 border-t border-stone-200 dark:border-stone-800"
+    aria-label="Site footer">
     <div class="border-b border-stone-200 dark:border-stone-800">
       <div class="max-w-7xl mx-auto px-6 md:px-12 py-10 md:py-12">
-        <a href="/start" class="group inline-flex items-center gap-3 font-display text-2xl md:text-3xl text-core-black dark:text-core-white hover:text-stone-500 dark:hover:text-stone-400 transition-colors min-h-[44px] py-2">
+        <a href="/start"
+          class="group inline-flex items-center gap-3 font-display text-2xl md:text-3xl text-core-black dark:text-core-white hover:text-stone-500 dark:hover:text-stone-400 transition-colors min-h-[44px] py-2">
           Start a Project
-          <span class="inline-block transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="inline-block transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true"><svg
+              width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg></span>
         </a>
       </div>
     </div>
     <div class="max-w-7xl mx-auto px-6 md:px-12 py-14 md:py-20">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
-        <div><a href="/" class="inline-flex items-center gap-2 mb-4" aria-label="GraphicCity home"><svg width="28" height="14" viewBox="0 0 32 16" fill="none" aria-hidden="true" class="text-core-black dark:text-core-white"><rect width="6" height="16" rx="1" fill="currentColor"/><rect x="9" width="6" height="16" rx="1" fill="currentColor"/><rect x="18" width="6" height="16" rx="1" fill="currentColor"/><rect x="27" width="5" height="16" rx="1" fill="currentColor"/></svg></a><p class="font-body text-sm text-stone-500 dark:text-stone-400 max-w-xs text-balance">Design, made permanent.</p></div>
-        <nav aria-label="Footer navigation"><div class="grid grid-cols-2 gap-6"><div class="space-y-3"><a href="/work" class="block font-body text-sm text-stone-600 dark:text-stone-400 hover:text-core-black dark:hover:text-core-white transition-colors">Work</a><a href="/capabilities" class="block font-body text-sm text-stone-600 dark:text-stone-400 hover:text-core-black dark:hover:text-core-white transition-colors">Capabilities</a></div><div class="space-y-3"><a href="/about" class="block font-body text-sm text-stone-600 dark:text-stone-400 hover:text-core-black dark:hover:text-core-white transition-colors">About</a><a href="/journal" class="block font-body text-sm text-stone-600 dark:text-stone-400 hover:text-core-black dark:hover:text-core-white transition-colors">Journal</a></div></div></nav>
-        <div class="space-y-4"><a href="mailto:hello@graphiccity.studio" class="block font-body text-sm text-core-black dark:text-core-white hover:text-stone-500 dark:hover:text-stone-400 transition-colors">hello@graphiccity.studio</a><p class="font-body text-xs text-stone-400 dark:text-stone-500">Pulpally, Wayanad, Kerala, India</p><div class="flex items-center gap-5 pt-2"><a href="#" class="font-body text-xs font-medium tracking-wider uppercase text-stone-500 dark:text-stone-500 hover:text-core-black dark:hover:text-core-white transition-colors min-h-[44px] inline-flex items-center">LinkedIn</a><a href="#" class="font-body text-xs font-medium tracking-wider uppercase text-stone-500 dark:text-stone-500 hover:text-core-black dark:hover:text-core-white transition-colors min-h-[44px] inline-flex items-center">Instagram</a><a href="#" class="font-body text-xs font-medium tracking-wider uppercase text-stone-500 dark:text-stone-500 hover:text-core-black dark:hover:text-core-white transition-colors min-h-[44px] inline-flex items-center">Twitter</a></div></div>
+        <div><a href="/" class="inline-flex items-center gap-2 mb-4" aria-label="GraphicCity home"><svg width="28"
+              height="14" viewBox="0 0 32 16" fill="none" aria-hidden="true"
+              class="text-core-black dark:text-core-white">
+              <rect width="6" height="16" rx="1" fill="currentColor" />
+              <rect x="9" width="6" height="16" rx="1" fill="currentColor" />
+              <rect x="18" width="6" height="16" rx="1" fill="currentColor" />
+              <rect x="27" width="5" height="16" rx="1" fill="currentColor" />
+            </svg></a>
+          <p class="font-body text-sm text-stone-500 dark:text-stone-400 max-w-xs text-balance">Design, made permanent.
+          </p>
+        </div>
+        <nav aria-label="Footer navigation">
+          <div class="grid grid-cols-2 gap-6">
+            <div class="space-y-3"><a href="/work"
+                class="block font-body text-sm text-stone-600 dark:text-stone-400 hover:text-core-black dark:hover:text-core-white transition-colors">Work</a><a
+                href="/capabilities"
+                class="block font-body text-sm text-stone-600 dark:text-stone-400 hover:text-core-black dark:hover:text-core-white transition-colors">Capabilities</a>
+            </div>
+            <div class="space-y-3"><a href="/about"
+                class="block font-body text-sm text-stone-600 dark:text-stone-400 hover:text-core-black dark:hover:text-core-white transition-colors">About</a><a
+                href="/journal"
+                class="block font-body text-sm text-stone-600 dark:text-stone-400 hover:text-core-black dark:hover:text-core-white transition-colors">Journal</a>
+            </div>
+          </div>
+        </nav>
+        <div class="space-y-4"><a href="mailto:hello@graphiccity.studio"
+            class="block font-body text-sm text-core-black dark:text-core-white hover:text-stone-500 dark:hover:text-stone-400 transition-colors">hello@graphiccity.studio</a>
+          <p class="font-body text-xs text-stone-400 dark:text-stone-500">Pulpally, Wayanad, Kerala, India</p>
+          <div class="flex items-center gap-5 pt-2"><a href="#"
+              class="font-body text-xs font-medium tracking-wider uppercase text-stone-500 dark:text-stone-500 hover:text-core-black dark:hover:text-core-white transition-colors min-h-[44px] inline-flex items-center">LinkedIn</a><a
+              href="#"
+              class="font-body text-xs font-medium tracking-wider uppercase text-stone-500 dark:text-stone-500 hover:text-core-black dark:hover:text-core-white transition-colors min-h-[44px] inline-flex items-center">Instagram</a><a
+              href="#"
+              class="font-body text-xs font-medium tracking-wider uppercase text-stone-500 dark:text-stone-500 hover:text-core-black dark:hover:text-core-white transition-colors min-h-[44px] inline-flex items-center">Twitter</a>
+          </div>
+        </div>
       </div>
-      <div class="mt-16 pt-6 border-t border-stone-200 dark:border-stone-800 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <p class="font-body text-xs text-stone-400 dark:text-stone-500">&copy; 2026 GraphicCity. All rights reserved.</p>
-        <div class="flex items-center gap-6"><a href="/privacy" class="font-body text-xs text-stone-400 dark:text-stone-500 hover:text-stone-600 dark:hover:text-stone-300 transition-colors">Privacy</a><a href="/terms" class="font-body text-xs text-stone-400 dark:text-stone-500 hover:text-stone-600 dark:hover:text-stone-300 transition-colors">Terms</a></div>
+      <div
+        class="mt-16 pt-6 border-t border-stone-200 dark:border-stone-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p class="font-body text-xs text-stone-400 dark:text-stone-500">&copy; 2026 GraphicCity. All rights reserved.
+        </p>
+        <div class="flex items-center gap-6"><a href="/privacy"
+            class="font-body text-xs text-stone-400 dark:text-stone-500 hover:text-stone-600 dark:hover:text-stone-300 transition-colors">Privacy</a><a
+            href="/terms"
+            class="font-body text-xs text-stone-400 dark:text-stone-500 hover:text-stone-600 dark:hover:text-stone-300 transition-colors">Terms</a>
+        </div>
       </div>
     </div>
   </footer>
@@ -473,4 +640,5 @@
   <script src="/public/js/animations.js"></script>
   <script src="/public/js/main.js"></script>
 </body>
+
 </html>
