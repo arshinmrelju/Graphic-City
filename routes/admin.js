@@ -5,15 +5,15 @@ const path = require('path');
 const bcrypt = require('bcryptjs');
 const multer = require('multer');
 
-const DATA = path.join(__dirname, 'data');
-const read = (f) => { try { return JSON.parse(fs.readFileSync(path.join(DATA, f), 'utf8')); } catch { return []; } };
-const write = (f, d) => fs.writeFileSync(path.join(DATA, f), JSON.stringify(d, null, 2));
+const PROJ_DATA_PATH = path.join(__dirname, '..', 'data');
+const read = (f) => { try { return JSON.parse(fs.readFileSync(path.join(PROJ_DATA_PATH, f), 'utf8')); } catch { return []; } };
+const write = (f, d) => fs.writeFileSync(path.join(PROJ_DATA_PATH, f), JSON.stringify(d, null, 2));
 const slugify = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'untitled';
+const esc = (s) => { if (typeof s !== 'string') return s; return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;'); };
 
-// Multer
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    const dir = path.join(__dirname, 'public', 'uploads');
+    const dir = path.join(__dirname, '..', 'public', 'uploads');
     if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
     cb(null, dir);
   },
@@ -21,14 +21,12 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage, limits: { fileSize: 10 * 1024 * 1024 } });
 
-// Auth middleware
 function auth(req, res, next) {
   if (req.session && req.session.admin) return next();
   if (req.headers['hx-request']) return res.send('<script>window.location.href="/admin/login"</script>');
   res.redirect('/admin/login');
 }
 
-// Admin layout
 function layout(req, title, content, active) {
   const nav = [
     { id: 'dashboard', label: 'Dashboard', icon: '<svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>' },
@@ -40,10 +38,10 @@ function layout(req, title, content, active) {
     { id: 'media', label: 'Media', icon: '<svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>' },
     { id: 'seo', label: 'SEO', icon: '<svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>' }
   ];
-
+  const userName = req.session?.admin?.name || 'Admin';
   return `<!DOCTYPE html><html lang="en" class="scroll-smooth"><head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${title} — Admin</title>
+  <title>${esc(title)} — Admin</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/htmx.org@1.9.12" defer></script>
@@ -64,7 +62,6 @@ function layout(req, title, content, active) {
     .main { margin-left: 240px; flex: 1; min-height: 100vh; }
     .topbar { height: 56px; border-bottom: 1px solid #E5E5E5; background: #fff; display: flex; align-items: center; justify-content: space-between; padding: 0 32px; position: sticky; top: 0; z-index: 30; }
     .topbar h1 { font-size: 16px; font-weight: 600; }
-    .topbar .actions { display: flex; align-items: center; gap: 12px; }
     .content { padding: 32px; }
     .card { background: #fff; border: 1px solid #E5E5E5; border-radius: 8px; padding: 24px; }
     .card + .card { margin-top: 16px; }
@@ -112,7 +109,6 @@ function layout(req, title, content, active) {
       table { font-size: 12px; }
       th, td { padding: 8px 10px; }
     }
-    .status-toggle { cursor: pointer; }
     .htmx-request .htmx-ind { opacity: 1; }
     .htmx-ind { opacity: 0; transition: opacity 0.15s; }
     [x-cloak] { display: none !important; }
@@ -127,22 +123,12 @@ function layout(req, title, content, active) {
   </style></head><body>
   <aside class="sidebar">
     <div class="logo">GraphicCity <span>Admin</span></div>
-    <nav>
-      ${nav.map(n => `<a href="/admin/${n.id === 'dashboard' ? '' : n.id}" class="${active === n.id ? 'active' : ''}">${n.icon}${n.label}</a>`).join('')}
-    </nav>
-    <div class="user">
-      <span>${req.session?.admin?.name || 'Admin'}</span>
-      <a href="/admin/logout">Logout</a>
-    </div>
+    <nav>${nav.map(n => `<a href="/admin/${n.id === 'dashboard' ? '' : n.id}" class="${active === n.id ? 'active' : ''}">${n.icon}${n.label}</a>`).join('')}</nav>
+    <div class="user"><span>${esc(userName)}</span><a href="/admin/logout">Logout</a></div>
   </aside>
   <div class="main">
-    <div class="topbar">
-      <h1>${title}</h1>
-      <div class="actions"></div>
-    </div>
-    <div class="content">
-      <div id="admin-content">${content}</div>
-    </div>
+    <div class="topbar"><h1>${esc(title)}</h1><div class="actions"></div></div>
+    <div class="content"><div id="admin-content">${content}</div></div>
   </div>
   <div id="toast" class="toast" style="display:none"></div>
   <script>
@@ -155,7 +141,7 @@ function layout(req, title, content, active) {
 </body></html>`;
 }
 
-// ─── AUTH ───
+/* ─── AUTH ─── */
 router.get('/login', (req, res) => {
   if (req.session?.admin) return res.redirect('/admin');
   res.send(`<!DOCTYPE html><html lang="en"><head>
@@ -204,10 +190,10 @@ router.get('/logout', (req, res) => {
   req.session.destroy(() => res.redirect('/admin/login'));
 });
 
-// ─── DASHBOARD ───
+/* ─── DASHBOARD ─── */
 router.get('/', auth, (req, res) => {
-  const projects = read('../data/projects.js'.replace('.js', '.json')); let projCount;
-  try { projCount = require('./data/projects').projects.length; } catch { projCount = 0; }
+  let projCount = 0;
+  try { projCount = require('../data/projects').projects.length; } catch { projCount = 0; }
   const contactReqs = read('contact-requests.json');
   const testimonials = read('testimonials.json');
   const blog = read('blog.json');
@@ -226,16 +212,16 @@ router.get('/', auth, (req, res) => {
     <div class="card">
       <h2 style="font-size:15px;font-weight:600;margin-bottom:16px">Recent Inquiries</h2>
       ${recentReqs.length ? `<table><thead><tr><th>Name</th><th>Company</th><th>Service</th><th>Status</th><th>Date</th></tr></thead><tbody>
-        ${recentReqs.map(r => `<tr><td>${r.name}</td><td>${r.company || '—'}</td><td>${r.service}</td><td><span class="badge badge-${r.status}">${r.status}</span></td><td style="color:#A3A3A3;font-size:12px">${r.created}</td></tr>`).join('')}
+        ${recentReqs.map(r => `<tr><td>${esc(r.name)}</td><td>${esc(r.company || '—')}</td><td>${esc(r.service)}</td><td><span class="badge badge-${esc(r.status)}">${esc(r.status)}</span></td><td style="color:#A3A3A3;font-size:12px">${esc(r.created)}</td></tr>`).join('')}
       </tbody></table>` : '<div class="empty-state"><p>No inquiries yet</p></div>'}
     </div>
   `, 'dashboard'));
 });
 
-// ─── PROJECTS CRUD ───
+/* ─── PROJECTS CRUD ─── */
 const getProjects = () => {
   try {
-    const raw = fs.readFileSync(path.join(__dirname, 'data', 'projects.js'), 'utf8');
+    const raw = fs.readFileSync(path.join(PROJ_DATA_PATH, 'projects.js'), 'utf8');
     const match = raw.match(/const projects = (\[[\s\S]*?\]);/);
     if (match) return JSON.parse(match[1]);
   } catch {}
@@ -243,9 +229,7 @@ const getProjects = () => {
 };
 
 const saveProjects = (projects) => {
-  const content = `const projects = ${JSON.stringify(projects, null, 2)};\n\n${require('fs').readFileSync(path.join(__dirname, 'data', 'projects.js'), 'utf8').replace(/const projects = [\s\S]*?\]\)?;/, '').replace(/^[\s\S]*?\nmodule\.exports/, 'module.exports')}`;
-  // Simpler approach: just write the full file
-  const cats = require('./data/projects').categories;
+  const cats = require('../data/projects').categories;
   const helpers = `
 const categories = ${JSON.stringify(cats, null, 2)};
 
@@ -292,29 +276,30 @@ function getRelatedProjects(id, category, count) {
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = { projects, categories, filterProjects, getSizeAspect, getProject, getAdjacentProjects, getRelatedProjects };
 }`;
-  fs.writeFileSync(path.join(__dirname, 'data', 'projects.js'), `const projects = ${JSON.stringify(projects, null, 2)};\n${helpers}`);
+  fs.writeFileSync(path.join(PROJ_DATA_PATH, 'projects.js'), `const projects = ${JSON.stringify(projects, null, 2)};\n${helpers}`);
 };
 
 router.get('/projects', auth, (req, res) => {
-  const projects = getProjects();
+  const projs = getProjects();
   res.send(layout(req, 'Projects', `
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
-      <p style="font-size:14px;color:#737373">${projects.length} projects</p>
+      <p style="font-size:14px;color:#737373">${projs.length} projects</p>
       <a href="/admin/projects/new" class="btn btn-primary" hx-get="/admin/projects/new" hx-target="#admin-content" hx-swap="innerHTML" hx-push-url="true">+ New Project</a>
     </div>
     <div class="card" style="padding:0;overflow:hidden">
       <table><thead><tr><th>Title</th><th>Client</th><th>Category</th><th>Year</th><th></th></tr></thead><tbody>
-        ${projects.map(p => `<tr>
-          <td style="font-weight:500">${p.title}</td>
-          <td style="color:#737373">${p.client}</td>
-          <td><span class="badge" style="background:#F5F5F5;color:#525252">${p.category}</span></td>
-          <td style="color:#A3A3A3">${p.year}</td>
+        ${projs.map(p => `
+        <tr>
+          <td style="font-weight:500">${esc(p.title)}</td>
+          <td style="color:#737373">${esc(p.client)}</td>
+          <td><span class="badge" style="background:#F5F5F5;color:#525252">${esc(p.category)}</span></td>
+          <td style="color:#A3A3A3">${esc(p.year)}</td>
           <td style="text-align:right">
-            <a href="/admin/projects/${p.id}/edit" class="btn btn-secondary btn-sm" hx-get="/admin/projects/${p.id}/edit" hx-target="#admin-content" hx-swap="innerHTML" hx-push-url="true">Edit</a>
-            <button class="btn btn-danger btn-sm" hx-post="/admin/projects/${p.id}/delete" hx-target="#admin-content" hx-swap="innerHTML" hx-push-url="/admin/projects" hx-confirm="Delete ${p.title}?">Delete</button>
+            <a href="/admin/projects/${esc(p.id)}/edit" class="btn btn-secondary btn-sm" hx-get="/admin/projects/${esc(p.id)}/edit" hx-target="#admin-content" hx-swap="innerHTML" hx-push-url="true">Edit</a>
+            <button class="btn btn-danger btn-sm" hx-post="/admin/projects/${esc(p.id)}/delete" hx-target="#admin-content" hx-swap="innerHTML" hx-push-url="/admin/projects" hx-confirm="Delete ${esc(p.title)}?">Delete</button>
           </td>
         </tr>`).join('')}
-        ${!projects.length ? '<tr><td colspan="5"><div class="empty-state"><p>No projects yet</p></div></td></tr>' : ''}
+        ${!projs.length ? '<tr><td colspan="5"><div class="empty-state"><p>No projects yet</p></div></td></tr>' : ''}
       </tbody></table>
     </div>
   `, 'projects'));
@@ -329,7 +314,7 @@ router.get('/projects/new', auth, (req, res) => {
         <div class="form-group"><label>Client</label><input type="text" name="client" required></div>
       </div>
       <div class="form-row">
-        <div class="form-group"><label>Category</label><select name="category">${cats.map(c => `<option value="${c.id}">${c.label}</option>`).join('')}</select></div>
+        <div class="form-group"><label>Category</label><select name="category">${cats.map(c => `<option value="${esc(c.id)}">${esc(c.label)}</option>`).join('')}</select></div>
         <div class="form-group"><label>Year</label><input type="text" name="year" value="2025" required></div>
       </div>
       <div class="form-group"><label>Size</label><select name="size"><option value="standard">Standard (4:3)</option><option value="featured">Featured (16:9)</option><option value="wide">Wide (2:1)</option><option value="tall">Tall (3:4)</option></select></div>
@@ -350,26 +335,26 @@ router.get('/projects/new', auth, (req, res) => {
 });
 
 router.get('/projects/:id/edit', auth, (req, res) => {
-  const projects = getProjects();
-  const p = projects.find(x => x.id === req.params.id);
+  const projs = getProjects();
+  const p = projs.find(x => x.id === req.params.id);
   if (!p) return res.send(layout(req, 'Edit Project', '<div class="empty-state"><p>Project not found</p></div>', 'projects'));
   const cats = read('categories-admin.json');
   res.send(layout(req, 'Edit Project', `
     <form hx-post="/admin/projects/save" hx-target="#admin-content" hx-swap="innerHTML" hx-push-url="/admin/projects" class="card" style="max-width:720px">
-      <input type="hidden" name="id" value="${p.id}">
+      <input type="hidden" name="id" value="${esc(p.id)}">
       <div class="form-row">
-        <div class="form-group"><label>Title</label><input type="text" name="title" value="${p.title}" required></div>
-        <div class="form-group"><label>Client</label><input type="text" name="client" value="${p.client}" required></div>
+        <div class="form-group"><label>Title</label><input type="text" name="title" value="${esc(p.title)}" required></div>
+        <div class="form-group"><label>Client</label><input type="text" name="client" value="${esc(p.client)}" required></div>
       </div>
       <div class="form-row">
-        <div class="form-group"><label>Category</label><select name="category">${cats.map(c => `<option value="${c.id}" ${c.id === p.category ? 'selected' : ''}>${c.label}</option>`).join('')}</select></div>
-        <div class="form-group"><label>Year</label><input type="text" name="year" value="${p.year}" required></div>
+        <div class="form-group"><label>Category</label><select name="category">${cats.map(c => `<option value="${esc(c.id)}" ${c.id === p.category ? 'selected' : ''}>${esc(c.label)}</option>`).join('')}</select></div>
+        <div class="form-group"><label>Year</label><input type="text" name="year" value="${esc(p.year)}" required></div>
       </div>
       <div class="form-group"><label>Size</label><select name="size"><option value="standard" ${p.size === 'standard' ? 'selected' : ''}>Standard</option><option value="featured" ${p.size === 'featured' ? 'selected' : ''}>Featured</option><option value="wide" ${p.size === 'wide' ? 'selected' : ''}>Wide</option><option value="tall" ${p.size === 'tall' ? 'selected' : ''}>Tall</option></select></div>
-      <div class="form-group"><label>Accent Color</label><input type="text" name="color" value="${p.color}"></div>
-      <div class="form-group"><label>Description</label><textarea name="description" rows="3" required>${p.description}</textarea></div>
-      <div class="form-group"><label>Challenge</label><textarea name="challenge" rows="3">${p.cs?.challenge || ''}</textarea></div>
-      <div class="form-group"><label>Research</label><textarea name="research" rows="3">${p.cs?.research || ''}</textarea></div>
+      <div class="form-group"><label>Accent Color</label><input type="text" name="color" value="${esc(p.color)}"></div>
+      <div class="form-group"><label>Description</label><textarea name="description" rows="3" required>${esc(p.description)}</textarea></div>
+      <div class="form-group"><label>Challenge</label><textarea name="challenge" rows="3">${esc(p.cs?.challenge || '')}</textarea></div>
+      <div class="form-group"><label>Research</label><textarea name="research" rows="3">${esc(p.cs?.research || '')}</textarea></div>
       <div style="display:flex;gap:12px;justify-content:flex-end;padding-top:16px;border-top:1px solid #E5E5E5">
         <a href="/admin/projects" class="btn btn-secondary" hx-get="/admin/projects" hx-target="#admin-content" hx-swap="innerHTML" hx-push-url="true">Cancel</a>
         <button type="submit" class="btn btn-primary">Save Changes</button>
@@ -379,39 +364,32 @@ router.get('/projects/:id/edit', auth, (req, res) => {
 });
 
 router.post('/projects/save', auth, (req, res) => {
-  const projects = getProjects();
-  const existing = projects.findIndex(p => p.id === req.body.id);
+  const projs = getProjects();
+  const existing = projs.findIndex(p => p.id === req.body.id);
   const id = req.body.id || slugify(req.body.title) + '-' + Date.now().toString(36);
   const project = {
     id, title: req.body.title, client: req.body.client, category: req.body.category,
     year: req.body.year, size: req.body.size || 'standard', color: req.body.color || '#0066FF',
     seeds: { thumb: parseInt(req.body.thumbSeed) || 1, gallery: (req.body.gallerySeeds || '5,6,7,8').split(',').map(Number) },
     description: req.body.description,
-    cs: {
-      challenge: req.body.challenge || '',
-      research: req.body.research || '',
-      sketches: ['', '', ''],
-      typography: { typefaces: ['Space Grotesk', 'Inter'], description: '' },
-      colors: [{ hex: '#0066FF', name: 'Primary', usage: '' }],
-      results: [{ value: '', label: '' }]
-    }
+    cs: { challenge: req.body.challenge || '', research: req.body.research || '', sketches: ['', '', ''], typography: { typefaces: ['Space Grotesk', 'Inter'], description: '' }, colors: [{ hex: '#0066FF', name: 'Primary', usage: '' }], results: [{ value: '', label: '' }] }
   };
-  if (existing >= 0) projects[existing] = project;
-  else projects.push(project);
-  saveProjects(projects);
+  if (existing >= 0) projs[existing] = project;
+  else projs.push(project);
+  saveProjects(projs);
   res.set('X-Toast', existing >= 0 ? 'Project updated' : 'Project created');
   res.redirect('/admin/projects');
 });
 
 router.post('/projects/:id/delete', auth, (req, res) => {
-  let projects = getProjects();
-  projects = projects.filter(p => p.id !== req.params.id);
-  saveProjects(projects);
+  let projs = getProjects();
+  projs = projs.filter(p => p.id !== req.params.id);
+  saveProjects(projs);
   res.set('X-Toast', 'Project deleted');
-  res.send(`<script>window.location.href='/admin/projects'</script>`);
+  res.send('<script>window.location.href="/admin/projects"</script>');
 });
 
-// ─── CATEGORIES CRUD (inline in admin) ───
+/* ─── CATEGORIES ─── */
 router.get('/categories', auth, (req, res) => {
   const cats = read('categories-admin.json');
   res.send(layout(req, 'Categories', `
@@ -422,12 +400,10 @@ router.get('/categories', auth, (req, res) => {
       </form>
       <div id="cat-list">${cats.map(c => `
         <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid #F5F5F5">
-          <span style="font-size:13px;font-weight:500">${c.label}</span>
-          <span style="font-size:11px;color:#A3A3A3;font-family:monospace">${c.id}</span>
-        </div>
-      `).join('')}</div>
-    </div>
-  `, 'projects')); // reuse projects nav highlight
+          <span style="font-size:13px;font-weight:500">${esc(c.label)}</span>
+          <span style="font-size:11px;color:#A3A3A3;font-family:monospace">${esc(c.id)}</span>
+        </div>`).join('')}</div>
+    </div>`, 'projects'));
 });
 
 router.post('/categories/save', auth, (req, res) => {
@@ -438,13 +414,12 @@ router.post('/categories/save', auth, (req, res) => {
   res.set('X-Toast', 'Category added');
   res.send(cats.map(c => `
     <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid #F5F5F5">
-      <span style="font-size:13px;font-weight:500">${c.label}</span>
-      <span style="font-size:11px;color:#A3A3A3;font-family:monospace">${c.id}</span>
-    </div>
-  `).join(''));
+      <span style="font-size:13px;font-weight:500">${esc(c.label)}</span>
+      <span style="font-size:11px;color:#A3A3A3;font-family:monospace">${esc(c.id)}</span>
+    </div>`).join(''));
 });
 
-// ─── TESTIMONIALS CRUD ───
+/* ─── TESTIMONIALS CRUD ─── */
 router.get('/testimonials', auth, (req, res) => {
   const list = read('testimonials.json');
   res.send(layout(req, 'Testimonials', `
@@ -455,28 +430,25 @@ router.get('/testimonials', auth, (req, res) => {
     <div id="testimonials-list">${list.map(t => `
       <div class="card" style="margin-bottom:12px;padding:16px 20px">
         <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px">
-          <div style="flex:1"><p style="font-size:13px;line-height:1.5;margin-bottom:6px">"${t.quote.length > 120 ? t.quote.slice(0,120) + '...' : t.quote}"</p><p style="font-size:12px;color:#A3A3A3">— ${t.attr}</p></div>
+          <div style="flex:1"><p style="font-size:13px;line-height:1.5;margin-bottom:6px">&quot;${esc(t.quote.length > 120 ? t.quote.slice(0,120) + '...' : t.quote)}&quot;</p><p style="font-size:12px;color:#A3A3A3">&mdash; ${esc(t.attr)}</p></div>
           <div style="display:flex;gap:6px;flex-shrink:0">
-            <a href="/admin/testimonials/${t.id}/edit" class="btn btn-secondary btn-sm" hx-get="/admin/testimonials/${t.id}/edit" hx-target="#admin-content" hx-swap="innerHTML" hx-push-url="true">Edit</a>
-            <button class="btn btn-danger btn-sm" hx-post="/admin/testimonials/${t.id}/delete" hx-target="#admin-content" hx-swap="innerHTML" hx-push-url="/admin/testimonials" hx-confirm="Delete this testimonial?">Delete</button>
+            <a href="/admin/testimonials/${esc(t.id)}/edit" class="btn btn-secondary btn-sm" hx-get="/admin/testimonials/${esc(t.id)}/edit" hx-target="#admin-content" hx-swap="innerHTML" hx-push-url="true">Edit</a>
+            <button class="btn btn-danger btn-sm" hx-post="/admin/testimonials/${esc(t.id)}/delete" hx-target="#admin-content" hx-swap="innerHTML" hx-push-url="/admin/testimonials" hx-confirm="Delete this testimonial?">Delete</button>
           </div>
         </div>
-      </div>
-    `).join('')}</div>
-  `, 'testimonials'));
+      </div>`).join('')}</div>`, 'testimonials'));
 });
 
 router.get('/testimonials/new', auth, (req, res) => {
   res.send(layout(req, 'New Testimonial', `
     <form hx-post="/admin/testimonials/save" hx-target="#admin-content" hx-swap="innerHTML" hx-push-url="/admin/testimonials" class="card" style="max-width:600px">
       <div class="form-group"><label>Quote</label><textarea name="quote" rows="4" required></textarea></div>
-      <div class="form-group"><label>Attribution</label><input type="text" name="attr" placeholder='e.g. CEO, Company Name' required></div>
+      <div class="form-group"><label>Attribution</label><input type="text" name="attr" placeholder="e.g. CEO, Company Name" required></div>
       <div style="display:flex;gap:12px;justify-content:flex-end;padding-top:16px;border-top:1px solid #E5E5E5">
         <a href="/admin/testimonials" class="btn btn-secondary" hx-get="/admin/testimonials" hx-target="#admin-content" hx-swap="innerHTML" hx-push-url="true">Cancel</a>
         <button type="submit" class="btn btn-primary">Save</button>
       </div>
-    </form>
-  `, 'testimonials'));
+    </form>`, 'testimonials'));
 });
 
 router.get('/testimonials/:id/edit', auth, (req, res) => {
@@ -485,15 +457,14 @@ router.get('/testimonials/:id/edit', auth, (req, res) => {
   if (!t) return res.send(layout(req, 'Edit Testimonial', '<div class="empty-state"><p>Not found</p></div>', 'testimonials'));
   res.send(layout(req, 'Edit Testimonial', `
     <form hx-post="/admin/testimonials/save" hx-target="#admin-content" hx-swap="innerHTML" hx-push-url="/admin/testimonials" class="card" style="max-width:600px">
-      <input type="hidden" name="id" value="${t.id}">
-      <div class="form-group"><label>Quote</label><textarea name="quote" rows="4" required>${t.quote}</textarea></div>
-      <div class="form-group"><label>Attribution</label><input type="text" name="attr" value="${t.attr}" required></div>
+      <input type="hidden" name="id" value="${esc(t.id)}">
+      <div class="form-group"><label>Quote</label><textarea name="quote" rows="4" required>${esc(t.quote)}</textarea></div>
+      <div class="form-group"><label>Attribution</label><input type="text" name="attr" value="${esc(t.attr)}" required></div>
       <div style="display:flex;gap:12px;justify-content:flex-end;padding-top:16px;border-top:1px solid #E5E5E5">
         <a href="/admin/testimonials" class="btn btn-secondary" hx-get="/admin/testimonials" hx-target="#admin-content" hx-swap="innerHTML" hx-push-url="true">Cancel</a>
         <button type="submit" class="btn btn-primary">Save</button>
       </div>
-    </form>
-  `, 'testimonials'));
+    </form>`, 'testimonials'));
 });
 
 router.post('/testimonials/save', auth, (req, res) => {
@@ -512,23 +483,22 @@ router.post('/testimonials/:id/delete', auth, (req, res) => {
   list = list.filter(t => t.id != req.params.id);
   write('testimonials.json', list);
   res.set('X-Toast', 'Testimonial deleted');
-  res.send(`<script>window.location.href='/admin/testimonials'</script>`);
+  res.send('<script>window.location.href="/admin/testimonials"</script>');
 });
 
-// ─── SERVICES CRUD (inline editing) ───
+/* ─── SERVICES (read-only view) ─── */
 router.get('/services', auth, (req, res) => {
-  const svcs = require('./data/services').services;
+  const svcs = require('../data/services').services;
   res.send(layout(req, 'Services', `
     <p style="font-size:14px;color:#737373;margin-bottom:20px">Services are managed in the services data file. Below is a read-only view.</p>
     <div class="card" style="padding:0;overflow:hidden">
       <table><thead><tr><th>Service</th><th>Pricing</th><th>Timeline</th><th>Deliverables</th></tr></thead><tbody>
-        ${svcs.map(s => `<tr><td style="font-weight:500">${s.title}</td><td style="color:#737373">$${s.pricing}+</td><td style="color:#A3A3A3">${s.timeline}</td><td style="color:#A3A3A3;font-size:12px">${s.deliverables.length} items</td></tr>`).join('')}
+        ${svcs.map(s => `<tr><td style="font-weight:500">${esc(s.title)}</td><td style="color:#737373">$${esc(s.pricing)}+</td><td style="color:#A3A3A3">${esc(s.timeline)}</td><td style="color:#A3A3A3;font-size:12px">${s.deliverables.length} items</td></tr>`).join('')}
       </tbody></table>
-    </div>
-  `, 'services'));
+    </div>`, 'services'));
 });
 
-// ─── INQUIRIES / CONTACT REQUESTS ───
+/* ─── INQUIRIES ─── */
 router.get('/contact', auth, (req, res) => {
   const reqs = read('contact-requests.json');
   res.send(layout(req, 'Inquiries', `
@@ -541,48 +511,43 @@ router.get('/contact', auth, (req, res) => {
       <table><thead><tr><th>Name</th><th>Company</th><th>Service</th><th>Budget</th><th>Status</th><th>Date</th><th></th></tr></thead><tbody>
         ${reqs.slice().reverse().map(r => `
         <tr>
-          <td style="font-weight:500">${r.name}</td>
-          <td style="color:#737373">${r.company || '—'}</td>
-          <td style="color:#525252;font-size:12px">${r.service}</td>
-          <td style="color:#A3A3A3;font-size:12px">${r.budget}</td>
-          <td><span class="badge badge-${r.status}">${r.status}</span></td>
-          <td style="color:#A3A3A3;font-size:12px">${r.created}</td>
-          <td style="text-align:right">
-            <button class="btn btn-secondary btn-sm" hx-get="/admin/contact/${r.id}" hx-target="#admin-content" hx-swap="innerHTML" hx-push-url="true">View</button>
-          </td>
+          <td style="font-weight:500">${esc(r.name)}</td>
+          <td style="color:#737373">${esc(r.company || '—')}</td>
+          <td style="color:#525252;font-size:12px">${esc(r.service)}</td>
+          <td style="color:#A3A3A3;font-size:12px">${esc(r.budget)}</td>
+          <td><span class="badge badge-${esc(r.status)}">${esc(r.status)}</span></td>
+          <td style="color:#A3A3A3;font-size:12px">${esc(r.created)}</td>
+          <td style="text-align:right"><button class="btn btn-secondary btn-sm" hx-get="/admin/contact/${esc(r.id)}" hx-target="#admin-content" hx-swap="innerHTML" hx-push-url="true">View</button></td>
         </tr>`).join('')}
       </tbody></table>
-    </div>
-  `, 'contact'));
+    </div>`, 'contact'));
 });
 
 router.get('/contact/:id', auth, (req, res) => {
   const reqs = read('contact-requests.json');
   const r = reqs.find(x => x.id == req.params.id);
   if (!r) return res.send(layout(req, 'Inquiry', '<div class="empty-state">Not found</div>', 'contact'));
-  // Mark as read
   if (r.status === 'new') { r.status = 'read'; write('contact-requests.json', reqs); }
   res.send(layout(req, 'Inquiry Details', `
     <div class="card" style="max-width:640px">
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px">
-        <div><p style="font-size:11px;color:#A3A3A3;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:2px">Name</p><p style="font-size:14px;font-weight:500">${r.name}</p></div>
-        <div><p style="font-size:11px;color:#A3A3A3;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:2px">Company</p><p style="font-size:14px">${r.company || '—'}</p></div>
-        <div><p style="font-size:11px;color:#A3A3A3;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:2px">Email</p><p style="font-size:14px"><a href="mailto:${r.email}" style="color:#0A0A0A;text-decoration:none">${r.email}</a></p></div>
-        <div><p style="font-size:11px;color:#A3A3A3;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:2px">Service</p><p style="font-size:14px">${r.service}</p></div>
-        <div><p style="font-size:11px;color:#A3A3A3;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:2px">Budget</p><p style="font-size:14px">${r.budget}</p></div>
-        <div><p style="font-size:11px;color:#A3A3A3;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:2px">Timeline</p><p style="font-size:14px">${r.timeline}</p></div>
+        <div><p style="font-size:11px;color:#A3A3A3;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:2px">Name</p><p style="font-size:14px;font-weight:500">${esc(r.name)}</p></div>
+        <div><p style="font-size:11px;color:#A3A3A3;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:2px">Company</p><p style="font-size:14px">${esc(r.company || '—')}</p></div>
+        <div><p style="font-size:11px;color:#A3A3A3;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:2px">Email</p><p style="font-size:14px"><a href="mailto:${esc(r.email)}" style="color:#0A0A0A;text-decoration:none">${esc(r.email)}</a></p></div>
+        <div><p style="font-size:11px;color:#A3A3A3;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:2px">Service</p><p style="font-size:14px">${esc(r.service)}</p></div>
+        <div><p style="font-size:11px;color:#A3A3A3;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:2px">Budget</p><p style="font-size:14px">${esc(r.budget)}</p></div>
+        <div><p style="font-size:11px;color:#A3A3A3;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:2px">Timeline</p><p style="font-size:14px">${esc(r.timeline)}</p></div>
       </div>
       <div style="margin-bottom:20px;padding-top:16px;border-top:1px solid #E5E5E5">
         <p style="font-size:11px;color:#A3A3A3;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:6px">Project Description</p>
-        <p style="font-size:13px;line-height:1.6;color:#525252">${r.description}</p>
+        <p style="font-size:13px;line-height:1.6;color:#525252">${esc(r.description)}</p>
       </div>
       <div style="display:flex;gap:8px;padding-top:16px;border-top:1px solid #E5E5E5">
-        <button class="btn btn-primary btn-sm" hx-post="/admin/contact/${r.id}/mark-replied" hx-swap="none">Mark as Replied</button>
-        <a href="mailto:${r.email}" class="btn btn-secondary btn-sm">Reply via Email</a>
+        <button class="btn btn-primary btn-sm" hx-post="/admin/contact/${esc(r.id)}/mark-replied" hx-swap="none">Mark as Replied</button>
+        <a href="mailto:${esc(r.email)}" class="btn btn-secondary btn-sm">Reply via Email</a>
         <a href="/admin/contact" class="btn btn-secondary btn-sm" hx-get="/admin/contact" hx-target="#admin-content" hx-swap="innerHTML" hx-push-url="true">Back</a>
       </div>
-    </div>
-  `, 'contact'));
+    </div>`, 'contact'));
 });
 
 router.post('/contact/:id/mark-replied', auth, (req, res) => {
@@ -593,7 +558,7 @@ router.post('/contact/:id/mark-replied', auth, (req, res) => {
   res.send('');
 });
 
-// ─── BLOG CRUD ───
+/* ─── BLOG CRUD ─── */
 router.get('/blog', auth, (req, res) => {
   const posts = read('blog.json');
   res.send(layout(req, 'Blog', `
@@ -604,19 +569,18 @@ router.get('/blog', auth, (req, res) => {
     <div class="card" style="padding:0;overflow:hidden">
       <table><thead><tr><th>Title</th><th>Slug</th><th>Status</th><th>Date</th><th></th></tr></thead><tbody>
         ${posts.map(p => `<tr>
-          <td style="font-weight:500">${p.title}</td>
-          <td style="color:#A3A3A3;font-family:monospace;font-size:12px">${p.slug}</td>
+          <td style="font-weight:500">${esc(p.title)}</td>
+          <td style="color:#A3A3A3;font-family:monospace;font-size:12px">${esc(p.slug)}</td>
           <td><span class="badge ${p.published ? 'badge-published' : 'badge-draft'}">${p.published ? 'Published' : 'Draft'}</span></td>
-          <td style="color:#A3A3A3;font-size:12px">${p.created}</td>
+          <td style="color:#A3A3A3;font-size:12px">${esc(p.created)}</td>
           <td style="text-align:right">
-            <a href="/admin/blog/${p.id}/edit" class="btn btn-secondary btn-sm" hx-get="/admin/blog/${p.id}/edit" hx-target="#admin-content" hx-swap="innerHTML" hx-push-url="true">Edit</a>
-            <button class="btn btn-danger btn-sm" hx-post="/admin/blog/${p.id}/delete" hx-target="#admin-content" hx-swap="innerHTML" hx-push-url="/admin/blog" hx-confirm="Delete ${p.title}?">Delete</button>
+            <a href="/admin/blog/${esc(p.id)}/edit" class="btn btn-secondary btn-sm" hx-get="/admin/blog/${esc(p.id)}/edit" hx-target="#admin-content" hx-swap="innerHTML" hx-push-url="true">Edit</a>
+            <button class="btn btn-danger btn-sm" hx-post="/admin/blog/${esc(p.id)}/delete" hx-target="#admin-content" hx-swap="innerHTML" hx-push-url="/admin/blog" hx-confirm="Delete ${esc(p.title)}?">Delete</button>
           </td>
         </tr>`).join('')}
         ${!posts.length ? '<tr><td colspan="5"><div class="empty-state"><p>No posts yet</p></div></td></tr>' : ''}
       </tbody></table>
-    </div>
-  `, 'blog'));
+    </div>`, 'blog'));
 });
 
 router.get('/blog/new', auth, (req, res) => {
@@ -632,8 +596,7 @@ router.get('/blog/new', auth, (req, res) => {
         <a href="/admin/blog" class="btn btn-secondary" hx-get="/admin/blog" hx-target="#admin-content" hx-swap="innerHTML" hx-push-url="true">Cancel</a>
         <button type="submit" class="btn btn-primary">Save Post</button>
       </div>
-    </form>
-  `, 'blog'));
+    </form>`, 'blog'));
 });
 
 router.get('/blog/:id/edit', auth, (req, res) => {
@@ -642,19 +605,18 @@ router.get('/blog/:id/edit', auth, (req, res) => {
   if (!p) return res.send(layout(req, 'Edit Post', '<div class="empty-state">Not found</div>', 'blog'));
   res.send(layout(req, 'Edit Post', `
     <form hx-post="/admin/blog/save" hx-target="#admin-content" hx-swap="innerHTML" hx-push-url="/admin/blog" class="card" style="max-width:720px">
-      <input type="hidden" name="id" value="${p.id}">
-      <div class="form-group"><label>Title</label><input type="text" name="title" value="${p.title}" required></div>
-      <div class="form-group"><label>Slug</label><input type="text" name="slug" value="${p.slug}"></div>
-      <div class="form-group"><label>Excerpt</label><textarea name="excerpt" rows="2" required>${p.excerpt}</textarea></div>
-      <div class="form-group"><label>Content (Markdown)</label><textarea name="content" rows="12" required>${p.content}</textarea></div>
-      <div class="form-group"><label>Tags (comma separated)</label><input type="text" name="tags" value="${(p.tags || []).join(', ')}"></div>
+      <input type="hidden" name="id" value="${esc(p.id)}">
+      <div class="form-group"><label>Title</label><input type="text" name="title" value="${esc(p.title)}" required></div>
+      <div class="form-group"><label>Slug</label><input type="text" name="slug" value="${esc(p.slug)}"></div>
+      <div class="form-group"><label>Excerpt</label><textarea name="excerpt" rows="2" required>${esc(p.excerpt)}</textarea></div>
+      <div class="form-group"><label>Content (Markdown)</label><textarea name="content" rows="12" required>${esc(p.content)}</textarea></div>
+      <div class="form-group"><label>Tags (comma separated)</label><input type="text" name="tags" value="${esc((p.tags || []).join(', '))}"></div>
       <div class="form-group"><label><input type="checkbox" name="published" value="1" ${p.published ? 'checked' : ''}> Published</label></div>
       <div style="display:flex;gap:12px;justify-content:flex-end;padding-top:16px;border-top:1px solid #E5E5E5">
         <a href="/admin/blog" class="btn btn-secondary" hx-get="/admin/blog" hx-target="#admin-content" hx-swap="innerHTML" hx-push-url="true">Cancel</a>
         <button type="submit" class="btn btn-primary">Save Changes</button>
       </div>
-    </form>
-  `, 'blog'));
+    </form>`, 'blog'));
 });
 
 router.post('/blog/save', auth, (req, res) => {
@@ -663,14 +625,10 @@ router.post('/blog/save', auth, (req, res) => {
   const now = new Date().toISOString().slice(0, 10);
   const entry = {
     id: existing >= 0 ? posts[existing].id : (posts.length ? Math.max(...posts.map(p => p.id)) + 1 : 1),
-    title: req.body.title,
-    slug: req.body.slug || slugify(req.body.title),
-    excerpt: req.body.excerpt,
-    content: req.body.content,
-    author: 'GraphicCity',
-    tags: (req.body.tags || '').split(',').map(t => t.trim()).filter(Boolean),
-    published: !!req.body.published,
-    created: existing >= 0 ? posts[existing].created : now
+    title: req.body.title, slug: req.body.slug || slugify(req.body.title),
+    excerpt: req.body.excerpt, content: req.body.content,
+    author: 'GraphicCity', tags: (req.body.tags || '').split(',').map(t => t.trim()).filter(Boolean),
+    published: !!req.body.published, created: existing >= 0 ? posts[existing].created : now
   };
   if (existing >= 0) posts[existing] = entry;
   else posts.push(entry);
@@ -684,13 +642,13 @@ router.post('/blog/:id/delete', auth, (req, res) => {
   posts = posts.filter(p => p.id != req.params.id);
   write('blog.json', posts);
   res.set('X-Toast', 'Post deleted');
-  res.send(`<script>window.location.href='/admin/blog'</script>`);
+  res.send('<script>window.location.href="/admin/blog"</script>');
 });
 
-// ─── MEDIA MANAGER ───
+/* ─── MEDIA MANAGER ─── */
 router.get('/media', auth, (req, res) => {
-  const media = read('media.json');
-  const uploadsDir = path.join(__dirname, 'public', 'uploads');
+  read('media.json');
+  const uploadsDir = path.join(__dirname, '..', 'public', 'uploads');
   let files = [];
   try { files = fs.readdirSync(uploadsDir).map(f => ({ name: f, url: '/public/uploads/' + f, size: fs.statSync(path.join(uploadsDir, f)).size })).reverse(); } catch {}
   res.send(layout(req, 'Media', `
@@ -698,24 +656,21 @@ router.get('/media', auth, (req, res) => {
       <form id="upload-form" hx-post="/admin/media/upload" hx-target="#media-grid" hx-swap="innerHTML" hx-encoding="multipart/form-data">
         <div class="drop-zone" id="drop-zone" style="margin-bottom:12px">
           <p style="font-size:14px;margin-bottom:4px">Drag & drop files or click to browse</p>
-          <p style="font-size:12px">PNG, JPG, PDF, AI, PSD, SVG — Max 10MB</p>
-          <input type="file" name="file" id="file-input" style="display:none" onchange="document.getElementById('upload-form').querySelector('input[type=file]').name='file';this.form.submit()">
+          <p style="font-size:12px">PNG, JPG, PDF, AI, PSD, SVG &mdash; Max 10MB</p>
+          <input type="file" name="file" id="file-input" style="display:none">
           <button type="button" class="btn btn-secondary btn-sm" style="margin-top:12px" onclick="document.getElementById('file-input').click()">Choose File</button>
         </div>
       </form>
     </div>
     <div id="media-grid">
-      <div class="file-grid">
-        ${files.map(f => `
-          <div class="file-item">
-            ${/\.(jpg|jpeg|png|gif|svg|webp)$/i.test(f.name) ? `<img src="${f.url}" alt="${f.name}">` : `<div style="aspect-ratio:1;display:flex;align-items:center;justify-content:center;background:#F5F5F5;color:#A3A3A3;font-size:11px">${f.name.split('.').pop().toUpperCase()}</div>`}
-            <div class="info"><p>${f.name.length > 20 ? f.name.slice(0, 20) + '...' : f.name}</p><p style="color:#D4D4D4;font-size:10px">${(f.size / 1024).toFixed(0)} KB</p></div>
-          </div>
-        `).join('')}
+      <div class="file-grid">${files.map(f => `
+        <div class="file-item">
+          ${/\.(jpg|jpeg|png|gif|svg|webp)$/i.test(f.name) ? `<img src="${f.url}" alt="${esc(f.name)}">` : `<div style="aspect-ratio:1;display:flex;align-items:center;justify-content:center;background:#F5F5F5;color:#A3A3A3;font-size:11px">${f.name.split('.').pop().toUpperCase()}</div>`}
+          <div class="info"><p>${esc(f.name.length > 20 ? f.name.slice(0, 20) + '...' : f.name)}</p><p style="color:#D4D4D4;font-size:10px">${(f.size / 1024).toFixed(0)} KB</p></div>
+        </div>`).join('')}
         ${!files.length ? '<div class="empty-state" style="grid-column:1/-1"><p>No files uploaded yet</p></div>' : ''}
       </div>
-    </div>
-  `, 'media'));
+    </div>`, 'media'));
 });
 
 router.post('/media/upload', auth, upload.single('file'), (req, res) => {
@@ -723,40 +678,30 @@ router.post('/media/upload', auth, upload.single('file'), (req, res) => {
   const media = read('media.json');
   media.push({ name: req.file.filename, original: req.file.originalname, size: req.file.size, uploaded: new Date().toISOString() });
   write('media.json', media);
-  // Return updated grid
-  const uploadsDir = path.join(__dirname, 'public', 'uploads');
+  const uploadsDir = path.join(__dirname, '..', 'public', 'uploads');
   let files = [];
   try { files = fs.readdirSync(uploadsDir).map(f => ({ name: f, url: '/public/uploads/' + f, size: fs.statSync(path.join(uploadsDir, f)).size })).reverse(); } catch {}
   res.set('X-Toast', 'File uploaded');
-  res.send(`
-    <div class="file-grid">
-      ${files.map(f => `
-        <div class="file-item">
-          ${/\.(jpg|jpeg|png|gif|svg|webp)$/i.test(f.name) ? `<img src="${f.url}" alt="${f.name}">` : `<div style="aspect-ratio:1;display:flex;align-items:center;justify-content:center;background:#F5F5F5;color:#A3A3A3;font-size:11px">${f.name.split('.').pop().toUpperCase()}</div>`}
-          <div class="info"><p>${f.name.length > 20 ? f.name.slice(0,20)+'...' : f.name}</p><p style="color:#D4D4D4;font-size:10px">${(f.size/1024).toFixed(0)} KB</p></div>
-        </div>
-      `).join('')}
-    </div>
-  `);
+  res.send(`<div class="file-grid">${files.map(f => `
+    <div class="file-item">
+      ${/\.(jpg|jpeg|png|gif|svg|webp)$/i.test(f.name) ? `<img src="${f.url}" alt="${esc(f.name)}">` : `<div style="aspect-ratio:1;display:flex;align-items:center;justify-content:center;background:#F5F5F5;color:#A3A3A3;font-size:11px">${esc(f.name.split('.').pop().toUpperCase())}</div>`}
+      <div class="info"><p>${esc(f.name.length > 20 ? f.name.slice(0,20)+'...' : f.name)}</p><p style="color:#D4D4D4;font-size:10px">${(f.size/1024).toFixed(0)} KB</p></div>
+    </div>`).join('')}</div>`);
 });
 
-// ─── SEO MANAGER ───
+/* ─── SEO MANAGER ─── */
 router.get('/seo', auth, (req, res) => {
   const seo = read('seo.json');
   res.send(layout(req, 'SEO', `
     <form hx-post="/admin/seo/save" hx-target="#admin-content" hx-swap="innerHTML" hx-push-url="/admin/seo">
-      <div class="seo-grid">
-        ${Object.entries(seo).map(([key, val]) => `
-          <div class="card">
-            <p style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;color:#A3A3A3;margin-bottom:12px">${key}</p>
-            <div class="form-group"><label>Title</label><input type="text" name="${key}_title" value="${val.title}"></div>
-            <div class="form-group"><label>Description</label><textarea name="${key}_desc" rows="2">${val.description}</textarea></div>
-          </div>
-        `).join('')}
-      </div>
+      <div class="seo-grid">${Object.entries(seo).map(([key, val]) => `
+        <div class="card">
+          <p style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;color:#A3A3A3;margin-bottom:12px">${esc(key)}</p>
+          <div class="form-group"><label>Title</label><input type="text" name="${esc(key)}_title" value="${esc(val.title)}"></div>
+          <div class="form-group"><label>Description</label><textarea name="${esc(key)}_desc" rows="2">${esc(val.description)}</textarea></div>
+        </div>`).join('')}</div>
       <div style="margin-top:16px;text-align:right"><button type="submit" class="btn btn-primary">Save SEO Settings</button></div>
-    </form>
-  `, 'seo'));
+    </form>`, 'seo'));
 });
 
 router.post('/seo/save', auth, (req, res) => {
