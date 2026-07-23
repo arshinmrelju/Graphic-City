@@ -9,3 +9,5 @@ services:
         value: 20
       - key: PORT
         value: 10000
+      - key: SITE_URL
+        value: https://graphiccity.in
