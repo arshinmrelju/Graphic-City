@@ -1,8 +1,8 @@
 const { SITE_URL, SITE_NAME, SITE_DESCRIPTION } = require('../config/constants');
 
 function docHead(title, description, opts = {}) {
-  const canonical = opts.canonical || '';
-  const image = opts.image || '';
+  const canonical = opts.canonical || SITE_URL;
+  const image = opts.image || `${SITE_URL}/public/favicon.svg`;
   return `<!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -10,19 +10,39 @@ function docHead(title, description, opts = {}) {
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(description || SITE_DESCRIPTION)}">
-<meta name="robots" content="index, follow">${canonical ? `\n<link rel="canonical" href="${esc(canonical)}">` : ''}
+<meta name="keywords" content="design studio, brand identity, UI UX design, graphic design agency, digital experience studio, motion graphics, creative agency, GraphicCity">
+<meta name="author" content="GraphicCity">
+<meta name="theme-color" content="#0a0a0a">
+<link rel="canonical" href="${esc(canonical)}">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<meta property="og:site_name" content="${SITE_NAME}">
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(description || SITE_DESCRIPTION)}">
 <meta property="og:type" content="${opts.ogType || 'website'}">
-<meta property="og:url" content="${esc(canonical || SITE_URL)}">${image ? `\n<meta property="og:image" content="${esc(image)}">` : ''}
+<meta property="og:url" content="${esc(canonical)}">
+<meta property="og:image" content="${esc(image)}">
+<meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@graphiccity">
 <meta name="twitter:title" content="${esc(title)}">
 <meta name="twitter:description" content="${esc(description || SITE_DESCRIPTION)}">
+<meta name="twitter:image" content="${esc(image)}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="icon" type="image/svg+xml" href="/public/favicon.svg">
 <link rel="stylesheet" href="/public/css/styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": ["Organization", "ProfessionalService"],
+  "name": "GraphicCity",
+  "url": "${SITE_URL}",
+  "logo": "${SITE_URL}/public/favicon.svg",
+  "description": "${esc(description || SITE_DESCRIPTION)}"
+}
+</script>
 <script src="https://unpkg.com/htmx.org@1.9.12" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js" defer></script>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
