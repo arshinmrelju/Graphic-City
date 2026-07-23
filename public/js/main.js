@@ -95,28 +95,25 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  /* ─── HTMX event handlers ─── */
-  document.body.addEventListener('htmx:afterSwap', function (evt) {
-    var target = evt.detail.target;
-
-    // Reinit Alpine.js on swapped content
-    if (window.Alpine) {
-      Alpine.initTree(target);
-    }
-
-    // Trigger entrance animations on newly loaded sections
-    target.querySelectorAll('.animate-fade-in, .animate-slide-up, .animate-scale-in, .animate-reveal-up').forEach(function (el) {
-      el.style.animation = 'none';
-      requestAnimationFrame(function () {
-        el.style.animation = '';
-      });
+  /* ─── Page transition interceptor (production static fallback) ─── */
+  if (typeof htmx === 'undefined') {
+    document.addEventListener('click', function (e) {
+      var link = e.target.closest('a[href]:not([href^="#"]):not([href^="http"]):not([href^="mailto"]):not([href^="tel"]):not([download]):not([target="_blank"])');
+      if (!link) return;
+      var href = link.getAttribute('href');
+      if (!href || href === '' || href === '/' || href.startsWith('//')) return;
+      if (href.startsWith('#')) return;
+      if (href.startsWith('http')) return;
+      e.preventDefault();
+      var overlay = document.getElementById('page-transition');
+      if (overlay) {
+        overlay.classList.add('active');
+      }
+      setTimeout(function () {
+        window.location.href = href;
+      }, 300);
     });
-
-    // Refresh animations system on swapped content
-    if (window.GCAnimations && window.GCAnimations.refresh) {
-      window.GCAnimations.refresh(target);
-    }
-  });
+  }
 
   /* ─── Dark mode detection ─── */
   var prefersDark = window.matchMedia('(prefers-color-scheme: dark)');

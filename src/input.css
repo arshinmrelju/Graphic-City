@@ -492,6 +492,17 @@
   .stagger-children.revealed > *:nth-child(7) { transition-delay: 0.48s; }
   .stagger-children.revealed > *:nth-child(8) { transition-delay: 0.56s; }
 
+  /* Scroll reveal items (fade-up stagger) */
+  .reveal-item {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+  }
+  .reveal-item.revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
   /* Page transition overlay */
   #page-transition {
     position: fixed;
