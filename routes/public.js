@@ -80,12 +80,12 @@ router.get('/work/:id', (req, res) => {
           <span class="text-core-white/30" aria-hidden="true">·</span>
           <span class="font-body text-xs text-core-white/60">${project.year}</span>
         </div>
-        <h1 class="font-display font-light text-h1 md:text-display-sm xl:text-display text-core-white -tracking-tight mb-3">${esc(project.title)}</h1>
+        <h1 class="font-display font-light text-h1 md:text-display-sm xl:text-display text-core-white -tracking-tight mb-3 break-words">${esc(project.title)}</h1>
         <p class="font-display text-xl md:text-2xl text-core-white/70">${esc(project.client)}</p>
       </div>
       <div class="scroll-affordance" aria-hidden="true"></div>
       </section>
-      <section class="min-h-screen flex flex-col lg:flex-row items-center px-6 md:px-12 lg:px-20 py-24 md:py-32 bg-core-white dark:bg-core-black" data-reveal>
+      <section class="min-h-screen flex flex-col lg:flex-row items-center px-6 md:px-12 lg:px-20 py-16 md:py-24 lg:py-32 bg-core-white dark:bg-core-black" data-reveal>
         <div class="w-full lg:w-1/2 lg:pr-16 xl:pr-24 mb-12 lg:mb-0">
           <p class="font-body text-xs font-medium tracking-wider uppercase text-stone-400 dark:text-stone-500 mb-4 reveal-item">The Challenge</p>
           <h2 class="font-display font-light text-h2 md:text-display-sm text-core-black dark:text-core-white -tracking-tight mb-6 reveal-item">What needed to change.</h2>
@@ -114,10 +114,10 @@ router.get('/capabilities', (req, res) => {
         </div>
         <div class="scroll-affordance" aria-hidden="true"></div>
       </section>
-      <section class="px-6 md:px-12 lg:px-20 py-24 md:py-32 bg-core-white dark:bg-core-black" data-reveal>
+      <section class="px-6 md:px-12 lg:px-20 py-16 md:py-24 lg:py-32 bg-core-white dark:bg-core-black" data-reveal>
         <div class="max-w-7xl mx-auto w-full">
           <p class="font-body text-xs font-medium tracking-wider uppercase text-stone-400 dark:text-stone-500 mb-4">Our Services</p>
-          <h2 class="font-display font-light text-h2 md:text-display-sm text-core-black dark:text-core-white -tracking-tight mb-16">Everything you need, nothing you don't.</h2>
+          <h2 class="font-display font-light text-xl sm:text-h2 md:text-display-sm text-core-black dark:text-core-white -tracking-tight mb-8 md:mb-16">Everything you need, nothing you don't.</h2>
         </div>
       </section>`,
       { navActive: 'capabilities' }
@@ -185,7 +185,7 @@ router.get('/robots.txt', (req, res) => {
 
 /* ─── Render helpers (kept for partials) ─── */
 function renderGrid(items) {
-  if (items.length === 0) return '<div class="text-center py-24"><p class="font-display text-2xl text-stone-400 dark:text-stone-500 mb-2">No projects found</p><p class="font-body text-sm text-stone-400 dark:text-stone-500">Try adjusting your filter or search.</p></div>';
+  if (items.length === 0) return '<div class="text-center py-16 md:py-24"><p class="font-display text-2xl text-stone-400 dark:text-stone-500 mb-2">No projects found</p><p class="font-body text-sm text-stone-400 dark:text-stone-500">Try adjusting your filter or search.</p></div>';
   return `<div class="masonry-grid columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">${items.map(renderCard).join('')}</div>`;
 }
 
@@ -202,7 +202,7 @@ function renderCard(p) {
         <span class="text-stone-300 dark:text-stone-700" aria-hidden="true">·</span>
         <span class="font-body text-xs text-stone-400 dark:text-stone-500">${p.year}</span>
       </div>
-      <h2 class="font-display text-xl text-core-black dark:text-core-white group-hover:text-stone-500 dark:group-hover:text-stone-400 transition-colors duration-200"><a href="/work/${esc(p.id)}" class="hover:underline underline-offset-2 decoration-stone-300 dark:decoration-stone-700 focus-ring rounded-sm">${esc(p.title)}</a></h2>
+      <h2 class="font-display text-xl text-core-black dark:text-core-white group-hover:text-stone-500 dark:group-hover:text-stone-400 transition-colors duration-200"><a href="/work/${esc(p.id)}" class="underline underline-offset-2 decoration-stone-300/50 dark:decoration-stone-700/50 hover:decoration-stone-300 dark:hover:decoration-stone-700 transition-colors duration-200 focus-ring rounded-sm">${esc(p.title)}</a></h2>
       <p class="font-body text-sm text-stone-400 dark:text-stone-500 line-clamp-2 text-balance">${esc(p.description)}</p>
       <div class="flex items-center gap-2 pt-1"><span class="inline-block px-2 py-0.5 bg-stone-100 dark:bg-stone-800 rounded font-body text-xs text-stone-500 dark:text-stone-400">${categories.find(c => c.id === p.category)?.label || esc(p.category)}</span></div>
     </div>
@@ -210,12 +210,14 @@ function renderCard(p) {
 }
 
 function renderFilters(activeCategory, searchValue) {
-  return `<div class="flex flex-wrap items-center gap-2 md:gap-3" role="tablist" aria-label="Filter by category">
-    ${categories.map(cat => `<button role="tab" aria-selected="${cat.id === activeCategory ? 'true' : 'false'}" class="px-4 py-2 rounded-md font-body text-sm transition-all duration-200 focus-ring ${cat.id === activeCategory ? 'bg-core-black dark:bg-core-white text-core-white dark:text-core-black' : 'bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-400 hover:text-core-black dark:hover:text-core-white hover:bg-stone-200 dark:hover:bg-stone-700'}" hx-get="/partials/work-grid?category=${cat.id}" hx-target="#work-grid" hx-push-url="/work?category=${cat.id}" hx-indicator="#work-indicator">${cat.label}</button>`).join('')}
-    <div class="relative ml-auto">
+  return `<div class="overflow-x-auto -mx-6 md:mx-0 px-6 md:px-0">
+  <div class="flex flex-nowrap md:flex-wrap items-center gap-2 md:gap-3 min-w-0" role="tablist" aria-label="Filter by category">
+    ${categories.map(cat => `<button role="tab" aria-selected="${cat.id === activeCategory ? 'true' : 'false'}" class="whitespace-nowrap px-3 py-3 sm:px-4 sm:py-2 rounded-md font-body text-sm transition-all duration-200 focus-ring ${cat.id === activeCategory ? 'bg-core-black dark:bg-core-white text-core-white dark:text-core-black' : 'bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-400 hover:text-core-black dark:hover:text-core-white hover:bg-stone-200 dark:hover:bg-stone-700'}" hx-get="/partials/work-grid?category=${cat.id}" hx-target="#work-grid" hx-push-url="/work?category=${cat.id}" hx-indicator="#work-indicator">${cat.label}</button>`).join('')}
+    <div class="relative ml-auto shrink-0">
       <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/></svg>
-      <input type="search" name="search" value="${esc(searchValue)}" placeholder="Search projects..." class="w-40 md:w-56 h-9 pl-9 pr-3 bg-stone-100 dark:bg-stone-800 border border-transparent focus:border-stone-300 dark:focus:border-stone-600 rounded-md font-body text-sm text-core-black dark:text-core-white placeholder-stone-400 transition-all duration-200 focus-ring" hx-get="/partials/work-grid" hx-trigger="keyup changed delay:300ms, search" hx-target="#work-grid" hx-push-url="true" hx-include="[name='category']" hx-indicator="#work-indicator">
+      <input type="search" name="search" value="${esc(searchValue)}" placeholder="Search projects..." class="w-40 md:w-56 h-11 sm:h-9 pl-9 pr-3 bg-stone-100 dark:bg-stone-800 border border-transparent focus:border-stone-300 dark:focus:border-stone-600 rounded-md font-body text-sm text-core-black dark:text-core-white placeholder-stone-400 transition-all duration-200 focus-ring" hx-get="/partials/work-grid" hx-trigger="keyup changed delay:300ms, search" hx-target="#work-grid" hx-push-url="true" hx-include="[name='category']" hx-indicator="#work-indicator">
     </div>
+  </div>
   </div>
   <div id="work-indicator" class="h-0.5 bg-stone-200 dark:bg-stone-800 mt-4 rounded-full overflow-hidden"><div class="h-full bg-core-black dark:bg-core-white rounded-full transition-all duration-300 w-0 htmx-request:w-full"></div></div>`;
 }
@@ -225,7 +227,7 @@ function renderPagination(result, category, search) {
   const pages = [];
   for (let i = 1; i <= result.totalPages; i++) {
     const isActive = i === result.currentPage;
-    pages.push(`<button class="w-9 h-9 rounded-md font-body text-sm transition-all duration-200 flex items-center justify-center ${isActive ? 'bg-core-black dark:bg-core-white text-core-white dark:text-core-black' : 'text-stone-500 dark:text-stone-400 hover:bg-stone-100 dark:hover:bg-stone-800 hover:text-core-black dark:hover:text-core-white'}" ${isActive ? 'aria-current="page"' : ''} hx-get="/partials/work-grid?category=${category}&search=${encodeURIComponent(search)}&page=${i}" hx-target="#work-grid" hx-push-url="/work?category=${category}&search=${encodeURIComponent(search)}&page=${i}" hx-indicator="#work-indicator" aria-label="Page ${i}">${i}</button>`);
+    pages.push(`<button class="w-11 h-11 sm:w-9 sm:h-9 rounded-md font-body text-sm transition-all duration-200 flex items-center justify-center ${isActive ? 'bg-core-black dark:bg-core-white text-core-white dark:text-core-black' : 'text-stone-500 dark:text-stone-400 hover:bg-stone-100 dark:hover:bg-stone-800 hover:text-core-black dark:hover:text-core-white'}" ${isActive ? 'aria-current="page"' : ''} hx-get="/partials/work-grid?category=${category}&search=${encodeURIComponent(search)}&page=${i}" hx-target="#work-grid" hx-push-url="/work?category=${category}&search=${encodeURIComponent(search)}&page=${i}" hx-indicator="#work-indicator" aria-label="Page ${i}">${i}</button>`);
   }
   return `<nav aria-label="Pagination" class="flex items-center justify-center gap-2">${pages.join('')}</nav>`;
 }
@@ -235,7 +237,7 @@ router.get('/start', (req, res) => {
   try {
     sendPage(res, 'Start a Project — GraphicCity', 'Tell us about your project. We will review your inquiry and get back to you.',
       `<section class="pt-36 pb-12 md:pt-40 md:pb-16 px-6 md:px-12 lg:px-20" data-reveal><div class="max-w-5xl mx-auto"><p class="font-body text-xs font-medium tracking-wider uppercase text-stone-400 dark:text-stone-500 mb-4 reveal-item">Start a Project</p><h1 class="font-display font-light text-h2 md:text-display-sm text-core-black dark:text-core-white -tracking-tight mb-6 reveal-item">Let's create something remarkable.</h1><p class="font-body text-base md:text-lg text-stone-500 dark:text-stone-400 max-w-2xl text-balance reveal-item">Tell us about your project. We&rsquo;ll review your inquiry and get back to you within 48 hours.</p></div></section>
-      <section class="px-6 md:px-12 lg:px-20 pb-28" data-reveal><div class="max-w-5xl mx-auto"><div class="grid lg:grid-cols-3 gap-12 lg:gap-16"><div class="lg:col-span-2">${renderStartForm()}</div><aside class="space-y-8 reveal-item">${renderContactSidebar()}</aside></div></div></section>`,
+      <section class="px-6 md:px-12 lg:px-20 pb-28" data-reveal><div class="max-w-5xl mx-auto"><div class="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-16"><div class="lg:col-span-2">${renderStartForm()}</div><aside class="space-y-8 reveal-item">${renderContactSidebar()}</aside></div></div></section>`,
       { navActive: 'start' }
     );
   } catch (err) {

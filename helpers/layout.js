@@ -53,28 +53,26 @@ function renderNav(current) {
 <div class="hidden md:flex items-center gap-6 lg:gap-8">${links.map(l => `<a href="${l.href}" class="font-body text-sm ${l.id === current ? 'font-medium text-core-black dark:text-core-white' : 'text-stone-500 dark:text-stone-400 hover:text-core-black dark:hover:text-core-white'} transition-colors">${l.label}</a>`).join('')}</div>
 <div class="flex items-center gap-4">
 <a href="/start" class="hidden sm:inline-flex items-center h-9 px-4 bg-core-black dark:bg-core-white text-core-white dark:text-core-black font-body font-medium text-sm rounded-md hover:bg-stone-800 dark:hover:bg-stone-200 transition-all">Start a Project</a>
-<button id="menu-toggle" class="font-body text-xs font-medium tracking-wider uppercase text-stone-500 dark:text-stone-400 hover:text-core-black dark:hover:text-core-white transition-colors px-1 py-1" aria-label="Open menu" aria-haspopup="true" aria-controls="menu-overlay">Menu</button>
+<button id="menu-toggle" class="font-body text-xs font-medium tracking-wider uppercase text-stone-500 dark:text-stone-400 hover:text-core-black dark:hover:text-core-white transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center" aria-label="Open menu" aria-haspopup="true" aria-controls="menu-overlay">Menu</button>
 </div>
 </nav>
 </header>
 
-<div id="menu-overlay" class="fixed inset-0 z-[60] bg-core-black/98 backdrop-blur-[40px] transition-opacity duration-300 ease-out opacity-0 pointer-events-none" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Site navigation menu">
-<button class="absolute top-4 right-4 md:top-6 md:right-8 lg:top-8 lg:right-12 font-body text-xs font-medium tracking-wider uppercase text-stone-400 hover:text-core-white transition-colors duration-150 menu-close-btn px-3 py-2" aria-label="Close menu">Close</button>
-<div class="flex flex-col items-center justify-center h-full px-6">
-<nav aria-label="Site navigation" class="text-center">${links.map(l => `<a href="${l.href}" class="block font-display text-4xl md:text-5xl text-core-white hover:text-stone-300 transition-colors duration-150 py-3">${l.label}</a>`).join('')}
+<div id="menu-overlay" class="fixed inset-0 z-[60] bg-core-black/98 backdrop-blur-[40px] transition-all duration-300 ease-out opacity-0 scale-95 pointer-events-none" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Site navigation menu">
+<button class="absolute top-4 right-4 md:top-6 md:right-8 lg:top-8 lg:right-12 font-body text-xs font-medium tracking-wider uppercase text-stone-400 hover:text-core-white transition-colors duration-150 menu-close-btn min-h-[44px] flex items-center px-3" aria-label="Close menu">Close</button>
+<div class="flex flex-col h-full px-6 py-24">
+<nav aria-label="Site navigation" class="text-center flex-1 flex flex-col items-center justify-center">${links.map(l => `<a href="${l.href}" class="block font-display text-4xl md:text-5xl text-core-white hover:text-stone-300 transition-colors duration-150 py-3 min-h-[44px] flex items-center justify-center">${l.label}</a>`).join('')}
 <hr class="w-12 mx-auto my-8 border-stone-700"><a href="/start" class="inline-flex items-center h-12 px-8 bg-core-white text-core-black font-body font-medium text-base rounded-md hover:bg-stone-200 transition-all">Start a Project</a>
 </nav>
-<div class="absolute bottom-8 left-0 right-0 px-8">
-<div class="flex flex-col md:flex-row items-center justify-between gap-4 max-w-4xl mx-auto">
-<a href="mailto:hello@graphiccity.studio" class="font-body text-sm text-stone-400 hover:text-core-white transition-colors">hello@graphiccity.studio</a>
+<div class="flex flex-col md:flex-row items-center justify-between gap-4 max-w-4xl mx-auto w-full">
+<a href="mailto:hello@graphiccity.studio" class="font-body text-sm text-stone-400 hover:text-core-white transition-colors min-h-[44px] flex items-center">hello@graphiccity.studio</a>
 <div class="flex items-center gap-6">
-<a href="#" class="font-body text-xs font-medium tracking-wider uppercase text-stone-500 hover:text-core-white transition-colors">LinkedIn</a>
-<a href="#" class="font-body text-xs font-medium tracking-wider uppercase text-stone-500 hover:text-core-white transition-colors">Instagram</a>
-<a href="#" class="font-body text-xs font-medium tracking-wider uppercase text-stone-500 hover:text-core-white transition-colors">Twitter</a>
+<a href="#" class="font-body text-xs font-medium tracking-wider uppercase text-stone-500 hover:text-core-white transition-colors min-h-[44px] flex items-center">LinkedIn</a>
+<a href="#" class="font-body text-xs font-medium tracking-wider uppercase text-stone-500 hover:text-core-white transition-colors min-h-[44px] flex items-center">Instagram</a>
+<a href="#" class="font-body text-xs font-medium tracking-wider uppercase text-stone-500 hover:text-core-white transition-colors min-h-[44px] flex items-center">Twitter</a>
 </div>
 </div>
 <p class="text-center mt-6 font-body text-xs text-stone-600">&copy; 2026 ${SITE_NAME}</p>
-</div>
 </div>
 </div>`;
 }
@@ -83,7 +81,7 @@ function renderFooter() {
   return `<footer id="site-footer" class="bg-stone-50 dark:bg-stone-950 border-t border-stone-200 dark:border-stone-800" aria-label="Site footer">
 <div class="border-b border-stone-200 dark:border-stone-800">
 <div class="max-w-7xl mx-auto px-6 md:px-12 py-10 md:py-12">
-<a href="/start" class="group inline-flex items-center gap-3 font-display text-2xl md:text-3xl text-core-black dark:text-core-white hover:text-stone-500 dark:hover:text-stone-400 transition-colors">
+<a href="/start" class="group inline-flex items-center gap-3 font-display text-2xl md:text-3xl text-core-black dark:text-core-white hover:text-stone-500 dark:hover:text-stone-400 transition-colors min-h-[44px] py-2">
 Start a Project
 <span class="inline-block transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
 </a>
@@ -93,7 +91,7 @@ Start a Project
 <div class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
 <div><a href="/" class="inline-flex items-center gap-2 mb-4" aria-label="${SITE_NAME} home"><svg width="28" height="14" viewBox="0 0 32 16" fill="none" aria-hidden="true" class="text-core-black dark:text-core-white"><rect width="6" height="16" rx="1" fill="currentColor"/><rect x="9" width="6" height="16" rx="1" fill="currentColor"/><rect x="18" width="6" height="16" rx="1" fill="currentColor"/><rect x="27" width="5" height="16" rx="1" fill="currentColor"/></svg></a><p class="font-body text-sm text-stone-500 dark:text-stone-400 max-w-xs text-balance">Design, made permanent.</p></div>
 <nav aria-label="Footer navigation"><div class="grid grid-cols-2 gap-6"><div class="space-y-3"><a href="/work" class="block font-body text-sm text-stone-600 dark:text-stone-400 hover:text-core-black dark:hover:text-core-white transition-colors">Work</a><a href="/capabilities" class="block font-body text-sm text-stone-600 dark:text-stone-400 hover:text-core-black dark:hover:text-core-white transition-colors">Capabilities</a></div><div class="space-y-3"><a href="/about" class="block font-body text-sm text-stone-600 dark:text-stone-400 hover:text-core-black dark:hover:text-core-white transition-colors">About</a><a href="/journal" class="block font-body text-sm text-stone-600 dark:text-stone-400 hover:text-core-black dark:hover:text-core-white transition-colors">Journal</a></div></div></nav>
-<div class="space-y-4"><a href="mailto:hello@graphiccity.studio" class="block font-body text-sm text-core-black dark:text-core-white hover:text-stone-500 dark:hover:text-stone-400 transition-colors">hello@graphiccity.studio</a><p class="font-body text-xs text-stone-400 dark:text-stone-500">San Francisco, CA</p><div class="flex items-center gap-5 pt-2"><a href="#" class="font-body text-xs font-medium tracking-wider uppercase text-stone-500 dark:text-stone-500 hover:text-core-black dark:hover:text-core-white transition-colors">LinkedIn</a><a href="#" class="font-body text-xs font-medium tracking-wider uppercase text-stone-500 dark:text-stone-500 hover:text-core-black dark:hover:text-core-white transition-colors">Instagram</a><a href="#" class="font-body text-xs font-medium tracking-wider uppercase text-stone-500 dark:text-stone-500 hover:text-core-black dark:hover:text-core-white transition-colors">Twitter</a></div></div>
+<div class="space-y-4"><a href="mailto:hello@graphiccity.studio" class="block font-body text-sm text-core-black dark:text-core-white hover:text-stone-500 dark:hover:text-stone-400 transition-colors">hello@graphiccity.studio</a><p class="font-body text-xs text-stone-400 dark:text-stone-500">San Francisco, CA</p><div class="flex items-center gap-5 pt-2"><a href="#" class="font-body text-xs font-medium tracking-wider uppercase text-stone-500 dark:text-stone-500 hover:text-core-black dark:hover:text-core-white transition-colors min-h-[44px] inline-flex items-center">LinkedIn</a><a href="#" class="font-body text-xs font-medium tracking-wider uppercase text-stone-500 dark:text-stone-500 hover:text-core-black dark:hover:text-core-white transition-colors min-h-[44px] inline-flex items-center">Instagram</a><a href="#" class="font-body text-xs font-medium tracking-wider uppercase text-stone-500 dark:text-stone-500 hover:text-core-black dark:hover:text-core-white transition-colors min-h-[44px] inline-flex items-center">Twitter</a></div></div>
 </div>
 <div class="mt-16 pt-6 border-t border-stone-200 dark:border-stone-800 flex flex-col sm:flex-row items-center justify-between gap-4">
 <p class="font-body text-xs text-stone-400 dark:text-stone-500">&copy; 2026 ${SITE_NAME}. All rights reserved.</p>
