@@ -587,8 +587,11 @@
       initHtmxIntegration();
     }
 
-    document.querySelectorAll('[data-reveal].in-viewport').forEach(function (el) {
-      ScrollReveal.reveal(el);
+    document.querySelectorAll('[data-reveal]').forEach(function (el) {
+      var rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight) {
+        ScrollReveal.reveal(el);
+      }
     });
   }
 

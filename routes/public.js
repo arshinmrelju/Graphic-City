@@ -236,7 +236,7 @@ function renderPagination(result, category, search) {
 router.get('/start', (req, res) => {
   try {
     sendPage(res, 'Start a Project — GraphicCity', 'Tell us about your project. We will review your inquiry and get back to you.',
-      `<section class="min-h-screen bg-core-black pt-28 md:pt-36 pb-20 px-6 md:px-12 lg:px-20">
+      `<section class="min-h-screen bg-core-black pt-28 md:pt-36 pb-20 px-6 md:px-12 lg:px-20" data-reveal>
         <div class="max-w-6xl mx-auto">
 
           <!-- Hero heading -->
