@@ -38,4 +38,7 @@ app.use((err, req, res, next) => {
   res.status(500).send('Internal server error');
 });
 
-app.listen(PORT, () => console.log(`GraphicCity running at http://localhost:${PORT}`));
+if (require.main === module) {
+  app.listen(PORT, () => console.log(`GraphicCity running at http://localhost:${PORT}`));
+}
+module.exports = app;

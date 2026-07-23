@@ -1,25 +1,23 @@
 {
   "hosting": {
-    "public": ".",
+    "public": "dist",
     "ignore": [
-      "firebase.json",
-      ".firebaserc",
-      "**/.*",
-      "**/node_modules/**",
-      "**/views/**",
-      "**/data/**",
-      "**/lib/**",
-      "**/functions/**",
-      "**/src/**",
-      "server.js",
-      "admin.js",
-      "package.json",
-      "package-lock.json"
+      "**/.*"
     ],
+    "cleanUrls": true,
+    "trailingSlash": false,
     "rewrites": [
       {
         "source": "/public/**",
         "destination": "/public/$1"
+      },
+      {
+        "source": "/assets/**",
+        "destination": "/assets/$1"
+      },
+      {
+        "source": "/partials/{name}",
+        "destination": "/partials/{name}.html"
       }
     ]
   }
