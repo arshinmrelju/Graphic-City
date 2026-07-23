@@ -126,6 +126,28 @@ async function build() {
       }
     }
 
+    // Inline partials into about page (hero only, rest loaded via partials)
+    const aboutHtml = fs.readFileSync(path.join(DIST, 'about', 'index.html'), 'utf8');
+    const aboutPartials = ['about-story', 'about-process', 'about-numbers', 'about-manifesto'];
+    let aboutSections = '';
+    for (const name of aboutPartials) {
+      const partialPath = path.join(partialsDir, name + '.html');
+      if (fs.existsSync(partialPath)) aboutSections += fs.readFileSync(partialPath, 'utf8') + '\n';
+    }
+    const aboutFull = aboutHtml.replace('</main>', aboutSections + '</main>');
+    fs.writeFileSync(path.join(DIST, 'about', 'index.html'), aboutFull);
+    console.log('  \u2713 Inlined about page partials');
+
+    // Inline partials into capabilities page
+    const capsHtml = fs.readFileSync(path.join(DIST, 'capabilities', 'index.html'), 'utf8');
+    const capsPartialPath = path.join(partialsDir, 'capabilities-services.html');
+    if (fs.existsSync(capsPartialPath)) {
+      const capsSection = fs.readFileSync(capsPartialPath, 'utf8');
+      const capsFull = capsHtml.replace('</main>', capsSection + '\n</main>');
+      fs.writeFileSync(path.join(DIST, 'capabilities', 'index.html'), capsFull);
+      console.log('  \u2713 Inlined capabilities page partials');
+    }
+
     // Post-process work page: inject client-side filtering
     const workHtml = fs.readFileSync(path.join(DIST, 'work', 'index.html'), 'utf8');
     const workWithJs = workHtml.replace('</body>', workFilterScript() + '\n</body>');

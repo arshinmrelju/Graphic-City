@@ -193,85 +193,29 @@
       </div>
     </section>
 
-    <!-- ============================================ -->
-    <!-- ACT II: THE STATEMENT (HTMX lazy load)      -->
-    <!-- ============================================ -->
-    <section id="act-ii-placeholder"
-             hx-get="/partials/act-ii"
-             hx-trigger="revealed"
-             hx-swap="outerHTML"
-             hx-target="#act-ii-placeholder"
-             class="min-h-screen bg-stone-50 dark:bg-stone-950 flex items-center justify-center scroll-snap-child"
-             aria-label="Our statement loading">
-      <div class="skeleton w-full max-w-4xl mx-6 h-64 rounded-lg"></div>
-    </section>
-
-    <!-- ============================================ -->
-    <!-- ACT III: THE EVIDENCE (HTMX lazy load)      -->
-    <!-- ============================================ -->
-    <section id="act-iii-placeholder"
-             hx-get="/partials/act-iii"
-             hx-trigger="revealed"
-             hx-swap="outerHTML"
-             hx-target="#act-iii-placeholder"
-             class="min-h-screen bg-core-white dark:bg-core-black flex items-center justify-center scroll-snap-child"
-             aria-label="Our work loading">
-      <div class="skeleton w-full max-w-4xl mx-6 h-64 rounded-lg"></div>
-    </section>
-
-    <!-- ============================================ -->
-    <!-- ACT IV: THE METHOD (HTMX lazy load)         -->
-    <!-- ============================================ -->
-    <section id="act-iv-placeholder"
-             hx-get="/partials/act-iv"
-             hx-trigger="revealed"
-             hx-swap="outerHTML"
-             hx-target="#act-iv-placeholder"
-             class="min-h-screen bg-core-white dark:bg-core-black flex items-center justify-center scroll-snap-child"
-             aria-label="Our process loading">
-      <div class="skeleton w-full max-w-4xl mx-6 h-64 rounded-lg"></div>
-    </section>
-
-    <!-- ============================================ -->
-    <!-- ACT V: THE TRUST (HTMX lazy load)           -->
-    <!-- ============================================ -->
-    <section id="act-v-placeholder"
-             hx-get="/partials/act-v"
-             hx-trigger="revealed"
-             hx-swap="outerHTML"
-             hx-target="#act-v-placeholder"
-             class="min-h-screen bg-stone-50 dark:bg-stone-950 flex items-center justify-center scroll-snap-child"
-             aria-label="Our clients loading">
-      <div class="skeleton w-full max-w-3xl mx-6 h-80 rounded-lg"></div>
-    </section>
-
-    <!-- ============================================ -->
-    <!-- ACT VI: THE INVITATION (HTMX lazy load)     -->
-    <!-- ============================================ -->
-    <section id="act-vi-placeholder"
-             hx-get="/partials/act-vi"
-             hx-trigger="revealed"
-             hx-swap="outerHTML"
-             hx-target="#act-vi-placeholder"
-             class="min-h-screen bg-core-black flex items-center justify-center scroll-snap-child"
-             aria-label="Get in touch loading">
-      <div class="skeleton w-full max-w-lg mx-6 h-48 rounded-lg"></div>
-    </section>
-
-    <!-- ============================================ -->
-    <!-- FOOTER (HTMX lazy load)                    -->
-    <!-- ============================================ -->
-    <footer id="footer-placeholder"
-            hx-get="/partials/footer"
-            hx-trigger="revealed"
-            hx-swap="outerHTML"
-            hx-target="#footer-placeholder"
-            class="bg-stone-50 dark:bg-stone-950 border-t border-stone-200 dark:border-stone-800"
-            aria-label="Site footer loading">
-      <div class="skeleton w-full h-48 mx-auto max-w-6xl my-12 rounded-lg"></div>
-    </footer>
-
   </main>
+
+  <footer id="site-footer" class="bg-stone-50 dark:bg-stone-950 border-t border-stone-200 dark:border-stone-800" aria-label="Site footer">
+<div class="border-b border-stone-200 dark:border-stone-800">
+<div class="max-w-7xl mx-auto px-6 md:px-12 py-10 md:py-12">
+<a href="/start" class="group inline-flex items-center gap-3 font-display text-2xl md:text-3xl text-core-black dark:text-core-white hover:text-stone-500 dark:hover:text-stone-400 transition-colors">
+Start a Project
+<span class="inline-block transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+</a>
+</div>
+</div>
+<div class="max-w-7xl mx-auto px-6 md:px-12 py-14 md:py-20">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
+<div><a href="/" class="inline-flex items-center gap-2 mb-4" aria-label="GraphicCity home"><svg width="28" height="14" viewBox="0 0 32 16" fill="none" aria-hidden="true" class="text-core-black dark:text-core-white"><rect width="6" height="16" rx="1" fill="currentColor"/><rect x="9" width="6" height="16" rx="1" fill="currentColor"/><rect x="18" width="6" height="16" rx="1" fill="currentColor"/><rect x="27" width="5" height="16" rx="1" fill="currentColor"/></svg></a><p class="font-body text-sm text-stone-500 dark:text-stone-400 max-w-xs text-balance">Design, made permanent.</p></div>
+<nav aria-label="Footer navigation"><div class="grid grid-cols-2 gap-6"><div class="space-y-3"><a href="/work" class="block font-body text-sm text-stone-600 dark:text-stone-400 hover:text-core-black dark:hover:text-core-white transition-colors">Work</a><a href="/capabilities" class="block font-body text-sm text-stone-600 dark:text-stone-400 hover:text-core-black dark:hover:text-core-white transition-colors">Capabilities</a></div><div class="space-y-3"><a href="/about" class="block font-body text-sm text-stone-600 dark:text-stone-400 hover:text-core-black dark:hover:text-core-white transition-colors">About</a><a href="/journal" class="block font-body text-sm text-stone-600 dark:text-stone-400 hover:text-core-black dark:hover:text-core-white transition-colors">Journal</a></div></div></nav>
+<div class="space-y-4"><a href="mailto:hello@graphiccity.studio" class="block font-body text-sm text-core-black dark:text-core-white hover:text-stone-500 dark:hover:text-stone-400 transition-colors">hello@graphiccity.studio</a><p class="font-body text-xs text-stone-400 dark:text-stone-500">San Francisco, CA</p><div class="flex items-center gap-5 pt-2"><a href="#" class="font-body text-xs font-medium tracking-wider uppercase text-stone-500 dark:text-stone-500 hover:text-core-black dark:hover:text-core-white transition-colors">LinkedIn</a><a href="#" class="font-body text-xs font-medium tracking-wider uppercase text-stone-500 dark:text-stone-500 hover:text-core-black dark:hover:text-core-white transition-colors">Instagram</a><a href="#" class="font-body text-xs font-medium tracking-wider uppercase text-stone-500 dark:text-stone-500 hover:text-core-black dark:hover:text-core-white transition-colors">Twitter</a></div></div>
+</div>
+<div class="mt-16 pt-6 border-t border-stone-200 dark:border-stone-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+<p class="font-body text-xs text-stone-400 dark:text-stone-500">&copy; 2026 GraphicCity. All rights reserved.</p>
+<div class="flex items-center gap-6"><a href="/privacy" class="font-body text-xs text-stone-400 dark:text-stone-500 hover:text-stone-600 dark:hover:text-stone-300 transition-colors">Privacy</a><a href="/terms" class="font-body text-xs text-stone-400 dark:text-stone-500 hover:text-stone-600 dark:hover:text-stone-300 transition-colors">Terms</a></div>
+</div>
+</div>
+</footer>
 
   <script src="/public/js/firebase-init.js"></script>
   <script src="/public/js/animations.js"></script>
