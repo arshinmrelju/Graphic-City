@@ -10,7 +10,7 @@ function docHead(title, description, opts = {}) {
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(description || SITE_DESCRIPTION)}">
-<meta name="keywords" content="design studio, brand identity, UI UX design, graphic design agency, digital experience studio, motion graphics, creative agency, GraphicCity">
+<meta name="keywords" content="GraphicCity, Graphic City, Pulpally, web development, poster designing, brand identity, UI UX design, graphic design agency, digital experience studio, motion graphics, creative agency, web design Wayanad, branding agency Kerala, Pulpally design studio, poster design Kerala">
 <meta name="author" content="GraphicCity">
 <meta name="theme-color" content="#0a0a0a">
 <link rel="canonical" href="${esc(canonical)}">
@@ -38,9 +38,17 @@ function docHead(title, description, opts = {}) {
   "@context": "https://schema.org",
   "@type": ["Organization", "ProfessionalService"],
   "name": "GraphicCity",
+  "alternateName": ["Graphic City", "GraphicCity Studio"],
   "url": "${SITE_URL}",
   "logo": "${SITE_URL}/public/favicon.svg",
-  "description": "${esc(description || SITE_DESCRIPTION)}"
+  "description": "${esc(description || SITE_DESCRIPTION)}",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Pulpally",
+    "addressRegion": "Wayanad, Kerala",
+    "addressCountry": "IN"
+  },
+  "knowsAbout": ["Graphic City", "Pulpally", "Web Development", "Poster Designing", "Brand Identity", "UI/UX Design", "Motion Design", "Graphic Design"]
 }
 </script>
 <script src="https://unpkg.com/htmx.org@1.9.12" defer></script>
