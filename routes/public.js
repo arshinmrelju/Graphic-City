@@ -283,7 +283,7 @@ function renderStartForm() {
     </div>
     <div class="relative">
       <label for="budget" class="${labelCls}">Budget Range</label>
-      <select id="budget" name="budget" class="${selectCls}">${['Under $5K', '$5K–$15K', '$15K–$50K', '$50K–$100K', '$100K+', 'Prefer not to say'].map(b => `<option value="${b}">${b}</option>`).join('')}</select>
+      <select id="budget" name="budget" class="${selectCls}">${['Under ₹50,000', '₹50,000–₹1.5 Lakhs', '₹1.5 Lakhs–₹5 Lakhs', '₹5 Lakhs–₹15 Lakhs', '₹15 Lakhs+', 'Prefer not to say'].map(b => `<option value="${b}">${b}</option>`).join('')}</select>
       <span class="pointer-events-none absolute right-4 bottom-3.5 text-stone-500">&#8964;</span>
     </div>
     <div><label for="description" class="${labelCls}">Project Description <span class="text-stone-600" aria-hidden="true">*</span></label><textarea id="description" name="description" rows="5" required class="w-full px-4 py-3 bg-stone-900 border border-stone-800 rounded-lg font-body text-sm text-core-white placeholder-stone-600 focus:border-stone-600 focus:outline-none transition-colors duration-200 resize-y min-h-[130px]" placeholder="Tell us about your project, goals, timeline, and anything else we should know."></textarea></div>

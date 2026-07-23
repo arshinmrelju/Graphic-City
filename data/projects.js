@@ -20,7 +20,7 @@ const projects = [
     description: 'A reimagined health platform. UX strategy, interface design, and a comprehensive component library.',
     cs: {
       challenge: 'Pulse\'s platform had grown organically over five years. Features were stacked atop features. Patients found it confusing; clinicians found it slow. They needed a complete UX overhaul without disrupting existing users.',
-      research: 'We shadowed 12 clinicians and interviewed 20 patients across three clinics. The friction points clustered around three areas: navigation complexity, data entry fatigue, and information hierarchy.',
+      research: 'We shadowed 12 clinicians and interviewed 20 patients across three clinics in Kochi and Kozhikode. The friction points clustered around three areas: navigation complexity, data entry fatigue, and information hierarchy.',
       sketches: ['Mapping the full user journey revealed 47 distinct screens. We consolidated to 14. Each sketch round focused on reducing steps, not adding features.',
       'The navigation system went through 8 major revisions. The winning approach: context-aware menus that adapt to the user\'s role and task.',
       'Wireframes tested with real clinicians led to immediate improvements. The final information architecture reduced time-to-task by 60%.'],
@@ -35,7 +35,7 @@ const projects = [
     description: 'Art direction for a fintech leader. Campaign visuals, photography direction, and brand expression.',
     cs: {
       challenge: 'Meridian was perceived as powerful but impersonal. Their visual language relied on stock imagery and generic gradients. They needed an art direction system that conveyed trust, sophistication, and human warmth.',
-      research: 'We analyzed 40+ financial service brands and conducted perception studies across Meridian\'s key markets. The insight: customers wanted a brand that felt both authoritative and approachable — a trusted advisor, not a faceless institution.',
+      research: 'We analyzed 40+ financial service brands and conducted perception studies across Meridian\'s key markets in South India. The insight: customers wanted a brand that felt both authoritative and approachable — a trusted advisor, not a faceless institution.',
       sketches: ['Our mood exploration spanned architectural photography, textile patterns, and mid-century information design. The thread: precision with soul.',
       'Initial directions ranged from overtly luxurious to starkly minimal. The winning territory existed in the middle — warm minimalism, where every element earns its place.',
       'The photography direction was the breakthrough: environmental portraits shot with natural light, desaturated tones with selective warmth. A visual language that felt both prestigious and genuine.'],
@@ -65,7 +65,7 @@ const projects = [
     description: 'A logistics dashboard redesign. Complex data visualized with clarity. Enterprise-grade design system.',
     cs: {
       challenge: 'Atlas\'s operations dashboard was a wall of numbers. Dispatchers were missing critical events because the interface couldn\'t differentiate signal from noise.',
-      research: 'We rode along with dispatchers across three distribution centers. The average dispatcher switches between 7 different views to make a single decision. The goal: reduce that to 2.',
+      research: 'We rode along with dispatchers across distribution centers in Wayanad, Malappuram, and Ernakulam. The average dispatcher switches between 7 different views to make a single decision. The goal: reduce that to 2.',
       sketches: ['We prototyped a unified timeline view that consolidates all tracking data into a single scrollable narrative. Early tests showed a 40% reduction in context-switching.',
       'The map interface went through 12 iterations. The winner: a hybrid of list and map that shows only what matters at each zoom level.',
       'Color coding became the organizing principle. Each event type received a distinct hue. Critical path items used high-saturation colors; background data receded into neutrals.'],
@@ -83,7 +83,7 @@ const projects = [
       research: 'We studied how sound visualization has been approached across science, art, and entertainment. The insight: the best sound visualizations don\'t explain sound — they evoke the feeling of hearing it.',
       sketches: ['We generated hundreds of waveform interpretations. The winning concept: particles that move like sound waves through physical space — visible vibration.',
       'The launch film script went through 9 revisions. Each cut shifted the balance between technical demonstration and emotional storytelling. The final version splits it 50/50.',
-      'Environmental motion for retail spaces used projection mapping to create immersive audio-reactive walls. The technology was complex; the result felt simple and magical.'],
+      'Environmental motion for retail spaces in Lulu Mall Kochi used projection mapping to create immersive audio-reactive walls. The technology was complex; the result felt simple and magical.'],
       typography: { typefaces: ['Space Grotesk', 'Inter'], description: 'Space Grotesk in motion — its geometric forms animate beautifully at large sizes. Inter for supporting text that needs to remain stable during motion.' },
       colors: [{ hex: '#EC4899', name: 'Pulse', usage: 'Primary motion color, energy' },{ hex: '#0A0A0A', name: 'Core', usage: 'Background, contrast' },{ hex: '#06B6D4', name: 'Wave', usage: 'Secondary motion accent' },{ hex: '#FFFFFF', name: 'White', usage: 'Text on dark backgrounds' }],
       results: [{ value: '4.2M', label: 'Launch film views in first week' },{ value: '18%', label: 'Increase in retail foot traffic' }]
@@ -155,7 +155,7 @@ const projects = [
     description: 'Sustainable packaging and brand identity for a premium water brand.',
     cs: {
       challenge: 'Cascade entered one of the most crowded categories in consumer goods. Every shelf is a sea of blue bottles and mountain imagery. Cascade needed to stand out while communicating premium quality and environmental responsibility.',
-      research: 'We studied the premium water market across 12 countries. The white space: no brand had successfully combined premium aesthetics with genuine sustainability credentials. Most used greenwashing; Cascade could use real proof.',
+      research: 'We studied the premium beverage market across key Indian urban hubs and coastal markets. The white space: no brand had successfully combined premium aesthetics with genuine sustainability credentials. Most used greenwashing; Cascade could use real proof.',
       sketches: ['The bottle form was designed first. We explored over 50 shapes before landing on a geometry that feels both architectural and organic — like a water droplet captured mid-fall.',
       'The label system uses minimal ink and maximum impact. A single typographic mark on clear glass. The product is the packaging; the packaging is the brand.',
       'Sustainability drove every decision. The bottle is 100% recycled aluminum. The ink is plant-based. The supply chain is carbon-neutral. We designed for the full lifecycle, not just the shelf.'],
@@ -170,7 +170,7 @@ const projects = [
     description: 'A clinical trial management platform. Complex workflows made intuitive.',
     cs: {
       challenge: 'Clinical trial software is notoriously difficult to use. Helix wanted to break the pattern — building a platform that researchers actually enjoy using, without compromising on regulatory compliance.',
-      research: 'We observed clinical research coordinators across 5 sites. The average coordinator uses 6 different systems to manage a single trial. The friction is not in any one system — it is in the gaps between them.',
+      research: 'We observed clinical research coordinators across 5 medical centers in Kerala and South India. The average coordinator uses 6 different systems to manage a single trial. The friction is not in any one system — it is in the gaps between them.',
       sketches: ['The central insight: trial management is a project management problem, not a data entry problem. We redesigned the workflow around milestones and decisions, not forms and fields.',
       'The compliance engine runs in the background. Researchers don\'t think about regulations — the system ensures compliance automatically. This inversion was the breakthrough.',
       'The dashboard went through 15 iterations. The final version shows one thing: what needs attention right now. Everything else is one click away, not one screen away.'],

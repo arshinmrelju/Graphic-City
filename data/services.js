@@ -29,7 +29,7 @@ const services = [
       'Launch strategy & rollout plan'
     ],
     timeline: '8–12 weeks',
-    pricing: '35,000',
+    pricing: '₹35,000',
     faq: [
       { q: 'What does a brand strategy engagement include?', a: 'A full brand strategy covers discovery, positioning, messaging, and narrative architecture. You receive a strategic platform that serves as the foundation for all creative work. Most engagements include stakeholder workshops, competitive analysis, audience definition, and a comprehensive messaging playbook.' },
       { q: 'Can we do strategy without committing to design?', a: 'Yes. Many clients begin with strategy alone. We define the foundation, and when you are ready to design against it, the transition is seamless. The strategy phase stands on its own as a deliverable.' },
@@ -68,7 +68,7 @@ const services = [
       'Pattern & texture library'
     ],
     timeline: '10–14 weeks',
-    pricing: '45,000',
+    pricing: '₹45,000',
     faq: [
       { q: 'What is included in the logo system?', a: 'You receive a primary logo, secondary variations (horizontal, icon-only, wordmark), clear space rules, minimum size specifications, and incorrect usage examples. Every format is delivered in vector and raster formats for every application.' },
       { q: 'Can we use the brand guidelines with external agencies?', a: 'Absolutely. The guidelines are designed to be implementation-ready for any team — internal or external. We include specification files in industry-standard formats and provide a handoff session to walk your team through the system.' },
@@ -107,7 +107,7 @@ const services = [
       'Performance optimization recommendations'
     ],
     timeline: '10–16 weeks',
-    pricing: '55,000',
+    pricing: '₹55,000',
     faq: [
       { q: 'Do you build the website or just design it?', a: 'We design and can deliver production-ready front-end code (HTML, CSS, JavaScript). For complex back-end development, we collaborate with your engineering team or recommend trusted technical partners.' },
       { q: 'What is a design system and do we need one?', a: 'A design system is a library of reusable components and patterns that ensures visual and functional consistency across your digital products. If you have more than one screen or plan to scale, you need one. It saves time, reduces technical debt, and creates a cohesive user experience.' },
@@ -145,7 +145,7 @@ const services = [
       'Implementation documentation'
     ],
     timeline: '6–10 weeks',
-    pricing: '25,000',
+    pricing: '₹25,000',
     faq: [
       { q: 'How do you ensure motion performs well on different devices?', a: 'We design motion with performance as a constraint from the start. Animations use GPU-accelerated properties (transform, opacity) and respect reduced-motion preferences. We test across device classes to ensure smooth performance.' },
       { q: 'Can motion be added to an existing brand?', a: 'Yes. We can develop a motion identity that extends an existing brand system. We audit your current visual language and define motion principles that feel like a natural extension of what already exists.' },
@@ -179,7 +179,7 @@ const services = [
       'Ongoing support & maintenance plan'
     ],
     timeline: '6–10 weeks',
-    pricing: '25,000',
+    pricing: '₹25,000',
     faq: [
       { q: 'What makes your guidelines different from a standard PDF?', a: 'Our guidelines are designed to be used, not archived. They are structured for quick reference, written in plain language, and delivered in both digital and printed formats. We also offer a digital guidelines platform that your team can search, browse, and apply in real time.' },
       { q: 'Can you help us enforce brand consistency across multiple teams?', a: 'Yes. We build governance frameworks that scale with your organization. This includes approval workflows, usage tiers, exception processes, and regular brand health checks. Consistency is a system, not a rulebook.' },

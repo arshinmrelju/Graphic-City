@@ -22,7 +22,7 @@ function docHead(title, description, opts = {}) {
 <meta property="og:type" content="${opts.ogType || 'website'}">
 <meta property="og:url" content="${esc(canonical)}">
 <meta property="og:image" content="${esc(image)}">
-<meta property="og:locale" content="en_US">
+<meta property="og:locale" content="en_IN">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@graphiccity">
 <meta name="twitter:title" content="${esc(title)}">

@@ -493,7 +493,7 @@ router.get('/services', auth, (req, res) => {
     <p style="font-size:14px;color:#737373;margin-bottom:20px">Services are managed in the services data file. Below is a read-only view.</p>
     <div class="card" style="padding:0;overflow:hidden">
       <table><thead><tr><th>Service</th><th>Pricing</th><th>Timeline</th><th>Deliverables</th></tr></thead><tbody>
-        ${svcs.map(s => `<tr><td style="font-weight:500">${esc(s.title)}</td><td style="color:#737373">$${esc(s.pricing)}+</td><td style="color:#A3A3A3">${esc(s.timeline)}</td><td style="color:#A3A3A3;font-size:12px">${s.deliverables.length} items</td></tr>`).join('')}
+        ${svcs.map(s => `<tr><td style="font-weight:500">${esc(s.title)}</td><td style="color:#737373">${esc(s.pricing)}+</td><td style="color:#A3A3A3">${esc(s.timeline)}</td><td style="color:#A3A3A3;font-size:12px">${s.deliverables.length} items</td></tr>`).join('')}
       </tbody></table>
     </div>`, 'services'));
 });
