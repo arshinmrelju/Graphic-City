@@ -401,6 +401,150 @@
   }
 
   /* ═════════════════════════════════════════════════
+     HORIZONTAL PIN SCROLL (Swipe down left side-scrolling)
+     ═════════════════════════════════════════════════ */
+
+  var HorizontalPinScroll = {
+    init: function () {
+      var pinSection = document.getElementById('horizontal-pin-section');
+      var stickyViewport = document.getElementById('horizontal-sticky-viewport');
+      var track = document.getElementById('horizontal-track');
+      var progressBar = document.getElementById('horizontal-progress-bar');
+      var stepCounter = document.getElementById('horizontal-step-counter');
+      var stepPills = document.querySelectorAll('.horizontal-step-pill');
+      var prevBtn = document.getElementById('horizontal-prev-btn');
+      var nextBtn = document.getElementById('horizontal-next-btn');
+
+      if (!pinSection || !stickyViewport || !track) return;
+
+      function updateScroll() {
+        var sectionRect = pinSection.getBoundingClientRect();
+        var sectionTop = sectionRect.top;
+        var sectionHeight = pinSection.offsetHeight;
+        var viewportHeight = window.innerHeight;
+
+        var maxScroll = sectionHeight - viewportHeight;
+        if (maxScroll <= 0) return;
+
+        var progress = -sectionTop / maxScroll;
+        progress = Math.max(0, Math.min(1, progress));
+
+        var trackWidth = track.scrollWidth;
+        var viewportWidth = stickyViewport.clientWidth;
+        var maxTranslate = Math.max(0, trackWidth - viewportWidth + 60);
+
+        var currentTranslate = progress * maxTranslate;
+
+        track.style.transform = 'translate3d(-' + currentTranslate + 'px, 0, 0)';
+
+        if (progressBar) {
+          progressBar.style.width = (progress * 100) + '%';
+        }
+
+        var cards = track.querySelectorAll('.horizontal-card');
+        var activeIndex = 0;
+        cards.forEach(function (card, idx) {
+          var cardRect = card.getBoundingClientRect();
+          if (cardRect.left <= window.innerWidth * 0.55 && cardRect.right >= window.innerWidth * 0.1) {
+            activeIndex = idx;
+          }
+        });
+
+        if (stepCounter) {
+          var formattedIndex = String(activeIndex + 1).padStart(2, '0');
+          var totalFormatted = String(cards.length).padStart(2, '0');
+          stepCounter.textContent = formattedIndex + ' / ' + totalFormatted;
+        }
+
+        stepPills.forEach(function (pill, idx) {
+          if (idx === activeIndex) {
+            pill.classList.add('active');
+            pill.style.opacity = '1';
+            pill.style.borderColor = 'rgba(255,255,255,0.7)';
+            pill.style.backgroundColor = 'rgba(255,255,255,0.15)';
+          } else {
+            pill.classList.remove('active');
+            pill.style.opacity = '0.4';
+            pill.style.borderColor = 'rgba(255,255,255,0.1)';
+            pill.style.backgroundColor = 'transparent';
+          }
+        });
+      }
+
+      stepPills.forEach(function (pill, idx) {
+        pill.addEventListener('click', function () {
+          var cards = track.querySelectorAll('.horizontal-card');
+          if (!cards[idx]) return;
+
+          var targetCard = cards[idx];
+          var maxScroll = pinSection.offsetHeight - window.innerHeight;
+          var trackWidth = track.scrollWidth;
+          var viewportWidth = stickyViewport.clientWidth;
+          var maxTranslate = Math.max(0, trackWidth - viewportWidth + 60);
+
+          var targetTranslate = targetCard.offsetLeft - 40;
+          var targetProgress = Math.min(1, Math.max(0, targetTranslate / maxTranslate));
+
+          var targetScrollY = pinSection.offsetTop + targetProgress * maxScroll;
+          window.scrollTo({ top: targetScrollY, behavior: 'smooth' });
+        });
+      });
+
+      if (nextBtn) {
+        nextBtn.addEventListener('click', function () {
+          var cards = track.querySelectorAll('.horizontal-card');
+          var activeIndex = 0;
+          cards.forEach(function (card, idx) {
+            var cardRect = card.getBoundingClientRect();
+            if (cardRect.left <= window.innerWidth * 0.5) activeIndex = idx;
+          });
+          var nextIndex = Math.min(cards.length - 1, activeIndex + 1);
+          if (stepPills[nextIndex]) stepPills[nextIndex].click();
+        });
+      }
+
+      if (prevBtn) {
+        prevBtn.addEventListener('click', function () {
+          var cards = track.querySelectorAll('.horizontal-card');
+          var activeIndex = 0;
+          cards.forEach(function (card, idx) {
+            var cardRect = card.getBoundingClientRect();
+            if (cardRect.left <= window.innerWidth * 0.5) activeIndex = idx;
+          });
+          var prevIndex = Math.max(0, activeIndex - 1);
+          if (stepPills[prevIndex]) stepPills[prevIndex].click();
+        });
+      }
+
+      // Touch gesture support for horizontal swiping
+      var touchStartX = 0;
+      var touchStartY = 0;
+
+      stickyViewport.addEventListener('touchstart', function (e) {
+        if (e.touches.length === 1) {
+          touchStartX = e.touches[0].clientX;
+          touchStartY = e.touches[0].clientY;
+        }
+      }, { passive: true });
+
+      stickyViewport.addEventListener('touchmove', function (e) {
+        if (!touchStartX || !touchStartY || e.touches.length !== 1) return;
+        var deltaX = touchStartX - e.touches[0].clientX;
+        var deltaY = touchStartY - e.touches[0].clientY;
+
+        if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 10) {
+          window.scrollBy({ top: deltaX * 1.2, behavior: 'auto' });
+          touchStartX = e.touches[0].clientX;
+        }
+      }, { passive: true });
+
+      window.addEventListener('scroll', updateScroll, { passive: true });
+      window.addEventListener('resize', updateScroll, { passive: true });
+      updateScroll();
+    }
+  };
+
+  /* ═════════════════════════════════════════════════
      INITIALIZATION
      ═════════════════════════════════════════════════ */
 
@@ -428,16 +572,20 @@
     // 7. Smooth scroll
     SmoothScroll.init();
 
-    // 8. HTMX integration
+    // 8. Horizontal pin scroll
+    HorizontalPinScroll.init();
+
+    // 9. HTMX integration
     if (typeof htmx !== 'undefined') {
       initHtmxIntegration();
     }
 
-    // 9. Trigger initial reveal on visible sections
+    // 10. Trigger initial reveal on visible sections
     document.querySelectorAll('[data-reveal].in-viewport').forEach(function (el) {
       ScrollReveal.reveal(el);
     });
   }
+
 
   // Run on DOM ready
   if (document.readyState === 'loading') {
